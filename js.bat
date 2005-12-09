@@ -1,0 +1,1 @@
+java org.mozilla.javascript.tools.shell.Main xml.js reiniclar.txt
