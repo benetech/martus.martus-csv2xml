@@ -13,7 +13,7 @@ var fileName = csvIn.getFileNameWithoutExtension();
 var xmlOut = new File(fileName+".xml");
 for(j in lines)
 {
-	var elements = csvIn.parseLine(lines[j], ",");
+	var elements = csvIn.parseLine(lines[j], "|");
 	print("Processing bulletin #" +j);
 	for(i in elements)
 	{

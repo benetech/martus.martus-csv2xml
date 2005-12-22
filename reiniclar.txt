@@ -1,8 +1,3 @@
-en,John Doe,Reiniclar,15042001,Bulletin #1,Message 1,212,C.C.,no
-fr,Jane Doe,Reiniclar,16042001,Bulletin #2,Message 2,234,T.I..,yes
-es,J. Doe,Reiniclar,17042001,Bulletin #3,Message 3,2365,Otro,no
-es,Johnny Doe,Reiniclar,18042001,Bulletin #4,Message 4,44,C.C.,yes
-
 csvTag->MartusTag|Lable:Type
 lang->Language|The Language:String
 dd->DropDown|The Dropdown:DropDown
