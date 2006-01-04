@@ -26,6 +26,8 @@ package org.martus.martusjsxmlgenerator;
  */
 
 import java.io.File;
+import java.io.IOException;
+
 import org.martus.util.UnicodeReader;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
@@ -35,64 +37,78 @@ public class ImportCSV
 {
 	public static void main(String[] args) throws Exception
 	{
-		if(args.length != 2)
+		if(args.length != 3)
 		{
-			System.out.println("Usage : java ImportCSV configurationFile.js fileToConvert.csv");
+			System.out.println("Usage : java ImportCSV configurationFile.js fileToConvert.csv csvDelimiterRegEx" );
+			System.out.println("	 csvDelimiterRegEx = the regular expression java will use to split the csv file into its columns" );
+			System.out.println("	 Egg. if the values are separated by a comma you may just use ," );
+			System.out.println("	 Egg. if the values are separated by a tab you will need to use \t" );
+			System.out.println("	 Egg. if the values are separated by a | you will need to use \\|" );
 			System.exit(1);
 		}
 
-		ImportCSV importer = new ImportCSV(args[0], args[1]);
+		ImportCSV importer = new ImportCSV(new File(args[0]), new File(args[1]), args[2]);
 		importer.doImport();
 	}
 	
-	public ImportCSV(String javaScriptFileName, String csvFileName)
+	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws IOException
 	{
-		bulletinCsvFile = new File(csvFileName);
-		configurationFile = new File(javaScriptFileName);
-	//	String xmlFileName = csvFileName.substring(0, csvFileName.length()-4);
-		//martusXmlFile = new File(xmlFileName);
+		bulletinCsvFile = csvFile;
+		configurationFile = javaScriptFile;
+		csvDelimeter = csvDelimiterToUse;
+
+		initalizeHeaderValues();
+		String csvFileName = csvFile.getPath();
+		String xmlFileName = csvFileName.substring(0, csvFileName.length()-4);
+		martusXmlFile = new File(xmlFileName);
 	}
-	
-	
-	
+
+	private void initalizeHeaderValues() throws IOException 
+	{
+		UnicodeReader csvHeaderReader = new UnicodeReader(bulletinCsvFile);
+		String headerInfo = csvHeaderReader.readLine();
+		csvHeaderReader.close();
+		headerLabels = headerInfo.split(csvDelimeter);
+	}
 	
 	public void doImport() throws Exception
 	{
 		Context cs = Context.enter();
-
+		UnicodeReader readerJSConfigurationFile = null;
 		try
 		{
-			UnicodeReader reader = new UnicodeReader(configurationFile);
-			
-			Script script = cs.compileReader(reader, configurationFile.getName(), 1, null);
+			readerJSConfigurationFile = new UnicodeReader(configurationFile);
+			Script script = cs.compileReader(readerJSConfigurationFile, configurationFile.getName(), 1, null);
 			ScriptableObject scope = cs.initStandardObjects();
+			
+			
+			scope.put("firstName", scope, "chuck");
+			scope.put("lastName", scope, "lap");
+			scope.put("ccc", scope, "ch");
+			
 			ScriptableObject.defineClass(scope, StringField.class);
-			
-
 			script.exec(cs, scope);
-			Scriptable array = (Scriptable)scope.get("MartusFieldSpecs", scope);
-			for(int i = 0; i < array.getIds().length; i++)
+
+			Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+			for(int i = 0; i < fieldSpecs.getIds().length; i++)
 			{
-				MartusField o = (MartusField)array.get(i, scope);
-				System.out.println(o.getTag());
-				System.out.println(o.getLabel());
-				scope.put("firstName", scope, "chuck");
-				scope.put("lastName", scope, "lap");
-				scope.put("ccc", scope, "ch");
-				System.out.println(o.getMartusValue( scope ));
-				
+				MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+				System.out.println(fieldSpec.getTag());
+				System.out.println(fieldSpec.getLabel());
+				System.out.println(fieldSpec.getMartusValue( scope ));
 			}
-			
 		}
 		finally
 		{
 			Context.exit();
+			if(readerJSConfigurationFile != null)
+				readerJSConfigurationFile.close();
 		}
 	}
-	
-	
 	
 	File configurationFile;
 	File martusXmlFile;
 	File bulletinCsvFile;
+	private String csvDelimeter;
+	String[] headerLabels;
 }

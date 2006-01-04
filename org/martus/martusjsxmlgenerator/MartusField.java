@@ -72,12 +72,15 @@ abstract public class MartusField extends ScriptableObject
 		return value;
 	}
 	
-	public String getMartusValue( Scriptable scriptable ) {
-		if ( getValue() instanceof String ) {
+	public String getMartusValue( Scriptable scriptable ) 
+	{
+		if ( getValue() instanceof String ) 
+		{
 			return scriptable.get( (String)getValue(), scriptable ).toString();
 		}
 		
-		if ( getValue() instanceof Function ) {
+		if ( getValue() instanceof Function ) 
+		{
 
 			Function function = (Function)getValue();
 			

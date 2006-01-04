@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="js.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/martus-utils"/>
+	<classpathentry kind="lib" path="/martus-thirdparty/libext/JUnit/bin/junit.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
