@@ -96,10 +96,12 @@ public class TestImportCSV extends TestCaseEnhanced
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecs(cs, script, scope, dataRow);
+		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		assertEquals("Author", field1.getTag());
 		assertEquals("", field1.getLabel());
 		assertEquals("Jane Doe", field1.getMartusValue(scope));
+
 		MartusField field2 = (MartusField)fieldSpecs.get(1, scope);
 		assertEquals("MyTitle", field2.getTag());
 		assertEquals("My Title", field2.getLabel());
