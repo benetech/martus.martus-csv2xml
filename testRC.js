@@ -16,7 +16,7 @@ new StringField(EventDateTag,	"",
 	function ()
 	{
 //		return row.get("first-name");
-		return firstName + x + lastName;
+		return firstname + x + lastname;
 	}
 ),
 

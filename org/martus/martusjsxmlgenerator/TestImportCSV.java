@@ -37,6 +37,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		copyResourceFileToLocalFile(testJSFile, "test.js");
 		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_TabbedHeader");
 		copyResourceFileToLocalFile(testCSVFile, "testTabHeaders.csv");
+		try 
+		{
+			new ImportCSV(testJSFile, testCSVFile, ",");
+			fail("Should have thrown since the delimeter is incorrect");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("Only Found one column, please check your delimeter", expected.getMessage());
+		}
+
 		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, "\t");
 		assertEquals(5, importer.headerLabels.length);
 		testCSVFile.delete();

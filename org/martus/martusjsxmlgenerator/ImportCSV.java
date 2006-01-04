@@ -26,7 +26,6 @@ package org.martus.martusjsxmlgenerator;
  */
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.martus.util.UnicodeReader;
@@ -43,7 +42,7 @@ public class ImportCSV
 			System.out.println("Usage : java ImportCSV configurationFile.js fileToConvert.csv csvDelimiterRegEx" );
 			System.out.println("	 csvDelimiterRegEx = the regular expression java will use to split the csv file into its columns" );
 			System.out.println("	 Egg. if the values are separated by a comma you may just use ," );
-			System.out.println("	 Egg. if the values are separated by a tab you will need to use \t" );
+			System.out.println("	 Egg. if the values are separated by a tab you will need to use \\t" );
 			System.out.println("	 Egg. if the values are separated by a | you will need to use \\|" );
 			System.exit(1);
 		}
@@ -52,7 +51,7 @@ public class ImportCSV
 		importer.doImport();
 	}
 	
-	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws IOException
+	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws Exception
 	{
 		bulletinCsvFile = csvFile;
 		configurationFile = javaScriptFile;
@@ -64,12 +63,17 @@ public class ImportCSV
 		martusXmlFile = new File(xmlFileName);
 	}
 
-	private void initalizeHeaderValues() throws IOException 
+	private void initalizeHeaderValues() throws Exception 
 	{
 		UnicodeReader csvHeaderReader = new UnicodeReader(bulletinCsvFile);
 		String headerInfo = csvHeaderReader.readLine();
 		csvHeaderReader.close();
 		headerLabels = headerInfo.split(csvDelimeter);
+		if(headerLabels.length == 1)
+		{
+			String errorMessage ="Only Found one column, please check your delimeter";
+			throw new Exception(errorMessage);
+		}
 	}
 	
 	public void doImport() throws Exception
