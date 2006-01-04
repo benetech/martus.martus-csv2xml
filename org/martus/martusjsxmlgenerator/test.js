@@ -1,19 +1,16 @@
-x = 20;
-EventDateTag = "EventDate"
-TitleTag = "Title"
 AuthorTag = "Author"
-
+MyTitleTag = "MyTitle"
 
 this.MartusFieldSpecs = [
 
 new StringField(AuthorTag,	"",
 	function ()
 	{
-		return firstname + x + lastname;
+		return firstname + " " + lastname;
 	}
 ),
 
-new StringField(TitleTag, "aa", "title")
+new StringField(MyTitleTag, "My Title", "title")
 
 
 ]

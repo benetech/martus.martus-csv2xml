@@ -27,6 +27,7 @@ package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.martus.util.UnicodeReader;
 import org.mozilla.javascript.Context;
@@ -84,30 +85,9 @@ public class ImportCSV
 			UnicodeReader csvReader = new UnicodeReader(bulletinCsvFile);
 			csvReader.readLine(); //skip past header;
 			String dataRow = null;
-			int rowNumber = 0;
 			while((dataRow = csvReader.readLine()) != null)
 			{
-				++rowNumber;
-				String[] rowContents = dataRow.split(csvDelimeter);
-				if(rowContents.length != headerLabels.length)
-				{
-					String errorMessage ="Number of Data Fields did not match Header Fields\n" +
-							"Expected column count =" + headerLabels.length + " but was :" + rowContents.length + "\n" +
-							"Row in error = " + rowNumber + "\n" +
-							"Row Data = " + dataRow;
-					throw new Exception(errorMessage);
-				}
-				
-				for(int i = 0; i < rowContents.length; ++i)
-				{
-					scope.put(headerLabels[i], scope,rowContents[i]);
-				}
-			
-				
-				ScriptableObject.defineClass(scope, StringField.class);
-				script.exec(cs, scope);
-	
-				Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+				Scriptable fieldSpecs = getFieldScriptableSpecs(cs, script, scope, dataRow);
 				for(int i = 0; i < fieldSpecs.getIds().length; i++)
 				{
 					MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
@@ -123,6 +103,29 @@ public class ImportCSV
 			if(readerJSConfigurationFile != null)
 				readerJSConfigurationFile.close();
 		}
+	}
+
+	public Scriptable getFieldScriptableSpecs(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
+	{
+		String[] rowContents = dataRow.split(csvDelimeter);
+		if(rowContents.length != headerLabels.length)
+		{
+			String errorMessage ="Number of Data Fields did not match Header Fields\n" +
+					"Expected column count =" + headerLabels.length + " but was :" + rowContents.length + "\n" +
+					"Row Data = " + dataRow;
+			throw new Exception(errorMessage);
+		}
+		
+		for(int i = 0; i < rowContents.length; ++i)
+		{
+			scope.put(headerLabels[i], scope,rowContents[i]);
+		}
+
+		ScriptableObject.defineClass(scope, StringField.class);
+		script.exec(cs, scope);
+
+		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+		return fieldSpecs;
 	}
 	
 	File configurationFile;

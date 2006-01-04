@@ -8,6 +8,11 @@ package org.martus.martusjsxmlgenerator;
 import java.io.File;
 
 import org.martus.util.TestCaseEnhanced;
+import org.martus.util.UnicodeReader;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Script;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
 public class TestImportCSV extends TestCaseEnhanced 
 {
@@ -69,7 +74,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		} 
 		catch (Exception expected) 
 		{
-			assertContains("Row in error = 1", expected.getMessage());
+			assertContains("Row Data = en|John| Doe|Bulletin #1|Message 1|212|C.C.|no", expected.getMessage());
 		}
 		finally
 		{
@@ -85,7 +90,23 @@ public class TestImportCSV extends TestCaseEnhanced
 		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_StringFields");
 		copyResourceFileToLocalFile(testCSVFile, "test.csv");
 		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-		importer.doImport();
+		Context cs = Context.enter();
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecs(cs, script, scope, dataRow);
+		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
+		assertEquals("Author", field1.getTag());
+		assertEquals("", field1.getLabel());
+		assertEquals("Jane Doe", field1.getMartusValue(scope));
+		MartusField field2 = (MartusField)fieldSpecs.get(1, scope);
+		assertEquals("MyTitle", field2.getTag());
+		assertEquals("My Title", field2.getLabel());
+		assertEquals("Bulletin #2", field2.getMartusValue(scope));
+		Context.exit();
+		readerJSConfigurationFile.close();
+		
 		testCSVFile.delete();
 		testJSFile.delete();
 	}
