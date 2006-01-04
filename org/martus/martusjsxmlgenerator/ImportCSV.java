@@ -81,21 +81,40 @@ public class ImportCSV
 			Script script = cs.compileReader(readerJSConfigurationFile, configurationFile.getName(), 1, null);
 			ScriptableObject scope = cs.initStandardObjects();
 			
-			
-			scope.put("firstName", scope, "chuck");
-			scope.put("lastName", scope, "lap");
-			scope.put("ccc", scope, "ch");
-			
-			ScriptableObject.defineClass(scope, StringField.class);
-			script.exec(cs, scope);
-
-			Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
-			for(int i = 0; i < fieldSpecs.getIds().length; i++)
+			UnicodeReader csvReader = new UnicodeReader(bulletinCsvFile);
+			csvReader.readLine(); //skip past header;
+			String dataRow = null;
+			int rowNumber = 0;
+			while((dataRow = csvReader.readLine()) != null)
 			{
-				MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-				System.out.println(fieldSpec.getTag());
-				System.out.println(fieldSpec.getLabel());
-				System.out.println(fieldSpec.getMartusValue( scope ));
+				++rowNumber;
+				String[] rowContents = dataRow.split(csvDelimeter);
+				if(rowContents.length != headerLabels.length)
+				{
+					String errorMessage ="Number of Data Fields did not match Header Fields\n" +
+							"Expected column count =" + headerLabels.length + " but was :" + rowContents.length + "\n" +
+							"Row in error = " + rowNumber + "\n" +
+							"Row Data = " + dataRow;
+					throw new Exception(errorMessage);
+				}
+				
+				for(int i = 0; i < rowContents.length; ++i)
+				{
+					scope.put(headerLabels[i], scope,rowContents[i]);
+				}
+			
+				
+				ScriptableObject.defineClass(scope, StringField.class);
+				script.exec(cs, scope);
+	
+				Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+				for(int i = 0; i < fieldSpecs.getIds().length; i++)
+				{
+					MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+					System.out.println(fieldSpec.getTag());
+					System.out.println(fieldSpec.getLabel());
+					System.out.println(fieldSpec.getMartusValue( scope ));
+				}
 			}
 		}
 		finally
