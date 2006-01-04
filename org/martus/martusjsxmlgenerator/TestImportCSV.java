@@ -31,6 +31,26 @@ public class TestImportCSV extends TestCaseEnhanced
 		super.tearDown();
 	}
 	
+	public void testIncorrectDelimeter() throws Exception
+	{
+		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_TabbedHeader");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_TabbedHeader");
+		copyResourceFileToLocalFile(testCSVFile, "testTabHeaders.csv");
+		try 
+		{
+			String INCORRECT_DELIMETER = ",";
+			new ImportCSV(testJSFile, testCSVFile, INCORRECT_DELIMETER);
+			fail("Should have thrown since the delimeter is incorrect");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("Only Found one column, please check your delimeter", expected.getMessage());
+		}
+		testCSVFile.delete();
+		testJSFile.delete();
+	}
+
 	public void testGetTabbedHeaders() throws Exception
 	{
 		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_TabbedHeader");
