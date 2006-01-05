@@ -5,10 +5,12 @@
  */
 package org.martus.martusjsxmlgenerator;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import org.martus.util.TestCaseEnhanced;
 import org.martus.util.UnicodeReader;
+import org.martus.util.UnicodeWriter;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
@@ -125,7 +127,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecs(cs, script, scope, dataRow);
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		assertEquals("Author", field1.getTag());
@@ -155,7 +157,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecs(cs, script, scope, dataRow);
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		assertEquals("STRING",field1.getType());
@@ -165,5 +167,101 @@ public class TestImportCSV extends TestCaseEnhanced
 		testCSVFile.delete();
 		testJSFile.delete();
 	}
+	
+	public void testGetPrivateFieldSpec() throws Exception
+	{
+		ImportCSV importer = new ImportCSV();
+		assertEquals(PRIVATE_FIELD_SPEC, importer.getPrivateFieldSpec());
+	}
+	
+	public void testMartusFieldSpec() throws Exception
+	{
+		File testJSFile = createTempFileFromName("$$$MARTUS_JS_getMartusFieldSpec");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_getMartusFieldSpec");
+		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		Context cs = Context.enter();
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+
+		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
+		UnicodeWriter writer = new UnicodeWriter(out);
+		importer.writeBulletinFieldSpecs(writer, scope, bulletinData);
+		writer.close();
+		out.close();
+		assertEquals(MARTUS_PUBLIC_FIELD_SPEC + PRIVATE_FIELD_SPEC, out.toString());
+		
+		Context.exit();
+		readerJSConfigurationFile.close();
+		
+		testCSVFile.delete();
+		testJSFile.delete();
+	}
+	
+	public void testMartusXMLValues() throws Exception
+	{
+		File testJSFile = createTempFileFromName("$$$MARTUS_JS_getMartusFieldSpec");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_getMartusFieldSpec");
+		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		Context cs = Context.enter();
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "fr|Janice|Doe|16042001|Bulletin A|Message 2|234|T.I..|yes";
+
+		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
+		UnicodeWriter writer = new UnicodeWriter(out);
+		importer.writeBulletinFieldData(writer, scope, bulletinData);
+		writer.close();
+		out.close();
+		assertEquals(MARTUS_XML_VALUES, out.toString());
+		
+		Context.exit();
+		readerJSConfigurationFile.close();
+		
+		testCSVFile.delete();
+		testJSFile.delete();
+	}
+	
+	
+	
 	public final String CSV_VERTICAL_BAR_REGEX_DELIMITER = "\\|";
+	public final String PRIVATE_FIELD_SPEC = 
+		    "<PrivateFieldSpecs>\n"+
+			"<Field type='MULTILINE'>\n"+
+			"<Tag>privateinfo</Tag>\n"+
+			"<Label></Label>\n"+
+			"</Field>\n"+
+			"</PrivateFieldSpecs>\n\n";
+	
+	public final String MARTUS_PUBLIC_FIELD_SPEC =
+		"<MartusBulletin>\n"+
+		"<MainFieldSpecs>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>Author</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>MyTitle</Tag>\n"+
+		"<Label>My Title</Label>\n"+
+		"</Field>\n"+
+		"</MainFieldSpecs>\n\n";
+	
+	public final String MARTUS_XML_VALUES =
+		"<FieldValues>\n" +
+		"<Field tag='Author'>\n" +
+		"<Value>Janice Doe</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='MyTitle'>\n" +
+		"<Value>Bulletin A</Value>\n" +
+		"</Field>\n\n" +
+		"</FieldValues>\n";
+
 }

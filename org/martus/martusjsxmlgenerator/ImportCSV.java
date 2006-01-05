@@ -27,9 +27,11 @@
 package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.martus.util.UnicodeReader;
+import org.martus.util.UnicodeWriter;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
@@ -50,6 +52,11 @@ public class ImportCSV
 
 		ImportCSV importer = new ImportCSV(new File(args[0]), new File(args[1]), args[2]);
 		importer.doImport();
+	}
+	
+	public ImportCSV()
+	{
+		//Called only from Tests
 	}
 	
 	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws Exception
@@ -81,36 +88,81 @@ public class ImportCSV
 	{
 		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = null;
+		UnicodeWriter writer = null;
 		try
 		{
 			readerJSConfigurationFile = new UnicodeReader(configurationFile);
 			Script script = cs.compileReader(readerJSConfigurationFile, configurationFile.getName(), 1, null);
 			ScriptableObject scope = cs.initStandardObjects();
 			
+			writer = openMartusXML();
+			
+			String dataRow = null;
 			UnicodeReader csvReader = new UnicodeReader(bulletinCsvFile);
 			csvReader.readLine(); //skip past header;
-			String dataRow = null;
 			while((dataRow = csvReader.readLine()) != null)
 			{
-				Scriptable fieldSpecs = getFieldScriptableSpecs(cs, script, scope, dataRow);
-				for(int i = 0; i < fieldSpecs.getIds().length; i++)
-				{
-					MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-					System.out.println(fieldSpec.getTag());
-					System.out.println(fieldSpec.getLabel());
-					System.out.println(fieldSpec.getMartusValue( scope ));
-				}
+				Scriptable bulletinData = getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+				writeBulletinFieldSpecs(writer, scope, bulletinData);
+				writeBulletinFieldData(writer, scope, bulletinData);
 			}
+			
+			closeMartusXML(writer);
 		}
 		finally
 		{
 			Context.exit();
 			if(readerJSConfigurationFile != null)
 				readerJSConfigurationFile.close();
+			if(writer != null)
+				writer.close();
 		}
 	}
 
-	public Scriptable getFieldScriptableSpecs(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
+	private UnicodeWriter openMartusXML() throws IOException
+	{
+		UnicodeWriter writerMartusXMLBulletinFile = new UnicodeWriter(martusXmlFile);
+		writerMartusXMLBulletinFile.write(getStartTag(MARTUS_BULLETINS));
+		return writerMartusXMLBulletinFile;
+	}
+
+	private void closeMartusXML(UnicodeWriter writerMartusXMLBulletinFile) throws IOException
+	{
+		writerMartusXMLBulletinFile.write(getEndTag(MARTUS_BULLETINS));
+	}
+
+	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
+	{
+		writer.write(getStartTagNewLine(MARTUS_BULLETIN));
+		writer.write(getStartTagNewLine(PUBLIC_FIELD_SPEC));
+
+		for(int i = 0; i < fieldSpecs.getIds().length; i++)
+		{
+			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+			writer.write(getFieldTypeStartTag(fieldSpec.getType()));
+			writer.write(getXMLData(TAG, fieldSpec.getTag()));
+			writer.write(getXMLData(LABEL, fieldSpec.getLabel()));
+			writer.write(getEndTag(FIELD));
+		}
+		writer.write(getEndTag(PUBLIC_FIELD_SPEC)+"\n");
+		writer.write(getPrivateFieldSpec());
+	}
+
+	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
+	{
+		writer.write(getStartTagNewLine(FIELD_VALUES));
+		
+		for(int i = 0; i < fieldSpecs.getIds().length; i++)
+		{
+			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+			writer.write(getFieldTagStartTag(fieldSpec.getTag()));
+			writer.write(getXMLData(VALUE, fieldSpec.getMartusValue( scope )));
+			writer.write(getEndTag(FIELD) + "\n");
+		}
+		writer.write(getEndTag(FIELD_VALUES));
+	}
+
+	public Scriptable getFieldScriptableSpecsAndBulletinData(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
 	{
 		String[] rowContents = dataRow.split(csvDelimeter);
 		if(rowContents.length != headerLabels.length)
@@ -132,6 +184,61 @@ public class ImportCSV
 		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
 		return fieldSpecs;
 	}
+	
+	public String getFieldTypeStartTag(String type)
+	{
+		return getStartTagNewLine(FIELD +" type='"+type+"'");
+	}
+	
+	public String getFieldTagStartTag(String tag)
+	{
+		return getStartTagNewLine(FIELD +" tag='"+tag+"'");
+	}
+
+	public String getXMLData(String xmlTag, String data)
+	{
+		StringBuffer xmlData = new StringBuffer(getStartTag(xmlTag));
+		xmlData.append(data);
+		xmlData.append(getEndTag(xmlTag));
+		return xmlData.toString();
+	}
+	
+	public String getStartTag(String text)
+	{
+		return ("<" + text + ">");
+	}
+
+	public String getStartTagNewLine(String text)
+	{
+		return getStartTag(text) + "\n";
+	}
+
+	public String getEndTag(String text)
+	{
+		return getStartTagNewLine("/" + text);
+	}
+	
+	public String getPrivateFieldSpec()
+	{
+		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(PRIVATE_FIELD_SPEC));
+		privateSpec.append(getFieldTypeStartTag("MULTILINE"));
+		privateSpec.append(getXMLData(TAG,"privateinfo"));
+		privateSpec.append(getXMLData(LABEL,""));
+		privateSpec.append(getEndTag(FIELD));
+		privateSpec.append(getEndTag(PRIVATE_FIELD_SPEC)+"\n");
+		return privateSpec.toString();
+	}
+	
+	final String MARTUS_BULLETINS = "MartusBulletins";
+	final String MARTUS_BULLETIN = "MartusBulletin";
+	final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";
+	final String PRIVATE_FIELD_SPEC = "PrivateFieldSpecs";
+	final String TAG = "Tag";
+	final String LABEL = "Label";
+	final String FIELD = "Field";
+	final String TYPE = "Type";
+	final String VALUE = "Value";
+	final String FIELD_VALUES = "FieldValues";
 	
 	File configurationFile;
 	File martusXmlFile;
