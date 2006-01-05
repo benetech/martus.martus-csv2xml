@@ -10,8 +10,14 @@ new StringField(AuthorTag,	"",
 	}
 ),
 
-new StringField(MyTitleTag, "My Title", "title")
+new StringField(MyTitleTag, "My Title", "title"),
 
+new PrivateField(
+	function ()
+	{
+		return "MY PRIVATE DATE = " + data2;
+	}
+)
 
 ]
 

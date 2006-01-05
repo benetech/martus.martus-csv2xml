@@ -27,6 +27,10 @@
 <Value>Bulletin #1</Value>
 </Field>
 
+<Field tag='privateinfo'>
+<Value>MY PRIVATE DATE = C.C.</Value>
+</Field>
+
 </FieldValues>
 </MartusBulletin>
 
@@ -56,6 +60,10 @@
 
 <Field tag='MyTitle'>
 <Value>Bulletin #2</Value>
+</Field>
+
+<Field tag='privateinfo'>
+<Value>MY PRIVATE DATE = T.I..</Value>
 </Field>
 
 </FieldValues>

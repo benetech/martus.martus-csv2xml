@@ -297,6 +297,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Field tag='MyTitle'>\n" +
 		"<Value>Bulletin A</Value>\n" +
 		"</Field>\n\n" +
+		"<Field tag='privateinfo'>\n" +
+		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
+		"</Field>\n\n" +
 		"</FieldValues>\n"+
 		"</MartusBulletin>\n\n";
 
