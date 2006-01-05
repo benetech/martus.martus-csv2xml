@@ -1,0 +1,64 @@
+<MartusBulletins>
+<MartusBulletin>
+<MainFieldSpecs>
+<Field type='STRING'>
+<Tag>Author</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>MyTitle</Tag>
+<Label>My Title</Label>
+</Field>
+</MainFieldSpecs>
+
+<PrivateFieldSpecs>
+<Field type='MULTILINE'>
+<Tag>privateinfo</Tag>
+<Label></Label>
+</Field>
+</PrivateFieldSpecs>
+
+<FieldValues>
+<Field tag='Author'>
+<Value>John  Doe</Value>
+</Field>
+
+<Field tag='MyTitle'>
+<Value>Bulletin #1</Value>
+</Field>
+
+</FieldValues>
+</MartusBulletin>
+
+<MartusBulletin>
+<MainFieldSpecs>
+<Field type='STRING'>
+<Tag>Author</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>MyTitle</Tag>
+<Label>My Title</Label>
+</Field>
+</MainFieldSpecs>
+
+<PrivateFieldSpecs>
+<Field type='MULTILINE'>
+<Tag>privateinfo</Tag>
+<Label></Label>
+</Field>
+</PrivateFieldSpecs>
+
+<FieldValues>
+<Field tag='Author'>
+<Value>Jane  Doe</Value>
+</Field>
+
+<Field tag='MyTitle'>
+<Value>Bulletin #2</Value>
+</Field>
+
+</FieldValues>
+</MartusBulletin>
+
+</MartusBulletins>

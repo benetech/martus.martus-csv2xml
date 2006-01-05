@@ -230,6 +230,41 @@ public class TestImportCSV extends TestCaseEnhanced
 		testJSFile.delete();
 	}
 	
+	public void testImportMultipleBulletins()throws Exception
+	{
+		File testJSFile = createTempFileFromName("$$$MARTUS_JS_testImportMultipleBulletins");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_testImportMultipleBulletins");
+		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		File testExpectedXMLFile = createTempFileFromName("$$$MARTUS_JS_testImportMultipleBulletins_EXPECTED");
+		copyResourceFileToLocalFile(testExpectedXMLFile, "text_finalResult.xml");
+		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		File xmlFile = importer.getXmlFile();
+		xmlFile.deleteOnExit();
+		try 
+		{
+			importer.doImport();
+			UnicodeReader reader = new UnicodeReader(xmlFile);
+			String data = reader.readAll();
+			reader.close();
+			
+			UnicodeReader reader2 = new UnicodeReader(testExpectedXMLFile);
+			String expectedData = reader2.readAll();
+			reader2.close();
+			
+			assertEquals(expectedData,data);
+		} 
+		finally
+		{
+			testCSVFile.delete();
+			testJSFile.delete();
+			xmlFile.delete();
+			testExpectedXMLFile.delete();
+		}
+		
+	}
+	
+	
 	
 	
 	public final String CSV_VERTICAL_BAR_REGEX_DELIMITER = "\\|";
@@ -262,6 +297,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Field tag='MyTitle'>\n" +
 		"<Value>Bulletin A</Value>\n" +
 		"</Field>\n\n" +
-		"</FieldValues>\n";
+		"</FieldValues>\n"+
+		"</MartusBulletin>\n\n";
 
 }
