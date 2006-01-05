@@ -143,5 +143,27 @@ public class TestImportCSV extends TestCaseEnhanced
 		testJSFile.delete();
 	}
 
+	public void testType() throws Exception
+	{
+		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_Type");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_Type");
+		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		Context cs = Context.enter();
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecs(cs, script, scope, dataRow);
+		
+		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
+		assertEquals("STRING",field1.getType());
+		Context.exit();
+		readerJSConfigurationFile.close();
+		
+		testCSVFile.delete();
+		testJSFile.delete();
+	}
 	public final String CSV_VERTICAL_BAR_REGEX_DELIMITER = "\\|";
 }

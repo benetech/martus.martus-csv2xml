@@ -1,9 +1,3 @@
-package org.martus.martusjsxmlgenerator;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
-
 /*
 
  The Martus(tm) free, social justice documentation and
@@ -29,8 +23,19 @@ import org.mozilla.javascript.ScriptableObject;
  Boston, MA 02111-1307, USA.
 
  */
+
+package org.martus.martusjsxmlgenerator;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Function;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
+
+
 abstract public class MartusField extends ScriptableObject
 {
+	
+	abstract public String getType();
+	
 	public MartusField()
 	{
 	}
@@ -90,7 +95,7 @@ abstract public class MartusField extends ScriptableObject
 						null
 						).toString();
 		}
-		throw new RuntimeException( "Illegal value type" );
+		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
 	
 	String tag;

@@ -1,5 +1,3 @@
-package org.martus.martusjsxmlgenerator;
-
 /*
 
  The Martus(tm) free, social justice documentation and
@@ -25,6 +23,9 @@ package org.martus.martusjsxmlgenerator;
  Boston, MA 02111-1307, USA.
 
  */
+
+package org.martus.martusjsxmlgenerator;
+
 public class StringField extends MartusField
 {
 	public StringField()
@@ -40,4 +41,10 @@ public class StringField extends MartusField
 	{
 		return "StringField";
 	}
+	
+	public String getType()
+	{
+		return "STRING";
+	}
+	
 }
