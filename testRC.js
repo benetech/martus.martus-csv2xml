@@ -20,7 +20,7 @@ new StringField(EventDateTag,	"",
 	}
 ),
 
-new StringField(AuthorTag, "aa", "ccc")
+new StringField(AuthorTag, "aa", "id")
 
 
 ]
