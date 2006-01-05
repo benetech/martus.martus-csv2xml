@@ -145,7 +145,7 @@ public class ImportCSV
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			if(fieldSpec.getTag() == PrivateField.PRIVATEINFO)
-				continue;
+				continue;//Writen after the Public Field Spec
 			writer.write(getFieldTypeStartTag(fieldSpec.getType()));
 			writer.write(getXMLData(TAG, fieldSpec.getTag()));
 			writer.write(getXMLData(LABEL, fieldSpec.getLabel()));
@@ -188,6 +188,7 @@ public class ImportCSV
 
 		ScriptableObject.defineClass(scope, StringField.class);
 		ScriptableObject.defineClass(scope, PrivateField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		script.exec(cs, scope);
 
 		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);

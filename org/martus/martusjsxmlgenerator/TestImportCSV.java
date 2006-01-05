@@ -287,6 +287,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>MyTitle</Tag>\n"+
 		"<Label>My Title</Label>\n"+
 		"</Field>\n"+
+		"<Field type='LANGUAGE'>\n"+
+		"<Tag>language</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -296,6 +300,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='MyTitle'>\n" +
 		"<Value>Bulletin A</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='language'>\n" +
+		"<Value>fr</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +

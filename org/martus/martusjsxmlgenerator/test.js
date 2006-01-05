@@ -2,7 +2,6 @@ AuthorTag = "Author"
 MyTitleTag = "MyTitle"
 
 this.MartusFieldSpecs = [
-
 new StringField(AuthorTag,	"",
 	function ()
 	{
@@ -11,6 +10,9 @@ new StringField(AuthorTag,	"",
 ),
 
 new StringField(MyTitleTag, "My Title", "title"),
+
+new MartusRequiredLanguageField("language"),
+	
 
 new PrivateField(
 	function ()
