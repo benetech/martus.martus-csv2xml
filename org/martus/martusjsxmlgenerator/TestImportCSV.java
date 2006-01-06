@@ -83,11 +83,11 @@ public class TestImportCSV extends TestCaseEnhanced
 		copyResourceFileToLocalFile(testCSVFile, "test.csv");
 		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
 		String[] headerLabels = importer.headerLabels;
-		assertEquals(9, headerLabels.length);
-		assertEquals("language", headerLabels[0]);
-		assertEquals("firstname", headerLabels[1]);
-		assertEquals("lastname", headerLabels[2]);
-		assertEquals("guns", headerLabels[8]);
+		assertEquals(11, headerLabels.length);
+		assertEquals("enterydate", headerLabels[0]);
+		assertEquals("language", headerLabels[1]);
+		assertEquals("author", headerLabels[2]);
+		assertEquals("guns", headerLabels[10]);
 		testCSVFile.delete();
 		testJSFile.delete();
 	}
@@ -126,18 +126,18 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
-		assertEquals("Author", field1.getTag());
-		assertEquals("", field1.getLabel());
+		assertEquals("Witness", field1.getTag());
+		assertEquals("Witness", field1.getLabel());
 		assertEquals("Jane Doe", field1.getMartusValue(scope));
 
 		MartusField field2 = (MartusField)fieldSpecs.get(1, scope);
-		assertEquals("MyTitle", field2.getTag());
-		assertEquals("My Title", field2.getLabel());
-		assertEquals("Bulletin #2", field2.getMartusValue(scope));
+		assertEquals("WitnessComment", field2.getTag());
+		assertEquals("Comment", field2.getLabel());
+		assertEquals("Message 2", field2.getMartusValue(scope));
 		Context.exit();
 		readerJSConfigurationFile.close();
 		
@@ -156,7 +156,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
@@ -185,7 +185,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "fr|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
@@ -213,7 +213,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "fr|Janice|Doe|16042001|Bulletin A|Message 2|234|T.I..|yes";
+		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
@@ -280,12 +280,12 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<MartusBulletin>\n"+
 		"<MainFieldSpecs>\n"+
 		"<Field type='STRING'>\n"+
-		"<Tag>Author</Tag>\n"+
-		"<Label></Label>\n"+
+		"<Tag>Witness</Tag>\n"+
+		"<Label>Witness</Label>\n"+
 		"</Field>\n"+
 		"<Field type='STRING'>\n"+
-		"<Tag>MyTitle</Tag>\n"+
-		"<Label>My Title</Label>\n"+
+		"<Tag>WitnessComment</Tag>\n"+
+		"<Label>Comment</Label>\n"+
 		"</Field>\n"+
 		"<Field type='LANGUAGE'>\n"+
 		"<Tag>language</Tag>\n"+
@@ -295,11 +295,11 @@ public class TestImportCSV extends TestCaseEnhanced
 	
 	public final String MARTUS_XML_VALUES =
 		"<FieldValues>\n" +
-		"<Field tag='Author'>\n" +
+		"<Field tag='Witness'>\n" +
 		"<Value>Janice Doe</Value>\n" +
 		"</Field>\n\n" +
-		"<Field tag='MyTitle'>\n" +
-		"<Value>Bulletin A</Value>\n" +
+		"<Field tag='WitnessComment'>\n" +
+		"<Value>Message 2</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='language'>\n" +
 		"<Value>fr</Value>\n" +

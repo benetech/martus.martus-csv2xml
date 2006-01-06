@@ -1,19 +1,18 @@
-AuthorTag = "Author"
-MyTitleTag = "MyTitle"
+WitnessTag = "Witness"
+CommentTag = "WitnessComment"
 
 this.MartusFieldSpecs = [
-new StringField(AuthorTag,	"",
+new StringField(WitnessTag,	"Witness",
 	function ()
 	{
 		return firstname + " " + lastname;
 	}
 ),
 
-new StringField(MyTitleTag, "My Title", "title"),
+new StringField(CommentTag, "Comment", "comment"),
 
 new MartusRequiredLanguageField("language"),
 	
-
 new PrivateField(
 	function ()
 	{

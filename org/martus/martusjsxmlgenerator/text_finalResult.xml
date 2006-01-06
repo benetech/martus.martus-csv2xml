@@ -2,12 +2,12 @@
 <MartusBulletin>
 <MainFieldSpecs>
 <Field type='STRING'>
-<Tag>Author</Tag>
-<Label></Label>
+<Tag>Witness</Tag>
+<Label>Witness</Label>
 </Field>
 <Field type='STRING'>
-<Tag>MyTitle</Tag>
-<Label>My Title</Label>
+<Tag>WitnessComment</Tag>
+<Label>Comment</Label>
 </Field>
 <Field type='LANGUAGE'>
 <Tag>language</Tag>
@@ -23,12 +23,12 @@
 </PrivateFieldSpecs>
 
 <FieldValues>
-<Field tag='Author'>
+<Field tag='Witness'>
 <Value>John  Doe</Value>
 </Field>
 
-<Field tag='MyTitle'>
-<Value>Bulletin #1</Value>
+<Field tag='WitnessComment'>
+<Value>Message 1</Value>
 </Field>
 
 <Field tag='language'>
@@ -45,12 +45,12 @@
 <MartusBulletin>
 <MainFieldSpecs>
 <Field type='STRING'>
-<Tag>Author</Tag>
-<Label></Label>
+<Tag>Witness</Tag>
+<Label>Witness</Label>
 </Field>
 <Field type='STRING'>
-<Tag>MyTitle</Tag>
-<Label>My Title</Label>
+<Tag>WitnessComment</Tag>
+<Label>Comment</Label>
 </Field>
 <Field type='LANGUAGE'>
 <Tag>language</Tag>
@@ -66,12 +66,12 @@
 </PrivateFieldSpecs>
 
 <FieldValues>
-<Field tag='Author'>
+<Field tag='Witness'>
 <Value>Jane  Doe</Value>
 </Field>
 
-<Field tag='MyTitle'>
-<Value>Bulletin #2</Value>
+<Field tag='WitnessComment'>
+<Value>Message 2</Value>
 </Field>
 
 <Field tag='language'>
