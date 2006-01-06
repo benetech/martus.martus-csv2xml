@@ -159,9 +159,26 @@ public class TestImportCSV extends TestCaseEnhanced
 		readerJSConfigurationFile.close();
 	}
 	
-	public void testRequiredFields()
+	public void testJSRequiredFields() throws Exception
 	{
-		
+		File testJSFileMissingLanguage = createTempFileFromName("$$$MARTUS_JS_TestFile_MissingFields");
+		copyResourceFileToLocalFile(testJSFileMissingLanguage, "missingFields.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testJSFileMissingLanguage, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for missing required function");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("MartusRequiredLanguageField missing.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
 	}
 	
 	public void testMartusXMLValues() throws Exception

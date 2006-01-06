@@ -98,9 +98,19 @@ abstract public class MartusField extends ScriptableObject
 		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
 	
-	static public boolean hasAllRequiredFields()
+	static public void clearRequiredFields()
 	{
-		return requiredFieldLanguage;
+		requiredFieldLanguage = false;
+	}
+	
+	static public void verifyRequiredFields() throws Exception
+	{
+		StringBuffer missingFieldsErrorMessage = new StringBuffer();
+		if(!requiredFieldLanguage)
+			missingFieldsErrorMessage.append("MartusRequiredLanguageField missing.  ");
+		
+		if (missingFieldsErrorMessage.toString().length() > 0)
+			throw new Exception(missingFieldsErrorMessage.toString());
 	}
 	
 	String tag;

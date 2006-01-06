@@ -59,6 +59,7 @@ public class ImportCSV
 		bulletinCsvFile = csvFile;
 		configurationFile = javaScriptFile;
 		csvDelimeter = csvDelimiterToUse;
+		MartusField.clearRequiredFields();
 
 		initalizeHeaderValues();
 		String csvFileName = csvFile.getPath();
@@ -189,9 +190,7 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		script.exec(cs, scope);
 		
-		if(!MartusField.hasAllRequiredFields())
-			throw new Exception();
-		
+		MartusField.verifyRequiredFields();
 		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
 		
 		return fieldSpecs;
