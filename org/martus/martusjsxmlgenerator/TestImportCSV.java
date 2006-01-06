@@ -268,6 +268,26 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>entrydate</Tag>\n"+
 		"<Label></Label>\n"+
 		"</Field>\n"+
+		"<Field type='MULTILINE'>\n"+
+		"<Tag>summary</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>location</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>organization</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
+		"<Field type='MULTILINE'>\n"+
+		"<Tag>publicinfo</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>keywords</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -289,6 +309,21 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='entrydate'>\n" +
 		"<Value>20000101</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='summary'>\n" +
+		"<Value>T.I..</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='location'>\n" +
+		"<Value>Message 2</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='organization'>\n" +
+		"<Value>XYZ NGO</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='publicinfo'>\n" +
+		"<Value>234</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='keywords'>\n" +
+		"<Value>234, T.I..</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +

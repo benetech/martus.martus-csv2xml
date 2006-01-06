@@ -25,6 +25,26 @@
 <Tag>entrydate</Tag>
 <Label></Label>
 </Field>
+<Field type='MULTILINE'>
+<Tag>summary</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>location</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>organization</Tag>
+<Label></Label>
+</Field>
+<Field type='MULTILINE'>
+<Tag>publicinfo</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>keywords</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -57,6 +77,26 @@
 
 <Field tag='entrydate'>
 <Value>20000204</Value>
+</Field>
+
+<Field tag='summary'>
+<Value>C.C.</Value>
+</Field>
+
+<Field tag='location'>
+<Value>Message 1</Value>
+</Field>
+
+<Field tag='organization'>
+<Value>XYZ NGO</Value>
+</Field>
+
+<Field tag='publicinfo'>
+<Value>212</Value>
+</Field>
+
+<Field tag='keywords'>
+<Value>212, C.C.</Value>
 </Field>
 
 <Field tag='privateinfo'>
@@ -92,6 +132,26 @@
 <Tag>entrydate</Tag>
 <Label></Label>
 </Field>
+<Field type='MULTILINE'>
+<Tag>summary</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>location</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>organization</Tag>
+<Label></Label>
+</Field>
+<Field type='MULTILINE'>
+<Tag>publicinfo</Tag>
+<Label></Label>
+</Field>
+<Field type='STRING'>
+<Tag>keywords</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -124,6 +184,26 @@
 
 <Field tag='entrydate'>
 <Value>20000205</Value>
+</Field>
+
+<Field tag='summary'>
+<Value>T.I..</Value>
+</Field>
+
+<Field tag='location'>
+<Value>Message 2</Value>
+</Field>
+
+<Field tag='organization'>
+<Value>XYZ NGO</Value>
+</Field>
+
+<Field tag='publicinfo'>
+<Value>234</Value>
+</Field>
+
+<Field tag='keywords'>
+<Value>234, T.I..</Value>
 </Field>
 
 <Field tag='privateinfo'>
