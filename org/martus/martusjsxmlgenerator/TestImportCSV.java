@@ -123,6 +123,23 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("Message 2", field2.getMartusValue(scope));
 
 	}
+	
+	public void testSimpleDateFields() throws Exception
+	{
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		readerJSConfigurationFile.close();
+		
+		MartusField field1 = (MartusField)fieldSpecs.get(5, scope);
+		
+		assertEquals("entrydate", field1.getTag());
+		assertEquals("", field1.getLabel());
+		assertEquals("Simple:2000-01-01", field1.getMartusValue(scope));
+	}
+	
 
 	public void testType() throws Exception
 	{
