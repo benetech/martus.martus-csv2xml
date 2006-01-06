@@ -34,6 +34,7 @@ public class MartusRequiredLanguageField extends MartusField
 	public MartusRequiredLanguageField(Object valueToUse)
 	{
 		super(LANGUAGE_TAG, "", valueToUse);
+		requiredFieldLanguage = true;
 	}
 	
 	public String getType()

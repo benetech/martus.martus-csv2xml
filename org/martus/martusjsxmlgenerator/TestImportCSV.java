@@ -26,19 +26,26 @@ public class TestImportCSV extends TestCaseEnhanced
 	protected void setUp() throws Exception 
 	{
 		super.setUp();
+		testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile");
+		copyResourceFileToLocalFile(testJSFile, "test.js");
+		testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile");
+		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		importer.getXmlFile().deleteOnExit();
+		cs = Context.enter();
 	}
 
 	protected void tearDown() throws Exception 
 	{
 		super.tearDown();
+		testJSFile.delete();
+		testCSVFile.delete();
+		importer.getXmlFile().delete();
+		Context.exit();
 	}
 	
 	public void testIncorrectDelimeter() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_TabbedHeader");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_TabbedHeader");
-		copyResourceFileToLocalFile(testCSVFile, "testTabHeaders.csv");
 		try 
 		{
 			String INCORRECT_DELIMETER = ",";
@@ -49,59 +56,36 @@ public class TestImportCSV extends TestCaseEnhanced
 		{
 			assertContains("Only Found one column, please check your delimeter", expected.getMessage());
 		}
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 
 	public void testGetTabbedHeaders() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_TabbedHeader");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_TabbedHeader");
-		copyResourceFileToLocalFile(testCSVFile, "testTabHeaders.csv");
-		try 
-		{
-			new ImportCSV(testJSFile, testCSVFile, ",");
-			fail("Should have thrown since the delimeter is incorrect");
-		} 
-		catch (Exception expected) 
-		{
-			assertContains("Only Found one column, please check your delimeter", expected.getMessage());
-		}
 
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, "\t");
-		assertEquals(5, importer.headerLabels.length);
-		testCSVFile.delete();
-		testJSFile.delete();
+		File testCSVFileTabbed = createTempFileFromName("$$$MARTUS_CSV_TestFile");
+		copyResourceFileToLocalFile(testCSVFileTabbed, "testTabHeaders.csv");
+		ImportCSV importer2 = new ImportCSV(testJSFile, testCSVFileTabbed, "\t");
+		assertEquals(5, importer2.headerLabels.length);
+		testCSVFileTabbed.delete();
 	}
 
 	public void testGetHeaders() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_GetHeader");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_GetHeader");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
 		String[] headerLabels = importer.headerLabels;
 		assertEquals(11, headerLabels.length);
 		assertEquals("enterydate", headerLabels[0]);
 		assertEquals("language", headerLabels[1]);
 		assertEquals("author", headerLabels[2]);
 		assertEquals("guns", headerLabels[10]);
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 	
 	public void testHeaderCountDoesntMatchData() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_HeaderCountDoesntMatchData");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
 		File testInvalidCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_HeaderCountDoesntMatchData");
 		copyResourceFileToLocalFile(testInvalidCSVFile, "testInvalidcolumncount.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testInvalidCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		ImportCSV importer2 = new ImportCSV(testJSFile, testInvalidCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
 		try 
 		{
-			importer.doImport();
+			importer2.doImport();
 			fail("Should have thrown an exception");
 		} 
 		catch (Exception expected) 
@@ -111,18 +95,12 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			testInvalidCSVFile.delete();
-			testJSFile.delete();
+			importer2.getXmlFile().delete();
 		}
 	}
 
 	public void testStringFields() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_StringFields");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_StringFields");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
@@ -138,21 +116,12 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("WitnessComment", field2.getTag());
 		assertEquals("Comment", field2.getLabel());
 		assertEquals("Message 2", field2.getMartusValue(scope));
-		Context.exit();
+
 		readerJSConfigurationFile.close();
-		
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 
 	public void testType() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_TestFile_Type");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile_Type");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
@@ -161,27 +130,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		assertEquals("STRING",field1.getType());
-		Context.exit();
 		readerJSConfigurationFile.close();
-		
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 	
 	public void testGetPrivateFieldSpec() throws Exception
 	{
-		ImportCSV importer = new ImportCSV();
 		assertEquals(PRIVATE_FIELD_SPEC, importer.getPrivateFieldSpec());
 	}
 	
 	public void testMartusFieldSpec() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_getMartusFieldSpec");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_getMartusFieldSpec");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
@@ -195,21 +153,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		out.close();
 		assertEquals(MARTUS_PUBLIC_FIELD_SPEC + PRIVATE_FIELD_SPEC, out.toString());
 		
-		Context.exit();
 		readerJSConfigurationFile.close();
+	}
+	
+	public void testRequiredFields()
+	{
 		
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 	
 	public void testMartusXMLValues() throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_getMartusFieldSpec");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_getMartusFieldSpec");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
@@ -223,22 +176,13 @@ public class TestImportCSV extends TestCaseEnhanced
 		out.close();
 		assertEquals(MARTUS_XML_VALUES, out.toString());
 		
-		Context.exit();
 		readerJSConfigurationFile.close();
-		
-		testCSVFile.delete();
-		testJSFile.delete();
 	}
 	
 	public void testImportMultipleBulletins()throws Exception
 	{
-		File testJSFile = createTempFileFromName("$$$MARTUS_JS_testImportMultipleBulletins");
-		copyResourceFileToLocalFile(testJSFile, "test.js");
-		File testCSVFile = createTempFileFromName("$$$MARTUS_CSV_testImportMultipleBulletins");
-		copyResourceFileToLocalFile(testCSVFile, "test.csv");
 		File testExpectedXMLFile = createTempFileFromName("$$$MARTUS_JS_testImportMultipleBulletins_EXPECTED");
 		copyResourceFileToLocalFile(testExpectedXMLFile, "text_finalResult.xml");
-		ImportCSV importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
 		File xmlFile = importer.getXmlFile();
 		xmlFile.deleteOnExit();
 		try 
@@ -256,16 +200,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		} 
 		finally
 		{
-			testCSVFile.delete();
-			testJSFile.delete();
-			xmlFile.delete();
 			testExpectedXMLFile.delete();
 		}
 		
 	}
 	
 	
-	
+	File testJSFile;	
+	File testCSVFile;
+	ImportCSV importer;
+	Context cs;	
 	
 	public final String CSV_VERTICAL_BAR_REGEX_DELIMITER = "\\|";
 	public final String PRIVATE_FIELD_SPEC = 

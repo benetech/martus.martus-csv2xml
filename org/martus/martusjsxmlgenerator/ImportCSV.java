@@ -54,11 +54,6 @@ public class ImportCSV
 		importer.doImport();
 	}
 	
-	public ImportCSV()
-	{
-		//Called only from Tests
-	}
-	
 	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws Exception
 	{
 		bulletinCsvFile = csvFile;
@@ -190,8 +185,12 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, PrivateField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		script.exec(cs, scope);
-
+		
+		if(!MartusField.hasAllRequiredFields())
+			throw new Exception();
+		
 		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+		
 		return fieldSpecs;
 	}
 	

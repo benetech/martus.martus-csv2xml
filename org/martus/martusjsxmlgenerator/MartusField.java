@@ -98,8 +98,13 @@ abstract public class MartusField extends ScriptableObject
 		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
 	
+	static public boolean hasAllRequiredFields()
+	{
+		return requiredFieldLanguage;
+	}
+	
 	String tag;
 	String label;
 	Object value;
-	
+	static boolean requiredFieldLanguage = false;
 }
