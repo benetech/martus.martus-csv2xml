@@ -5,7 +5,7 @@
  */
 package org.martus.martusjsxmlgenerator;
 
-public class MartusRequiredDateCreatedField extends MartusField 
+public class MartusRequiredDateCreatedField extends SingleDateField 
 {
 	public MartusRequiredDateCreatedField()
 	{
@@ -13,7 +13,7 @@ public class MartusRequiredDateCreatedField extends MartusField
 	}
 	public MartusRequiredDateCreatedField(Object valueToUse)
 	{
-		super(ENTRY_DATE_TAG, "", valueToUse);
+		super("entrydate", "", valueToUse);
 		requiredFieldEntryDate = true;
 	}
 	
@@ -23,11 +23,4 @@ public class MartusRequiredDateCreatedField extends MartusField
 		return "MartusRequiredDateCreatedField";
 	}
 	
-	public String getType()
-	{
-		return DATE_TYPE;
-	}
-	
-	public static final String ENTRY_DATE_TAG = "entrydate";
-
 }

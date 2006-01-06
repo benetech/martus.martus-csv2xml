@@ -5,20 +5,20 @@
  */
 package org.martus.martusjsxmlgenerator;
 
-public class MartusDetailsField extends MultilineField 
+public class MartusSummaryField extends MultilineField 
 {
-	public MartusDetailsField()
+	public MartusSummaryField()
 	{
 	}
 	
-	public MartusDetailsField(Object publicValueToUse)
+	public MartusSummaryField(Object valueToUse)
 	{
-		super("publicinfo", "", publicValueToUse);
+		super("summary", "", valueToUse);
 	}
 
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
-		return "MartusDetailsField";
+		return "MartusSummaryField";
 	}
 }

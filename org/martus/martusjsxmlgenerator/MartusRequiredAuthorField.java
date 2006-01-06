@@ -14,7 +14,7 @@ public class MartusRequiredAuthorField extends StringField
 	
 	public MartusRequiredAuthorField(Object valueToUse)
 	{
-		super(AUTHOR_TAG, "", valueToUse);
+		super("author", "", valueToUse);
 		requiredFieldAuthor = true;
 	}
 	
@@ -23,6 +23,4 @@ public class MartusRequiredAuthorField extends StringField
 	{
 		return "MartusRequiredAuthorField";
 	}
-	
-	public static final String AUTHOR_TAG = "author";
 }

@@ -13,7 +13,7 @@ public class MartusRequiredTitleField extends StringField
 	}
 	public MartusRequiredTitleField(Object valueToUse)
 	{
-		super(TITLE_TAG, "", valueToUse);
+		super("title", "", valueToUse);
 		requiredFieldTitle = true;
 	}
 	
@@ -22,6 +22,4 @@ public class MartusRequiredTitleField extends StringField
 	{
 		return "MartusRequiredTitleField";
 	}
-	
-	public static final String TITLE_TAG = "title";
 }

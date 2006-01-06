@@ -33,7 +33,7 @@ public class MartusRequiredPrivateField extends MultilineField
 	
 	public MartusRequiredPrivateField(Object privateValueToUse)
 	{
-		super(PRIVATEINFO, "", privateValueToUse);
+		super("privateinfo", "", privateValueToUse);
 		requiredFieldPrivate = true;
 	}
 
@@ -42,6 +42,4 @@ public class MartusRequiredPrivateField extends MultilineField
 	{
 		return "MartusRequiredPrivateField";
 	}
-
-	public static final String PRIVATEINFO = "privateinfo";
 }

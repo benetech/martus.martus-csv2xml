@@ -143,7 +143,7 @@ public class ImportCSV
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-			if(fieldSpec.getTag() == MartusRequiredPrivateField.PRIVATEINFO)
+			if(fieldSpec.getTag() == "privateinfo")
 				continue;//Writen after the Public Field Spec
 			writer.write(getFieldTypeStartTag(fieldSpec.getType()));
 			writer.write(getXMLData(TAG, fieldSpec.getTag()));
@@ -188,11 +188,11 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, StringField.class);
 		ScriptableObject.defineClass(scope, MultilineField.class);
 		ScriptableObject.defineClass(scope, MartusDetailsField.class);
-//		ScriptableObject.defineClass(scope, MartusSumaryField.class);
-//		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
-//		ScriptableObject.defineClass(scope, MartusLocationField.class);
-		//ScriptableObject.defineClass(scope, MartusKeywordsField.class);
-		//ScriptableObject.defineClass(scope, MartusDateOfEventField.class);
+		ScriptableObject.defineClass(scope, MartusSummaryField.class);
+		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
+		ScriptableObject.defineClass(scope, MartusLocationField.class);
+		ScriptableObject.defineClass(scope, MartusKeywordsField.class);
+		ScriptableObject.defineClass(scope, MartusDateOfEventField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredAuthorField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
