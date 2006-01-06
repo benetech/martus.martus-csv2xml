@@ -39,8 +39,11 @@ public class TestImportCSV extends TestCaseEnhanced
 	{
 		super.tearDown();
 		testJSFile.delete();
+		assertFalse(testJSFile.exists());
 		testCSVFile.delete();
+		assertFalse(testCSVFile.exists());
 		importer.getXmlFile().delete();
+		assertFalse(importer.getXmlFile().exists());
 		Context.exit();
 	}
 	
@@ -61,7 +64,7 @@ public class TestImportCSV extends TestCaseEnhanced
 	public void testGetTabbedHeaders() throws Exception
 	{
 
-		File testCSVFileTabbed = createTempFileFromName("$$$MARTUS_CSV_TestFile");
+		File testCSVFileTabbed = createTempFileFromName("$$$MARTUS_CSV_TestFile_Tabbed");
 		copyResourceFileToLocalFile(testCSVFileTabbed, "testTabHeaders.csv");
 		ImportCSV importer2 = new ImportCSV(testJSFile, testCSVFileTabbed, "\t");
 		assertEquals(5, importer2.headerLabels.length);
@@ -184,7 +187,6 @@ public class TestImportCSV extends TestCaseEnhanced
 		File testExpectedXMLFile = createTempFileFromName("$$$MARTUS_JS_testImportMultipleBulletins_EXPECTED");
 		copyResourceFileToLocalFile(testExpectedXMLFile, "text_finalResult.xml");
 		File xmlFile = importer.getXmlFile();
-		xmlFile.deleteOnExit();
 		try 
 		{
 			importer.doImport();
@@ -202,7 +204,6 @@ public class TestImportCSV extends TestCaseEnhanced
 		{
 			testExpectedXMLFile.delete();
 		}
-		
 	}
 	
 	

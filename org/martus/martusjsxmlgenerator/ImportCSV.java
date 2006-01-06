@@ -89,6 +89,7 @@ public class ImportCSV
 		Context cs = Context.enter();
 		UnicodeReader readerJSConfigurationFile = null;
 		UnicodeWriter writer = null;
+		UnicodeReader csvReader = null;
 		try
 		{
 			readerJSConfigurationFile = new UnicodeReader(configurationFile);
@@ -98,7 +99,7 @@ public class ImportCSV
 			writer = openMartusXML();
 			
 			String dataRow = null;
-			UnicodeReader csvReader = new UnicodeReader(bulletinCsvFile);
+			csvReader = new UnicodeReader(bulletinCsvFile);
 			csvReader.readLine(); //skip past header;
 			while((dataRow = csvReader.readLine()) != null)
 			{
@@ -116,6 +117,8 @@ public class ImportCSV
 				readerJSConfigurationFile.close();
 			if(writer != null)
 				writer.close();
+			if(csvReader != null)
+				csvReader.close();
 		}
 	}
 
