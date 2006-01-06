@@ -25,15 +25,16 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-public class PrivateField extends MartusField
+public class MartusRequiredPrivateField extends MartusField
 {
-	public PrivateField()
+	public MartusRequiredPrivateField()
 	{
 	}
 	
-	public PrivateField(Object privateValueToUse)
+	public MartusRequiredPrivateField(Object privateValueToUse)
 	{
 		super(PRIVATEINFO, "", privateValueToUse);
+		requiredFieldPrivate = true;
 	}
 
 	public String getType()
@@ -42,7 +43,7 @@ public class PrivateField extends MartusField
 	}
 	public String getClassName()
 	{
-		return "PrivateField";
+		return "MartusRequiredPrivateField";
 	}
 
 	public static final String PRIVATEINFO = "privateinfo";

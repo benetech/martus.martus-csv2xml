@@ -17,6 +17,10 @@
 <Tag>author</Tag>
 <Label></Label>
 </Field>
+<Field type='STRING'>
+<Tag>title</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -41,6 +45,10 @@
 
 <Field tag='author'>
 <Value>Bob Jones</Value>
+</Field>
+
+<Field tag='title'>
+<Value>Bulletin #1</Value>
 </Field>
 
 <Field tag='privateinfo'>
@@ -68,6 +76,10 @@
 <Tag>author</Tag>
 <Label></Label>
 </Field>
+<Field type='STRING'>
+<Tag>title</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -92,6 +104,10 @@
 
 <Field tag='author'>
 <Value>Bob Jones</Value>
+</Field>
+
+<Field tag='title'>
+<Value>Bulletin #2</Value>
 </Field>
 
 <Field tag='privateinfo'>

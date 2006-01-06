@@ -15,7 +15,9 @@ new MartusRequiredLanguageField("language"),
 	
 new MartusRequiredAuthorField("author"),
 
-new PrivateField(
+new MartusRequiredTitleField("title"),
+
+new MartusRequiredPrivateField(
 	function ()
 	{
 		return "MY PRIVATE DATE = " + data2;

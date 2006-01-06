@@ -159,28 +159,6 @@ public class TestImportCSV extends TestCaseEnhanced
 		
 	}
 	
-	public void testJSRequiredFields() throws Exception
-	{
-		File testJSFileMissingLanguage = createTempFileFromName("$$$MARTUS_JS_TestFile_MissingFields");
-		copyResourceFileToLocalFile(testJSFileMissingLanguage, "missingFields.js");
-		ImportCSV importer2 = null;
-		try 
-		{
-			importer2 = new ImportCSV(testJSFileMissingLanguage, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
-			importer2.getXmlFile().deleteOnExit();
-			importer2.doImport();
-			fail("Should have thrown exception for missing required function");
-		} 
-		catch (Exception expected) 
-		{
-			assertContains("MartusRequiredLanguageField missing.", expected.getMessage());
-		}
-		finally
-		{
-			importer2.getXmlFile().delete();
-		}
-	}
-	
 	public void testMartusXMLValues() throws Exception
 	{
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
@@ -222,6 +200,30 @@ public class TestImportCSV extends TestCaseEnhanced
 		}
 	}
 	
+	public void testJSRequiredFields() throws Exception
+	{
+		File testJSFileMissingLanguage = createTempFileFromName("$$$MARTUS_JS_TestFile_MissingFields");
+		copyResourceFileToLocalFile(testJSFileMissingLanguage, "missingFields.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testJSFileMissingLanguage, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for missing required function");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("MartusRequiredLanguageField missing.", expected.getMessage());
+			assertContains("MartusRequiredAuthorField missing.", expected.getMessage());
+			assertContains("MartusRequiredTitleField missing.", expected.getMessage());
+			assertContains("MartusRequiredPrivateField missing.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
+	}
 	
 	File testJSFile;	
 	File testCSVFile;
@@ -256,6 +258,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>author</Tag>\n"+
 		"<Label></Label>\n"+
 		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>title</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -271,6 +277,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='author'>\n" +
 		"<Value>Dan Brown</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='title'>\n" +
+		"<Value>Bulletin #2</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
