@@ -133,6 +133,8 @@ abstract public class MartusField extends ScriptableObject
 	static public final String LANGUAGE_TYPE = "LANGUAGE";
 	static public final String STRING_TYPE = "STRING";
 	static public final String MULTILINE_TYPE = "MULTILINE";
+	static public final String DATE_TYPE = "DATE";
+	static public final String DATERANGE_TYPE = "DATERANGE";
 	static public final String DROPDOWN_TYPE = "DROPDOWN";
 	static public final String GRID_TYPE = "GRID";
 }

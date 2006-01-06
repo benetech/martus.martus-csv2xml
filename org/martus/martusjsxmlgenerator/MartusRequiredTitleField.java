@@ -5,7 +5,7 @@
  */
 package org.martus.martusjsxmlgenerator;
 
-public class MartusRequiredTitleField extends MartusField 
+public class MartusRequiredTitleField extends StringField 
 {
 	public MartusRequiredTitleField()
 	{
@@ -15,11 +15,6 @@ public class MartusRequiredTitleField extends MartusField
 	{
 		super(TITLE_TAG, "", valueToUse);
 		requiredFieldTitle = true;
-	}
-	
-	public String getType()
-	{
-		return STRING_TYPE;
 	}
 	
 	public String getClassName()

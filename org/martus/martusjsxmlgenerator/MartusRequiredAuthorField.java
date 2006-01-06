@@ -5,21 +5,17 @@
  */
 package org.martus.martusjsxmlgenerator;
 
-public class MartusRequiredAuthorField extends MartusField 
+public class MartusRequiredAuthorField extends StringField 
 {
 	public MartusRequiredAuthorField()
 	{
 		super();
 	}
+	
 	public MartusRequiredAuthorField(Object valueToUse)
 	{
 		super(AUTHOR_TAG, "", valueToUse);
 		requiredFieldAuthor = true;
-	}
-	
-	public String getType()
-	{
-		return STRING_TYPE;
 	}
 	
 	public String getClassName()
@@ -28,5 +24,4 @@ public class MartusRequiredAuthorField extends MartusField
 	}
 	
 	public static final String AUTHOR_TAG = "author";
-
 }
