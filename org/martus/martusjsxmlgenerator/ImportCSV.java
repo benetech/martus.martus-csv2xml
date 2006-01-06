@@ -186,11 +186,18 @@ public class ImportCSV
 		}
 
 		ScriptableObject.defineClass(scope, StringField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
+		ScriptableObject.defineClass(scope, MultilineField.class);
+		ScriptableObject.defineClass(scope, MartusDetailsField.class);
+//		ScriptableObject.defineClass(scope, MartusSumaryField.class);
+//		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
+//		ScriptableObject.defineClass(scope, MartusLocationField.class);
+		//ScriptableObject.defineClass(scope, MartusKeywordsField.class);
+		//ScriptableObject.defineClass(scope, MartusDateOfEventField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredAuthorField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredEntryDateField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredDateCreatedField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
 		script.exec(cs, scope);
 		
 		MartusField.verifyRequiredFields();

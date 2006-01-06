@@ -25,7 +25,7 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-public class MartusRequiredPrivateField extends MartusField
+public class MartusRequiredPrivateField extends MultilineField
 {
 	public MartusRequiredPrivateField()
 	{
@@ -37,10 +37,6 @@ public class MartusRequiredPrivateField extends MartusField
 		requiredFieldPrivate = true;
 	}
 
-	public String getType()
-	{
-		return MULTILINE_TYPE;
-	}
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
@@ -48,5 +44,4 @@ public class MartusRequiredPrivateField extends MartusField
 	}
 
 	public static final String PRIVATEINFO = "privateinfo";
-
 }
