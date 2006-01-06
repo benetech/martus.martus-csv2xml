@@ -13,6 +13,8 @@ new StringField(CommentTag, "Comment", "comment"),
 
 new MartusRequiredLanguageField("language"),
 	
+new MartusRequiredAuthorField("author"),
+
 new PrivateField(
 	function ()
 	{

@@ -13,6 +13,10 @@
 <Tag>language</Tag>
 <Label></Label>
 </Field>
+<Field type='STRING'>
+<Tag>author</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -33,6 +37,10 @@
 
 <Field tag='language'>
 <Value>en</Value>
+</Field>
+
+<Field tag='author'>
+<Value>Bob Jones</Value>
 </Field>
 
 <Field tag='privateinfo'>
@@ -56,6 +64,10 @@
 <Tag>language</Tag>
 <Label></Label>
 </Field>
+<Field type='STRING'>
+<Tag>author</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -76,6 +88,10 @@
 
 <Field tag='language'>
 <Value>fr</Value>
+</Field>
+
+<Field tag='author'>
+<Value>Bob Jones</Value>
 </Field>
 
 <Field tag='privateinfo'>

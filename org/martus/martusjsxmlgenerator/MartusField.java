@@ -101,6 +101,7 @@ abstract public class MartusField extends ScriptableObject
 	static public void clearRequiredFields()
 	{
 		requiredFieldLanguage = false;
+		requiredFieldAuthor = false;
 	}
 	
 	static public void verifyRequiredFields() throws Exception
@@ -108,6 +109,8 @@ abstract public class MartusField extends ScriptableObject
 		StringBuffer missingFieldsErrorMessage = new StringBuffer();
 		if(!requiredFieldLanguage)
 			missingFieldsErrorMessage.append("MartusRequiredLanguageField missing.  ");
+		if(!requiredFieldAuthor)
+			missingFieldsErrorMessage.append("MartusRequiredAuthorField missing.  ");
 		
 		if (missingFieldsErrorMessage.toString().length() > 0)
 			throw new Exception(missingFieldsErrorMessage.toString());
@@ -116,5 +119,12 @@ abstract public class MartusField extends ScriptableObject
 	String tag;
 	String label;
 	Object value;
-	static boolean requiredFieldLanguage = false;
+	static boolean requiredFieldLanguage;
+	static boolean requiredFieldAuthor;
+	
+	static public final String LANGUAGE_TYPE = "LANGUAGE";
+	static public final String STRING_TYPE = "STRING";
+	static public final String MULTILINE_TYPE = "MULTILINE";
+	static public final String DROPDOWN_TYPE = "DROPDOWN";
+	static public final String GRID_TYPE = "GRID";
 }

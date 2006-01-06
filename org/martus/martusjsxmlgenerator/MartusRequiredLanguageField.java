@@ -47,6 +47,5 @@ public class MartusRequiredLanguageField extends MartusField
 		return "MartusRequiredLanguageField";
 	}
 	
-	public static final String LANGUAGE_TYPE = "LANGUAGE";
 	public static final String LANGUAGE_TAG = "language";
 }

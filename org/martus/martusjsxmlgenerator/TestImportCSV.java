@@ -154,9 +154,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		importer.writeBulletinFieldSpecs(writer, scope, bulletinData);
 		writer.close();
 		out.close();
+		readerJSConfigurationFile.close();
 		assertEquals(MARTUS_PUBLIC_FIELD_SPEC + PRIVATE_FIELD_SPEC, out.toString());
 		
-		readerJSConfigurationFile.close();
 	}
 	
 	public void testJSRequiredFields() throws Exception
@@ -194,9 +194,8 @@ public class TestImportCSV extends TestCaseEnhanced
 		importer.writeBulletinFieldData(writer, scope, bulletinData);
 		writer.close();
 		out.close();
-		assertEquals(MARTUS_XML_VALUES, out.toString());
-		
 		readerJSConfigurationFile.close();
+		assertEquals(MARTUS_XML_VALUES, out.toString());
 	}
 	
 	public void testImportMultipleBulletins()throws Exception
@@ -253,6 +252,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>language</Tag>\n"+
 		"<Label></Label>\n"+
 		"</Field>\n"+
+		"<Field type='STRING'>\n"+
+		"<Tag>author</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -265,6 +268,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='language'>\n" +
 		"<Value>fr</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='author'>\n" +
+		"<Value>Dan Brown</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +

@@ -38,7 +38,7 @@ public class PrivateField extends MartusField
 
 	public String getType()
 	{
-		return "MULTILINE";
+		return MULTILINE_TYPE;
 	}
 	public String getClassName()
 	{

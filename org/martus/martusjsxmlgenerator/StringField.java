@@ -44,7 +44,7 @@ public class StringField extends MartusField
 	
 	public String getType()
 	{
-		return "STRING";
+		return STRING_TYPE;
 	}
 	
 }
