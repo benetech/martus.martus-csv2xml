@@ -75,7 +75,7 @@ public class TestImportCSV extends TestCaseEnhanced
 	{
 		String[] headerLabels = importer.headerLabels;
 		assertEquals(11, headerLabels.length);
-		assertEquals("enterydate", headerLabels[0]);
+		assertEquals("entrydate", headerLabels[0]);
 		assertEquals("language", headerLabels[1]);
 		assertEquals("author", headerLabels[2]);
 		assertEquals("guns", headerLabels[10]);
@@ -109,8 +109,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		readerJSConfigurationFile.close();
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
+		
 		assertEquals("Witness", field1.getTag());
 		assertEquals("Witness", field1.getLabel());
 		assertEquals("Jane Doe", field1.getMartusValue(scope));
@@ -120,7 +122,6 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("Comment", field2.getLabel());
 		assertEquals("Message 2", field2.getMartusValue(scope));
 
-		readerJSConfigurationFile.close();
 	}
 
 	public void testType() throws Exception
@@ -130,10 +131,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		readerJSConfigurationFile.close();
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		assertEquals("STRING",field1.getType());
-		readerJSConfigurationFile.close();
 	}
 	
 	public void testGetPrivateFieldSpec() throws Exception
@@ -217,6 +218,7 @@ public class TestImportCSV extends TestCaseEnhanced
 			assertContains("MartusRequiredLanguageField missing.", expected.getMessage());
 			assertContains("MartusRequiredAuthorField missing.", expected.getMessage());
 			assertContains("MartusRequiredTitleField missing.", expected.getMessage());
+			assertContains("MartusRequiredDateEntryField missing.", expected.getMessage());
 			assertContains("MartusRequiredPrivateField missing.", expected.getMessage());
 		}
 		finally
@@ -262,6 +264,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>title</Tag>\n"+
 		"<Label></Label>\n"+
 		"</Field>\n"+
+		"<Field type='DATE'>\n"+
+		"<Tag>entrydate</Tag>\n"+
+		"<Label></Label>\n"+
+		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -280,6 +286,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='title'>\n" +
 		"<Value>Bulletin #2</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='entrydate'>\n" +
+		"<Value>20000101</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +

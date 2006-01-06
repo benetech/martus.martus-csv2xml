@@ -41,6 +41,7 @@ public class MartusRequiredPrivateField extends MartusField
 	{
 		return MULTILINE_TYPE;
 	}
+	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
 		return "MartusRequiredPrivateField";

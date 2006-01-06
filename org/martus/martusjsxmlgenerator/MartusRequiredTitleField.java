@@ -17,6 +17,7 @@ public class MartusRequiredTitleField extends StringField
 		requiredFieldTitle = true;
 	}
 	
+	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
 		return "MartusRequiredTitleField";

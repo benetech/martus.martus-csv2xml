@@ -18,6 +18,7 @@ public class MartusRequiredAuthorField extends StringField
 		requiredFieldAuthor = true;
 	}
 	
+	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
 		return "MartusRequiredAuthorField";

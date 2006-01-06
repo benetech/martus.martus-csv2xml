@@ -190,6 +190,7 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredAuthorField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredEntryDateField.class);
 		script.exec(cs, scope);
 		
 		MartusField.verifyRequiredFields();

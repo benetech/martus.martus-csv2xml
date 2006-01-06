@@ -17,6 +17,8 @@ new MartusRequiredAuthorField("author"),
 
 new MartusRequiredTitleField("title"),
 
+new MartusRequiredEntryDateField("entrydate"),
+
 new MartusRequiredPrivateField(
 	function ()
 	{

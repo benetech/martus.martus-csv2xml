@@ -21,6 +21,10 @@
 <Tag>title</Tag>
 <Label></Label>
 </Field>
+<Field type='DATE'>
+<Tag>entrydate</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -49,6 +53,10 @@
 
 <Field tag='title'>
 <Value>Bulletin #1</Value>
+</Field>
+
+<Field tag='entrydate'>
+<Value>20000204</Value>
 </Field>
 
 <Field tag='privateinfo'>
@@ -80,6 +88,10 @@
 <Tag>title</Tag>
 <Label></Label>
 </Field>
+<Field type='DATE'>
+<Tag>entrydate</Tag>
+<Label></Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -108,6 +120,10 @@
 
 <Field tag='title'>
 <Value>Bulletin #2</Value>
+</Field>
+
+<Field tag='entrydate'>
+<Value>20000205</Value>
 </Field>
 
 <Field tag='privateinfo'>

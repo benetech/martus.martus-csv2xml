@@ -37,6 +37,7 @@ public class StringField extends MartusField
 		super(tagToUse, labelToUse, valueToUse);
 	}
 	
+	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
 		return "StringField";

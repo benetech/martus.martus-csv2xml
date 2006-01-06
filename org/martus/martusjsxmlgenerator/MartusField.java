@@ -103,6 +103,7 @@ abstract public class MartusField extends ScriptableObject
 		requiredFieldLanguage = false;
 		requiredFieldAuthor = false;
 		requiredFieldTitle = false;
+		requiredFieldEntryDate = false;
 		requiredFieldPrivate = false;
 	}
 	
@@ -115,6 +116,8 @@ abstract public class MartusField extends ScriptableObject
 			missingFieldsErrorMessage.append("MartusRequiredAuthorField missing.  ");
 		if(!requiredFieldTitle)
 			missingFieldsErrorMessage.append("MartusRequiredTitleField missing.  ");
+		if(!requiredFieldEntryDate)
+			missingFieldsErrorMessage.append("MartusRequiredDateEntryField missing.  ");
 		if(!requiredFieldPrivate)
 			missingFieldsErrorMessage.append("MartusRequiredPrivateField missing.  ");
 		
@@ -128,6 +131,7 @@ abstract public class MartusField extends ScriptableObject
 	static boolean requiredFieldLanguage;
 	static boolean requiredFieldAuthor;
 	static boolean requiredFieldTitle;
+	static boolean requiredFieldEntryDate;
 	static boolean requiredFieldPrivate;
 	
 	static public final String LANGUAGE_TYPE = "LANGUAGE";

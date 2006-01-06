@@ -42,6 +42,7 @@ public class MartusRequiredLanguageField extends MartusField
 		return LANGUAGE_TYPE;
 	}
 	
+	//Actual Name called by the JavaScript
 	public String getClassName()
 	{
 		return "MartusRequiredLanguageField";
