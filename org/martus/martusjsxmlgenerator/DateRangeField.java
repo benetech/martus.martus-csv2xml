@@ -5,17 +5,25 @@
  */
 package org.martus.martusjsxmlgenerator;
 
-public class DateRangeField extends MartusField 
+import org.mozilla.javascript.Scriptable;
+
+public class DateRangeField extends DateField 
 {
 	public DateRangeField()
 	{
 	}
 
-	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse)
+	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
 	}
 	
+	public String getMartusValue( Scriptable scriptable )
+	{
+		String martusDate = super.getMartusValue(scriptable);
+		return "DateRange:"+ martusDate;
+	}
+
 	public String getType() 
 	{
 		return DATERANGE_TYPE;

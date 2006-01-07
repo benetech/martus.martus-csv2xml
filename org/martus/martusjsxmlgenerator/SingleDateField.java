@@ -7,15 +7,15 @@ package org.martus.martusjsxmlgenerator;
 
 import org.mozilla.javascript.Scriptable;
 
-public class SingleDateField extends MartusField 
+public class SingleDateField extends DateField 
 {
 	public SingleDateField()
 	{
 	}
 
-	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse)
+	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
 	}
 	
 	public String getType() 
@@ -25,21 +25,9 @@ public class SingleDateField extends MartusField
 	
 	public String getMartusValue( Scriptable scriptable )
 	{
-		String rawDate = super.getMartusValue(scriptable);
-//		Date realDate;
-//		try 
-//		{
-//			SimpleDateFormat realDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	//		realDate = realDateFormat.parse(rawDate);
-			return "Simple:" + rawDate;
-//		} catch (ParseException e) 
-//		{
-	//		e.printStackTrace();
-		//	return rawDate;
-		//}
-		
+		String martusDate = super.getMartusValue(scriptable);
+		return "Simple:"+ martusDate;
 	}
-
 
 	//Actual Name called by the JavaScript
 	public String getClassName() 

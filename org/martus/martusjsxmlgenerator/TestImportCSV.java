@@ -130,14 +130,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		Scriptable fieldSpecsGoodDate = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+
+
+		
+		MartusField goodDateFieldFormat = (MartusField)fieldSpecsGoodDate.get(5, scope);
+		assertEquals("entrydate", goodDateFieldFormat.getTag());
+		assertEquals("", goodDateFieldFormat.getLabel());
+		assertEquals("Simple:2000-01-01", goodDateFieldFormat.getMartusValue(scope));
+
 		readerJSConfigurationFile.close();
-		
-		MartusField field1 = (MartusField)fieldSpecs.get(5, scope);
-		
-		assertEquals("entrydate", field1.getTag());
-		assertEquals("", field1.getLabel());
-		assertEquals("Simple:2000-01-01", field1.getMartusValue(scope));
 	}
 	
 
@@ -325,7 +327,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Value>Bulletin #2</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='entrydate'>\n" +
-		"<Value>20000101</Value>\n" +
+		"<Value>Simple:2000-01-01</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='summary'>\n" +
 		"<Value>T.I..</Value>\n" +
