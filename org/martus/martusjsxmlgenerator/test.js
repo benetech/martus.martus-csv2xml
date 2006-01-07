@@ -1,3 +1,5 @@
+DATE_RANGE_DELIMETER = "_"
+
 WitnessTag = "Witness"
 CommentTag = "WitnessComment"
 
@@ -36,6 +38,14 @@ new MartusKeywordsField(
 	function ()
 	{
 		return id +", "+ data2;
+	}
+),
+
+//DateRange must be in the format StartDate_EndDate_dateFormat
+new MartusDateOfEventField(
+	function ()
+	{
+		return event_date_start + DATE_RANGE_DELIMETER + event_date_end + DATE_RANGE_DELIMETER + "MMddyyyy";
 	}
 ),
 

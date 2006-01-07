@@ -9,23 +9,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.mozilla.javascript.Scriptable;
-
 abstract public class DateField extends MartusField 
 {
 	public DateField()
 	{
 	}
 
-	public DateField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
+	public DateField(String tagToUse, String labelToUse, Object valueToUse)
 	{
 		super(tagToUse, labelToUse, valueToUse);
+	}
+
+	public DateField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
+	{
+		this(tagToUse, labelToUse, valueToUse);
 		dateFormat = dateFormatToUse;
 	}
 	
-	public String getMartusValue( Scriptable scriptable )
+	public void setDateFormatString (String dateFormatToUse)
 	{
-		String rawDate = super.getMartusValue(scriptable);
+		dateFormat = dateFormatToUse;
+	}
+	
+	public String getMartusDate(String rawDate)
+	{
 		try 
 		{
 			SimpleDateFormat realDateFormat = new SimpleDateFormat(dateFormat);

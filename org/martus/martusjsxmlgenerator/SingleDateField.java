@@ -25,7 +25,8 @@ public class SingleDateField extends DateField
 	
 	public String getMartusValue( Scriptable scriptable )
 	{
-		String martusDate = super.getMartusValue(scriptable);
+		String rawDate = super.getMartusValue(scriptable);
+		String martusDate = getMartusDate(rawDate);
 		return "Simple:"+ martusDate;
 	}
 
