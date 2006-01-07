@@ -15,19 +15,10 @@ abstract public class DateField extends MartusField
 	{
 	}
 
-	public DateField(String tagToUse, String labelToUse, Object valueToUse)
-	{
-		super(tagToUse, labelToUse, valueToUse);
-	}
 
 	public DateField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
 	{
-		this(tagToUse, labelToUse, valueToUse);
-		dateFormat = dateFormatToUse;
-	}
-	
-	public void setDateFormatString (String dateFormatToUse)
-	{
+		super(tagToUse, labelToUse, valueToUse);
 		dateFormat = dateFormatToUse;
 	}
 	

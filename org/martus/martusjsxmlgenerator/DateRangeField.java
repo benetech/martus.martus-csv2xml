@@ -9,25 +9,26 @@ import org.mozilla.javascript.Scriptable;
 
 public class DateRangeField extends DateField 
 {
+	private static final String DATE_RANGE_DELIMETER = "_";
+
 	public DateRangeField()
 	{
 	}
 
 	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
 	}
 	
 	public String getMartusValue( Scriptable scriptable )
 	{
 		String dateInformation = super.getMartusValue(scriptable);
-		String[] dateRangeInfo = dateInformation.split("_");
-		if(dateRangeInfo.length !=3)
+		String[] dateRangeInfo = dateInformation.split(DATE_RANGE_DELIMETER);
+		if(dateRangeInfo.length !=2)
 		{
-			System.out.println("DateRange Incorrect must be in the form: beginDate_endDate_dateformat but ="+ dateInformation);
+			System.out.println("DateRange Incorrect must be in the form: beginDate_endDate but ="+ dateInformation);
 			return "ERROR: Date range incorrect:"+ dateInformation;
 		}
-		setDateFormatString(dateRangeInfo[2]);
 		String martusStartDate = getMartusDate(dateRangeInfo[0]);
 		String martusEndDate = getMartusDate(dateRangeInfo[1]);
 		
