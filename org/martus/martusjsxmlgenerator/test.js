@@ -42,6 +42,7 @@ new MartusKeywordsField(
 ),
 
 //DateRange must be in the format StartDate_EndDate
+//The DateFormat Field is optional if the dates are in the MartusDefaultFormat yyyy-MM-dd
 //new DateRangeField("eventdate",	"",
 //	function ()
 //	{
@@ -49,6 +50,8 @@ new MartusKeywordsField(
 //	}
 //	, "MMddyyyy"
 //),
+
+
 
 new MartusDateOfEventField (
 	function ()

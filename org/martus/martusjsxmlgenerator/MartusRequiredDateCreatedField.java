@@ -11,7 +11,7 @@ public class MartusRequiredDateCreatedField extends SingleDateField
 	{
 		super();
 	}
-	public MartusRequiredDateCreatedField(Object valueToUse, String dateFormatToUse)
+	public MartusRequiredDateCreatedField(Object valueToUse, Object dateFormatToUse)
 	{
 		super("entrydate", "", valueToUse, dateFormatToUse);
 		requiredFieldEntryDate = true;

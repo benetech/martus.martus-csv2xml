@@ -15,10 +15,17 @@ public class DateRangeField extends DateField
 	{
 	}
 
-	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
+	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse)
 	{
 		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
 	}
+	
+//	public DateRangeField(String tagToUse, String labelToUse, String startDateToUse, String endDateToUse, String dateFormatToUse)
+	//{
+		//super(tagToUse, labelToUse, startDateToUse+endDateToUse, dateFormatToUse);
+	//}
+
+	
 	
 	public String getMartusValue( Scriptable scriptable )
 	{

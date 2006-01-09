@@ -139,6 +139,25 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("Simple:2000-01-01", dateField.getMartusValue(scope));
 	}
 
+	public void testMartusDateFormat() throws Exception
+	{
+		File martusDateFormatJS = createTempFileFromName("$$$MARTUS_JS_MartusDefaultDateFormatFile");
+		copyResourceFileToLocalFile(martusDateFormatJS, "martusDefaultDateFormat.js");
+
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(martusDateFormatJS);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "2003-11-30|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
+		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		readerJSConfigurationFile.close();
+		martusDateFormatJS.delete();
+		
+		MartusField dateField = (MartusField)fieldSpecs.get(3, scope);
+		assertEquals("entrydate", dateField.getTag());
+		assertEquals("", dateField.getLabel());
+		assertEquals("Simple:2003-11-30", dateField.getMartusValue(scope));
+	}
+
 	public void testDateRangeFields() throws Exception
 	{
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);

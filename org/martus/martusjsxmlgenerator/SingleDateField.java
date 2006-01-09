@@ -13,7 +13,7 @@ public class SingleDateField extends DateField
 	{
 	}
 
-	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse, String dateFormatToUse)
+	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse)
 	{
 		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
 	}
