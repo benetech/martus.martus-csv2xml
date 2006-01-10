@@ -293,10 +293,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
 		UnicodeWriter writer = new UnicodeWriter(out);
-		importer.writeBulletinFieldData(writer, scope, bulletinData);
-		writer.close();
-		out.close();
-		readerJSConfigurationFile.close();
+		try
+		{
+			importer.writeBulletinFieldData(writer, scope, bulletinData);
+		}
+		finally
+		{
+			writer.close();
+			out.close();
+			readerJSConfigurationFile.close();
+		}
 		assertEquals(MARTUS_XML_VALUES, out.toString());
 	}
 	

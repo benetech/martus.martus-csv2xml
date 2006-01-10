@@ -71,7 +71,7 @@ public class DropDownField extends MartusField
 		String dropdownValue = super.getMartusValue(scriptable);
 		for(int i = 0; i < dropdownList.getLength(); ++i)
 		{
-			if(dropdownValue == (String)dropdownList.get(i, dropdownList))
+			if(dropdownValue.equals(dropdownList.get(i, dropdownList)))
 				return dropdownValue;
 		}
 		throw new Exception("Dropdown value not in list :" + dropdownValue);
