@@ -7,7 +7,6 @@ package org.martus.martusjsxmlgenerator;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
 import org.martus.util.TestCaseEnhanced;
 import org.martus.util.UnicodeReader;
 import org.martus.util.UnicodeWriter;
@@ -108,8 +107,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
-		readerJSConfigurationFile.close();
+		Scriptable fieldSpecs;
+		try
+		{
+			fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		}
+		finally
+		{
+			readerJSConfigurationFile.close();
+		}
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
 		
@@ -130,8 +136,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
-		readerJSConfigurationFile.close();
+		Scriptable fieldSpecs;
+		try
+		{
+			fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		}
+		finally
+		{
+			readerJSConfigurationFile.close();
+		}
 		
 		MartusField dateField = (MartusField)fieldSpecs.get(5, scope);
 		assertEquals("entrydate", dateField.getTag());
@@ -148,8 +161,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "2003-11-30|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
-		readerJSConfigurationFile.close();
+		Scriptable fieldSpecs;
+		try
+		{
+			fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		}
+		finally
+		{
+			readerJSConfigurationFile.close();
+		}
 		martusDateFormatJS.delete();
 		
 		MartusField dateField = (MartusField)fieldSpecs.get(3, scope);
@@ -164,8 +184,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
-		readerJSConfigurationFile.close();
+		Scriptable fieldSpecs;
+		try
+		{
+			fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		}
+		finally
+		{
+			readerJSConfigurationFile.close();
+		}
 		
 		MartusField dateRangeField = (MartusField)fieldSpecs.get(11, scope);
 		assertEquals("eventdate", dateRangeField.getTag());
@@ -173,6 +200,35 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("Range:2001-12-03,2005-10-22", dateRangeField.getMartusValue(scope));
 
 	}
+	
+	public void testDropDownValueNotPresent() throws Exception
+	{
+		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
+		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
+		ScriptableObject scope = cs.initStandardObjects();
+		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin #2|Message 2|234|T.I..|entry not in list|12032001|10222005";
+
+		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
+		UnicodeWriter writer = new UnicodeWriter(out);
+		try
+		{
+			importer.writeBulletinFieldData(writer, scope, bulletinData);
+			fail("Should have thrown an expection for dropdown value not in field spec dropdown list");
+		}
+		catch(Exception expected)
+		{
+			assertContains("Dropdown value not in list", expected.getMessage());
+		}
+		finally
+		{
+			writer.close();
+			out.close();
+			readerJSConfigurationFile.close();
+		}
+	}
+	
+	
 
 	public void testType() throws Exception
 	{
@@ -180,8 +236,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
 		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
-		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
-		readerJSConfigurationFile.close();
+		Scriptable fieldSpecs;
+		try
+		{
+			fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
+		}
+		finally
+		{
+			readerJSConfigurationFile.close();
+		}
 		
 		assertEquals("STRING",((MartusField)fieldSpecs.get(0, scope)).getType());
 		assertEquals("LANGUAGE",((MartusField)fieldSpecs.get(2, scope)).getType());
@@ -201,15 +264,21 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
+		String dataRow = "20000101|fr|Dan Brown|Jane|Doe|16042001|Bulletin #2|Message 2|234|T.I..|Yes|12032001|10222005";
 
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
 		UnicodeWriter writer = new UnicodeWriter(out);
-		importer.writeBulletinFieldSpecs(writer, scope, bulletinData);
-		writer.close();
-		out.close();
-		readerJSConfigurationFile.close();
+		try
+		{
+			importer.writeBulletinFieldSpecs(writer, scope, bulletinData);
+		}
+		finally
+		{
+			writer.close();
+			out.close();
+			readerJSConfigurationFile.close();
+		}
 		assertEquals(MARTUS_PUBLIC_FIELD_SPEC + PRIVATE_FIELD_SPEC, out.toString());
 		
 	}
@@ -219,7 +288,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin #2|Message 2|234|T.I..|yes|12032001|10222005";
+		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin #2|Message 2|234|T.I..|Yes|12032001|10222005";
 
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		ByteArrayOutputStream out = new ByteArrayOutputStream(2000);
@@ -399,7 +468,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='gun_tag'>\n" +
-		"<Value>yes</Value>\n" +
+		"<Value>Yes</Value>\n" +
 		"</Field>\n\n" +
 		"</FieldValues>\n"+
 		"</MartusBulletin>\n\n";

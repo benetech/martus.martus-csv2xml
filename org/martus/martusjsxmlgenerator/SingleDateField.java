@@ -23,7 +23,7 @@ public class SingleDateField extends DateField
 		return DATE_TYPE;
 	}
 	
-	public String getMartusValue( Scriptable scriptable )
+	public String getMartusValue( Scriptable scriptable ) throws Exception
 	{
 		String rawDate = super.getMartusValue(scriptable);
 		String martusDate = getMartusDate(rawDate);

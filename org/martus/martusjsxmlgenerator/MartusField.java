@@ -77,7 +77,7 @@ abstract public class MartusField extends ScriptableObject
 		return value;
 	}
 	
-	public String getMartusValue( Scriptable scriptable ) 
+	public String getMartusValue( Scriptable scriptable ) throws Exception
 	{
 		if ( getValue() instanceof String ) 
 		{

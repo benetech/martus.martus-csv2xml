@@ -151,7 +151,7 @@ public class ImportCSV
 		writer.write(MartusField.getPrivateFieldSpec());
 	}
 
-	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
+	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
 		writer.write(MartusField.getStartTagNewLine(FIELD_VALUES));
 		

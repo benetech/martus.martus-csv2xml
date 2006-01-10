@@ -27,7 +27,7 @@ public class DateRangeField extends DateField
 
 	
 	
-	public String getMartusValue( Scriptable scriptable )
+	public String getMartusValue( Scriptable scriptable ) throws Exception
 	{
 		String dateInformation = super.getMartusValue(scriptable);
 		String[] dateRangeInfo = dateInformation.split(DATE_RANGE_DELIMETER);
