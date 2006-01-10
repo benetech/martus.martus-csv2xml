@@ -126,47 +126,45 @@ public class ImportCSV
 	private UnicodeWriter openMartusXML() throws IOException
 	{
 		UnicodeWriter writerMartusXMLBulletinFile = new UnicodeWriter(martusXmlFile);
-		writerMartusXMLBulletinFile.write(getStartTagNewLine(MARTUS_BULLETINS));
+		writerMartusXMLBulletinFile.write(MartusField.getStartTagNewLine(MARTUS_BULLETINS));
 		return writerMartusXMLBulletinFile;
 	}
 
 	private void closeMartusXML(UnicodeWriter writerMartusXMLBulletinFile) throws IOException
 	{
-		writerMartusXMLBulletinFile.write(getEndTag(MARTUS_BULLETINS));
+		writerMartusXMLBulletinFile.write(MartusField.getEndTag(MARTUS_BULLETINS));
 	}
 
 	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
 	{
-		writer.write(getStartTagNewLine(MARTUS_BULLETIN));
-		writer.write(getStartTagNewLine(PUBLIC_FIELD_SPEC));
+		writer.write(MartusField.getStartTagNewLine(MARTUS_BULLETIN));
+		writer.write(MartusField.getStartTagNewLine(PUBLIC_FIELD_SPEC));
 
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			if(fieldSpec.getTag() == "privateinfo")
 				continue;//Writen after the Public Field Spec
-			writer.write(getFieldTypeStartTag(fieldSpec.getType()));
-			writer.write(getXMLData(TAG, fieldSpec.getTag()));
-			writer.write(getXMLData(LABEL, fieldSpec.getLabel()));
-			writer.write(getEndTag(FIELD));
+			writer.write(fieldSpec.getFieldSpec());
+			writer.write(MartusField.getEndTag(MartusField.FIELD));
 		}
-		writer.write(getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));
-		writer.write(getPrivateFieldSpec());
+		writer.write(MartusField.getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));
+		writer.write(MartusField.getPrivateFieldSpec());
 	}
 
 	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
 	{
-		writer.write(getStartTagNewLine(FIELD_VALUES));
+		writer.write(MartusField.getStartTagNewLine(FIELD_VALUES));
 		
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-			writer.write(getFieldTagStartTag(fieldSpec.getTag()));
-			writer.write(getXMLData(VALUE, fieldSpec.getMartusValue( scope )));
-			writer.write(getEndTagWithExtraNewLine(FIELD));
+			writer.write(MartusField.getFieldTagStartTag(fieldSpec.getTag()));
+			writer.write(MartusField.getXMLData(VALUE, fieldSpec.getMartusValue( scope )));
+			writer.write(MartusField.getEndTagWithExtraNewLine(MartusField.FIELD));
 		}
-		writer.write(getEndTag(FIELD_VALUES));
-		writer.write(getEndTagWithExtraNewLine(MARTUS_BULLETIN));
+		writer.write(MartusField.getEndTag(FIELD_VALUES));
+		writer.write(MartusField.getEndTagWithExtraNewLine(MARTUS_BULLETIN));
 	}
 
 	public Scriptable getFieldScriptableSpecsAndBulletinData(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
@@ -175,7 +173,7 @@ public class ImportCSV
 		if(rowContents.length != headerLabels.length)
 		{
 			String errorMessage ="Number of Data Fields did not match Header Fields\n" +
-					"Expected column count =" + headerLabels.length + " but was :" + rowContents.length + NEW_LINE +
+					"Expected column count =" + headerLabels.length + " but was :" + rowContents.length +"\n" +
 					"Row Data = " + dataRow;
 			throw new Exception(errorMessage);
 		}
@@ -189,6 +187,7 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, MultilineField.class);
 		ScriptableObject.defineClass(scope, SingleDateField.class);
 		ScriptableObject.defineClass(scope, DateRangeField.class);
+		ScriptableObject.defineClass(scope, DropDownField.class);
 		ScriptableObject.defineClass(scope, MartusDetailsField.class);
 		ScriptableObject.defineClass(scope, MartusSummaryField.class);
 		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
@@ -208,65 +207,12 @@ public class ImportCSV
 		return fieldSpecs;
 	}
 	
-	public String getFieldTypeStartTag(String type)
-	{
-		return getStartTagNewLine(FIELD +" type='"+type+"'");
-	}
-	
-	public String getFieldTagStartTag(String tag)
-	{
-		return getStartTagNewLine(FIELD +" tag='"+tag+"'");
-	}
-
-	public String getXMLData(String xmlTag, String data)
-	{
-		StringBuffer xmlData = new StringBuffer(getStartTag(xmlTag));
-		xmlData.append(data);
-		xmlData.append(getEndTag(xmlTag));
-		return xmlData.toString();
-	}
-	
-	public String getStartTag(String text)
-	{
-		return ("<" + text + ">");
-	}
-
-	public String getStartTagNewLine(String text)
-	{
-		return getStartTag(text) + NEW_LINE;
-	}
-
-	public String getEndTag(String text)
-	{
-		return getStartTagNewLine("/" + text);
-	}
-	
-	public String getEndTagWithExtraNewLine(String text)
-	{
-		return getEndTag(text) + NEW_LINE;
-	}
-
-	public String getPrivateFieldSpec()
-	{
-		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(PRIVATE_FIELD_SPEC));
-		privateSpec.append(getFieldTypeStartTag("MULTILINE"));
-		privateSpec.append(getXMLData(TAG,"privateinfo"));
-		privateSpec.append(getXMLData(LABEL,""));
-		privateSpec.append(getEndTag(FIELD));
-		privateSpec.append(getEndTagWithExtraNewLine(PRIVATE_FIELD_SPEC));
-		return privateSpec.toString();
-	}
 	
 	private static final String MARTUS_BULLETINS = "MartusBulletins";
 	private static final String MARTUS_BULLETIN = "MartusBulletin";
 	private static final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";
-	private static final String PRIVATE_FIELD_SPEC = "PrivateFieldSpecs";
-	private static final String TAG = "Tag";
-	private static final String LABEL = "Label";
-	private static final String FIELD = "Field";
 	private static final String VALUE = "Value";
 	private static final String FIELD_VALUES = "FieldValues";
-	private static final String NEW_LINE = "\n";
 	
 	File configurationFile;
 	File martusXmlFile;

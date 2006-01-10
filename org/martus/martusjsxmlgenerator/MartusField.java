@@ -98,6 +98,66 @@ abstract public class MartusField extends ScriptableObject
 		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
 	
+	public String getFieldSpec()
+	{
+		StringBuffer xmlFieldSpec = new StringBuffer();
+		xmlFieldSpec.append(getFieldTypeStartTag(getType()));
+		xmlFieldSpec.append(getXMLData(TAG, getTag()));
+		xmlFieldSpec.append(getXMLData(LABEL, getLabel()));
+		return xmlFieldSpec.toString();
+
+	}
+	
+	static public String getFieldTagStartTag(String tag)
+	{
+		return getStartTagNewLine(FIELD +" tag='"+tag+"'");
+	}
+
+	static public String getXMLData(String xmlTag, String data)
+	{
+		StringBuffer xmlData = new StringBuffer(getStartTag(xmlTag));
+		xmlData.append(data);
+		xmlData.append(getEndTag(xmlTag));
+		return xmlData.toString();
+	}
+	
+	static public String getStartTag(String text)
+	{
+		return ("<" + text + ">");
+	}
+
+	static public String getStartTagNewLine(String text)
+	{
+		return getStartTag(text) + NEW_LINE;
+	}
+
+	static public String getEndTag(String text)
+	{
+		return getStartTagNewLine("/" + text);
+	}
+	
+	static public String getEndTagWithExtraNewLine(String text)
+	{
+		return getEndTag(text) + NEW_LINE;
+	}
+
+	static public String getFieldTypeStartTag(String type)
+	{
+		return getStartTagNewLine(FIELD +" type='"+type+"'");
+	}
+	
+	static public String getPrivateFieldSpec()
+	{
+		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(PRIVATE_FIELD_SPEC));
+		privateSpec.append(getFieldTypeStartTag("MULTILINE"));
+		privateSpec.append(getXMLData(TAG,"privateinfo"));
+		privateSpec.append(getXMLData(LABEL,""));
+		privateSpec.append(getEndTag(FIELD));
+		privateSpec.append(getEndTagWithExtraNewLine(PRIVATE_FIELD_SPEC));
+		return privateSpec.toString();
+	}
+	
+	
 	static public void clearRequiredFields()
 	{
 		requiredFieldLanguage = false;
@@ -134,6 +194,12 @@ abstract public class MartusField extends ScriptableObject
 	static boolean requiredFieldEntryDate;
 	static boolean requiredFieldPrivate;
 	
+	static final String TAG = "Tag";
+	static final String LABEL = "Label";
+	static public final String FIELD = "Field";
+	static final String PRIVATE_FIELD_SPEC = "PrivateFieldSpecs";
+	static final String NEW_LINE = "\n";
+
 	static public final String LANGUAGE_TYPE = "LANGUAGE";
 	static public final String STRING_TYPE = "STRING";
 	static public final String MULTILINE_TYPE = "MULTILINE";

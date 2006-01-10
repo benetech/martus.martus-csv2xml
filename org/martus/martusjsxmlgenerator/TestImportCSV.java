@@ -183,13 +183,17 @@ public class TestImportCSV extends TestCaseEnhanced
 		Scriptable fieldSpecs = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 		readerJSConfigurationFile.close();
 		
-		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
-		assertEquals("STRING",field1.getType());
+		assertEquals("STRING",((MartusField)fieldSpecs.get(0, scope)).getType());
+		assertEquals("LANGUAGE",((MartusField)fieldSpecs.get(2, scope)).getType());
+		assertEquals("DATE",((MartusField)fieldSpecs.get(5, scope)).getType());
+		assertEquals("MULTILINE",((MartusField)fieldSpecs.get(9, scope)).getType());
+		assertEquals("DATERANGE",((MartusField)fieldSpecs.get(11, scope)).getType());
+		assertEquals("DROPDOWN",((MartusField)fieldSpecs.get(13, scope)).getType());
 	}
 	
 	public void testGetPrivateFieldSpec() throws Exception
 	{
-		assertEquals(PRIVATE_FIELD_SPEC, importer.getPrivateFieldSpec());
+		assertEquals(PRIVATE_FIELD_SPEC, MartusField.getPrivateFieldSpec());
 	}
 	
 	public void testMartusFieldSpec() throws Exception
@@ -342,6 +346,15 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>eventdate</Tag>\n"+
 		"<Label></Label>\n"+
 		"</Field>\n"+
+		"<Field type='DROPDOWN'>\n"+
+		"<Tag>gun_tag</Tag>\n"+
+		"<Label>Where guns Used?</Label>\n"+
+		"<Choices><Choice>Yes</Choice>\n"+
+		"<Choice>No</Choice>\n"+
+		"<Choice>Unknown</Choice>\n"+
+		"</Choices>\n"+
+		"</Field>\n"+
+
 		"</MainFieldSpecs>\n\n";
 	
 	public final String MARTUS_XML_VALUES =
@@ -384,6 +397,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='privateinfo'>\n" +
 		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='gun_tag'>\n" +
+		"<Value>yes</Value>\n" +
 		"</Field>\n\n" +
 		"</FieldValues>\n"+
 		"</MartusBulletin>\n\n";

@@ -49,6 +49,14 @@
 <Tag>eventdate</Tag>
 <Label></Label>
 </Field>
+<Field type='DROPDOWN'>
+<Tag>gun_tag</Tag>
+<Label>Where guns Used?</Label>
+<Choices><Choice>Yes</Choice>
+<Choice>No</Choice>
+<Choice>Unknown</Choice>
+</Choices>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -111,6 +119,10 @@
 <Value>MY PRIVATE DATE = C.C.</Value>
 </Field>
 
+<Field tag='gun_tag'>
+<Value>No</Value>
+</Field>
+
 </FieldValues>
 </MartusBulletin>
 
@@ -163,6 +175,14 @@
 <Field type='DATERANGE'>
 <Tag>eventdate</Tag>
 <Label></Label>
+</Field>
+<Field type='DROPDOWN'>
+<Tag>gun_tag</Tag>
+<Label>Where guns Used?</Label>
+<Choices><Choice>Yes</Choice>
+<Choice>No</Choice>
+<Choice>Unknown</Choice>
+</Choices>
 </Field>
 </MainFieldSpecs>
 
@@ -224,6 +244,10 @@
 
 <Field tag='privateinfo'>
 <Value>MY PRIVATE DATE = T.I..</Value>
+</Field>
+
+<Field tag='gun_tag'>
+<Value>Yes</Value>
 </Field>
 
 </FieldValues>

@@ -65,7 +65,9 @@ new MartusRequiredPrivateField(
 	{
 		return "MY PRIVATE DATE = " + data2;
 	}
-)
+),
+
+new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"])
 
 ]
 
