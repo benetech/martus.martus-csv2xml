@@ -146,7 +146,6 @@ public class ImportCSV
 			if(fieldSpec.getTag() == "privateinfo")
 				continue;//Writen after the Public Field Spec
 			writer.write(fieldSpec.getFieldSpec());
-			writer.write(MartusField.getEndTag(MartusField.FIELD));
 		}
 		writer.write(MartusField.getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));
 		writer.write(MartusField.getPrivateFieldSpec());

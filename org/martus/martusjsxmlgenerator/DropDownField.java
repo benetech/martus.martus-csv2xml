@@ -50,12 +50,9 @@ public class DropDownField extends MartusField
 		return "DropDownField";
 	}
 	
-	public String getFieldSpec()
+	public String getFieldSpecSpecificXmlData()
 	{
-		StringBuffer xmlFieldSpec = new StringBuffer();
-		xmlFieldSpec.append(super.getFieldSpec());
-		xmlFieldSpec.append(getXMLData(CHOICES, getChoicesXml()));
-		return xmlFieldSpec.toString();
+		return(getXMLData(CHOICES, getChoicesXml()));
 	}
 	
 	private String getChoicesXml()

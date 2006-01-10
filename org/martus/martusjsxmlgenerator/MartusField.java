@@ -104,8 +104,14 @@ abstract public class MartusField extends ScriptableObject
 		xmlFieldSpec.append(getFieldTypeStartTag(getType()));
 		xmlFieldSpec.append(getXMLData(TAG, getTag()));
 		xmlFieldSpec.append(getXMLData(LABEL, getLabel()));
+		xmlFieldSpec.append(getFieldSpecSpecificXmlData());
+		xmlFieldSpec.append(getEndTag(FIELD));
 		return xmlFieldSpec.toString();
-
+	}
+	
+	public String getFieldSpecSpecificXmlData()
+	{
+		return "";
 	}
 	
 	static public String getFieldTagStartTag(String tag)
