@@ -135,7 +135,7 @@ public class ImportCSV
 		writerMartusXMLBulletinFile.write(MartusField.getEndTag(MARTUS_BULLETINS));
 	}
 
-	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException
+	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
 		writer.write(MartusField.getStartTagNewLine(MARTUS_BULLETIN));
 		writer.write(MartusField.getStartTagNewLine(PUBLIC_FIELD_SPEC));
@@ -145,7 +145,7 @@ public class ImportCSV
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			if(fieldSpec.getTag() == "privateinfo")
 				continue;//Writen after the Public Field Spec
-			writer.write(fieldSpec.getFieldSpec());
+			writer.write(fieldSpec.getFieldSpec(scope));
 		}
 		writer.write(MartusField.getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));
 		writer.write(MartusField.getPrivateFieldSpec());
@@ -158,9 +158,7 @@ public class ImportCSV
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-			writer.write(MartusField.getFieldTagStartTag(fieldSpec.getTag()));
-			writer.write(MartusField.getXMLData(VALUE, fieldSpec.getMartusValue( scope )));
-			writer.write(MartusField.getEndTagWithExtraNewLine(MartusField.FIELD));
+			writer.write(fieldSpec.getFieldData(scope));
 		}
 		writer.write(MartusField.getEndTag(FIELD_VALUES));
 		writer.write(MartusField.getEndTagWithExtraNewLine(MARTUS_BULLETIN));
@@ -188,6 +186,7 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, DateRangeField.class);
 		ScriptableObject.defineClass(scope, DropDownField.class);
 		ScriptableObject.defineClass(scope, BooleanField.class);
+		ScriptableObject.defineClass(scope, MessageField.class);
 		ScriptableObject.defineClass(scope, GridField.class);
 		ScriptableObject.defineClass(scope, MartusDetailsField.class);
 		ScriptableObject.defineClass(scope, MartusSummaryField.class);
@@ -212,7 +211,6 @@ public class ImportCSV
 	private static final String MARTUS_BULLETINS = "MartusBulletins";
 	private static final String MARTUS_BULLETIN = "MartusBulletin";
 	private static final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";
-	private static final String VALUE = "Value";
 	private static final String FIELD_VALUES = "FieldValues";
 	
 	File configurationFile;

@@ -51,7 +51,7 @@ public class DropDownField extends MartusField
 		return "DropDownField";
 	}
 	
-	public String getFieldSpecSpecificXmlData()
+	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception
 	{
 		return(getXMLData(CHOICES, getChoicesXml()));
 	}

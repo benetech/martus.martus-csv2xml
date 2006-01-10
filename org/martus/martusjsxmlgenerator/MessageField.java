@@ -1,7 +1,7 @@
 /*
 
 The Martus(tm) free, social justice documentation and
-monitoring software. Copyright (C) 2005, Beneficent
+monitoring software. Copyright (C) 2006, Beneficent
 Technology, Inc. (Benetech).
 
 Martus is free software; you can redistribute it and/or
@@ -27,35 +27,40 @@ package org.martus.martusjsxmlgenerator;
 
 import org.mozilla.javascript.Scriptable;
 
-public class GridField extends MartusField
+
+public class MessageField extends MartusField
 {
-	public GridField()
+	public MessageField()
 	{
 		super();
 	}
-	public GridField(String tagToUse, String labelToUse, Object valueToUse)
+	
+	public MessageField(String tagToUse, String labelToUse, Object valueToUse)
 	{
 		super(tagToUse, labelToUse, valueToUse);
 	}
 
 	public String getType() 
 	{
-		return GRID_TYPE;
+		return MESSAGE_TYPE;
 	}
-
+	
 	//Actual Name called by the JavaScript
 	public String getClassName() 
 	{
-		return "GridField";
+		return "MessageField";
 	}
 	
-	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception
+	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception 
 	{
-		return "";
+		String message = super.getMartusValue(scriptable);
+		return getXMLData(MESSAGE, message);
 	}
 	
-	public String getMartusValue( Scriptable scriptable ) throws Exception 
+	public String getXmlFieldValue(Scriptable scriptable) throws Exception
 	{
-		return super.getMartusValue(scriptable);
+		return "";//Value not needed since message is in the field spec.
 	}
+
+	final String MESSAGE = "Message";
 }

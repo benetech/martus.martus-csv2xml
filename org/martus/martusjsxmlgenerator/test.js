@@ -69,10 +69,14 @@ new MartusRequiredPrivateField(
 
 new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"]),
 
-new BooleanField("anonymous_tag", "Does interviewee wish to remain anonymous?", "anonymous")
+new BooleanField("anonymous_tag", "Does interviewee wish to remain anonymous?", "anonymous"),
 
-
-
+new MessageField("MessageProfession", "Profession History Table Note", 
+	function()
+	{
+		return "If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.";
+	}
+)
 ]
 
 

@@ -98,18 +98,32 @@ abstract public class MartusField extends ScriptableObject
 		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
 	
-	public String getFieldSpec()
+	public String getFieldSpec(Scriptable scriptable) throws Exception
 	{
 		StringBuffer xmlFieldSpec = new StringBuffer();
 		xmlFieldSpec.append(getFieldTypeStartTag(getType()));
 		xmlFieldSpec.append(getXMLData(TAG, getTag()));
 		xmlFieldSpec.append(getXMLData(LABEL, getLabel()));
-		xmlFieldSpec.append(getFieldSpecSpecificXmlData());
+		xmlFieldSpec.append(getFieldSpecSpecificXmlData(scriptable));
 		xmlFieldSpec.append(getEndTag(FIELD));
 		return xmlFieldSpec.toString();
 	}
 	
-	public String getFieldSpecSpecificXmlData()
+	public String getFieldData(Scriptable scriptable) throws Exception
+	{
+		StringBuffer xmlFieldData = new StringBuffer();
+		xmlFieldData.append(getFieldTagStartTag(getTag()));
+		xmlFieldData.append(getXmlFieldValue(scriptable));
+		xmlFieldData.append(getEndTagWithExtraNewLine(FIELD));
+		return xmlFieldData.toString();
+	}
+
+	public String getXmlFieldValue(Scriptable scriptable) throws Exception
+	{
+		return getXMLData(VALUE, getMartusValue( scriptable ));
+	}
+	
+	public String getFieldSpecSpecificXmlData(Scriptable scriptable)  throws Exception
 	{
 		return "";
 	}
@@ -202,6 +216,7 @@ abstract public class MartusField extends ScriptableObject
 	
 	static final String TAG = "Tag";
 	static final String LABEL = "Label";
+	static final String VALUE = "Value";
 	static public final String FIELD = "Field";
 	static final String PRIVATE_FIELD_SPEC = "PrivateFieldSpecs";
 	static final String NEW_LINE = "\n";
@@ -213,5 +228,6 @@ abstract public class MartusField extends ScriptableObject
 	static public final String DATERANGE_TYPE = "DATERANGE";
 	static public final String DROPDOWN_TYPE = "DROPDOWN";
 	static public final String BOOLEAN_TYPE = "BOOLEAN";
+	static public final String MESSAGE_TYPE = "MESSAGE";
 	static public final String GRID_TYPE = "GRID";
 }
