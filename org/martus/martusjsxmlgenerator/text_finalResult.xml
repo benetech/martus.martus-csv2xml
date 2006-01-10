@@ -57,6 +57,10 @@
 <Choice>Unknown</Choice>
 </Choices>
 </Field>
+<Field type='BOOLEAN'>
+<Tag>anonymous_tag</Tag>
+<Label>Does interviewee wish to remain anonymous?</Label>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -123,6 +127,10 @@
 <Value>No</Value>
 </Field>
 
+<Field tag='anonymous_tag'>
+<Value>1</Value>
+</Field>
+
 </FieldValues>
 </MartusBulletin>
 
@@ -183,6 +191,10 @@
 <Choice>No</Choice>
 <Choice>Unknown</Choice>
 </Choices>
+</Field>
+<Field type='BOOLEAN'>
+<Tag>anonymous_tag</Tag>
+<Label>Does interviewee wish to remain anonymous?</Label>
 </Field>
 </MainFieldSpecs>
 
@@ -248,6 +260,10 @@
 
 <Field tag='gun_tag'>
 <Value>Yes</Value>
+</Field>
+
+<Field tag='anonymous_tag'>
+<Value>0</Value>
 </Field>
 
 </FieldValues>

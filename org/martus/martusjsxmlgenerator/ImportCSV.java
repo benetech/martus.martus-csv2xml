@@ -187,6 +187,8 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, SingleDateField.class);
 		ScriptableObject.defineClass(scope, DateRangeField.class);
 		ScriptableObject.defineClass(scope, DropDownField.class);
+		ScriptableObject.defineClass(scope, BooleanField.class);
+		ScriptableObject.defineClass(scope, GridField.class);
 		ScriptableObject.defineClass(scope, MartusDetailsField.class);
 		ScriptableObject.defineClass(scope, MartusSummaryField.class);
 		ScriptableObject.defineClass(scope, MartusOrganizationField.class);

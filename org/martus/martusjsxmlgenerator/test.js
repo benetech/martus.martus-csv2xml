@@ -67,7 +67,11 @@ new MartusRequiredPrivateField(
 	}
 ),
 
-new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"])
+new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"]),
+
+new BooleanField("anonymous_tag", "Does interviewee wish to remain anonymous?", "anonymous")
+
+
 
 ]
 
