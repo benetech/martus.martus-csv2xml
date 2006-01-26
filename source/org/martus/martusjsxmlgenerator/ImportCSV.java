@@ -45,8 +45,8 @@ public class ImportCSV
 			System.out.println("Usage : java ImportCSV configurationFile.js fileToConvert.csv csvDelimiterRegEx" );
 			System.out.println("	 csvDelimiterRegEx = the regular expression java will use to split the csv file into its columns" );
 			System.out.println("	 Egg. if the values are separated by a comma you may just use ," );
-			System.out.println("	 Egg. if the values are separated by a tab you will need to use \\t" );
-			System.out.println("	 Egg. if the values are separated by a | you will need to use \\|" );
+			System.out.println("	 Egg. if the values are separated by a tab you will need to use \"\\t\"" );
+			System.out.println("	 Egg. if the values are separated by a | you will need to use \"\\|\"" );
 			System.exit(1);
 		}
 
@@ -64,6 +64,7 @@ public class ImportCSV
 		initalizeHeaderValues();
 		String csvFileName = csvFile.getPath();
 		String xmlFileName = csvFileName.substring(0, csvFileName.length()-4);
+		xmlFileName += ".xml";
 		martusXmlFile = new File(xmlFileName);
 	}
 
