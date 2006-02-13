@@ -52,6 +52,10 @@ public class ImportCSV
 
 		ImportCSV importer = new ImportCSV(new File(args[0]), new File(args[1]), args[2]);
 		importer.doImport();
+		if(importer.martusXmlFile.exists())
+			System.out.println("Finished. "+ importer.martusXmlFile.getAbsolutePath() + " was created.");
+		else
+			System.out.println("Failed.");
 	}
 	
 	public ImportCSV(File javaScriptFile, File csvFile, String csvDelimiterToUse) throws Exception
