@@ -76,14 +76,13 @@ new MessageField("MessageProfession", "Profession History Table Note",
 	{
 		return "If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.";
 	}
-)//,
+),
 
-//new GridField("MyGridTag", "Grid Label", 
-//	new StringField("", "Column1 Label", "lastname"),
-//	new BooleanField("", "Column2 Label", "anonymous"),
-//	new DropDownField("", "Column3 Label", "guns", ["Yes","No","Unknown"]),
-//	new SingleDateField("", "Column4 Label",  "event_date_start", "MMddyyyy")
-//	)
+new GridField("GridTag", "Grid Lable", "griddata.csv", "id", [
+	new StringField("FirstGridNameTag", "First Name", "firstname"),
+	new StringField("LastGridNameTag", "Last Name", "lastname")
+])
+
 ]
 
 

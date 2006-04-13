@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
 public class GridField extends MartusField
@@ -33,14 +35,26 @@ public class GridField extends MartusField
 	{
 		super();
 	}
-	public GridField(String tagToUse, String labelToUse, Object valueToUse)
+	
+	public GridField(String tagToUse, String labelToUse, Object gridDataFileStringToUse, Object keyIdToUse, Object listOfColumns)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, null);
+		//TODO: we need to set the Value in the super class
+		gridDataFileString = gridDataFileStringToUse;
+		keyId = keyIdToUse;
 	}
 
 	public String getType() 
 	{
 		return GRID_TYPE;
+	}
+	
+	
+
+	public Object getValue()
+	{
+		// TODO FIX THIS
+		return keyId;
 	}
 
 	//Actual Name called by the JavaScript
@@ -58,4 +72,121 @@ public class GridField extends MartusField
 	{
 		return super.getMartusValue(scriptable);
 	}
+	
+
+	class GridValueFunction implements Function
+	{
+
+		public Object call(Context arg0, Scriptable arg1, Scriptable arg2, Object[] arg3)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Scriptable construct(Context arg0, Scriptable arg1, Object[] arg2)
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		public String getClassName()
+		{
+			return "GridValueFunction";
+		}
+
+		public Object get(String arg0, Scriptable arg1)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Object get(int arg0, Scriptable arg1)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public boolean has(String arg0, Scriptable arg1)
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		public boolean has(int arg0, Scriptable arg1)
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		public void put(String arg0, Scriptable arg1, Object arg2)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void put(int arg0, Scriptable arg1, Object arg2)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void delete(String arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void delete(int arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public Scriptable getPrototype()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public void setPrototype(Scriptable arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public Scriptable getParentScope()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public void setParentScope(Scriptable arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		public Object[] getIds()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public Object getDefaultValue(Class arg0)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public boolean hasInstance(Scriptable arg0)
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+	}
+	
+	Object gridDataFileString;
+	Object keyId; 
 }
+
+

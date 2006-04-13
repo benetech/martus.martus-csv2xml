@@ -301,6 +301,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("DROPDOWN",((MartusField)fieldSpecs.get(13, scope)).getType());
 		assertEquals("BOOLEAN",((MartusField)fieldSpecs.get(14, scope)).getType());
 		assertEquals("MESSAGE",((MartusField)fieldSpecs.get(15, scope)).getType());
+		assertEquals("GRID",((MartusField)fieldSpecs.get(16, scope)).getType());
 	}
 	
 	public void testGetPrivateFieldSpec() throws Exception
@@ -486,6 +487,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag>MessageProfession</Tag>\n"+
 		"<Label>Profession History Table Note</Label>\n"+
 		"<Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>\n"+
+		"</Field>\n"+
+		"<Field type='GRID'>\n"+
+		"<Tag>GridTag</Tag>\n"+
+		"<Label>Grid Lable</Label>\n"+
 		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
 	
