@@ -125,7 +125,11 @@ public class GridField extends MartusField
 	private void verifyColumnTypeAllowedInsideGrid(String type) throws Exception
 	{
 		if (type.equals(MULTILINE_TYPE))
-			throw new Exception("MartusGridContainsMultiline field.");
+			throw new Exception("Martus Grid Contains Multiline Field.");
+		if (type.equals(MESSAGE_TYPE))
+			throw new Exception("Martus Grid Contains Message Field.");
+		if (type.equals(GRID_TYPE))
+			throw new Exception("Martus Grid Contains Another Grid.");
 	}
 	
 	public String getMartusValue( Scriptable scriptable ) throws Exception 

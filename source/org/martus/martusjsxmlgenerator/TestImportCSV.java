@@ -434,7 +434,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		} 
 		catch (Exception expected) 
 		{
-			assertContains("MartusGridContainsMultiline field.", expected.getMessage());
+			assertContains("Martus Grid Contains Multiline Field.", expected.getMessage());
 		}
 		finally
 		{
@@ -442,6 +442,51 @@ public class TestImportCSV extends TestCaseEnhanced
 		}
 	}
 
+	public void testGridMessageFields() throws Exception
+	{
+		File testGridMessageField = createTempFileFromName("$$$MARTUS_MESSAGE_FIELD_GRID");
+		copyResourceFileToLocalFile(testGridMessageField, "messageFieldInsideGrid.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testGridMessageField, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for having a message inside a grid");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("Martus Grid Contains Message Field.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
+	}
+
+	public void testGridInsideGrid() throws Exception
+	{
+		File testGridInsideGrid = createTempFileFromName("$$$MARTUS_GRID_INSIDE_GRID");
+		copyResourceFileToLocalFile(testGridInsideGrid, "gridInsideGrid.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testGridInsideGrid, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for having a grid inside a grid");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("Martus Grid Contains Another Grid.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
+	}
+
+	
 	File testJSFile;	
 	File testCSVFile;
 	File testGridCSVFile;
