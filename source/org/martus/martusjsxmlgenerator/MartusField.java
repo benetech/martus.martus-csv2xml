@@ -177,6 +177,10 @@ abstract public class MartusField extends ScriptableObject
 		return privateSpec.toString();
 	}
 	
+	public boolean isMartusDefaultField()
+	{
+		return false;
+	}
 	
 	static public void clearRequiredFields()
 	{

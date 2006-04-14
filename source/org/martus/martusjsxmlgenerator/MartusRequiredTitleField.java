@@ -31,10 +31,16 @@ public class MartusRequiredTitleField extends StringField
 	{
 		super();
 	}
+
 	public MartusRequiredTitleField(Object valueToUse)
 	{
 		super("title", "", valueToUse);
 		requiredFieldTitle = true;
+	}
+	
+	public boolean isMartusDefaultField()
+	{
+		return true;
 	}
 	
 	//Actual Name called by the JavaScript

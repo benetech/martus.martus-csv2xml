@@ -36,6 +36,11 @@ public class MartusOrganizationField extends StringField
 		super("organization", "", valueToUse);
 	}
 
+	public boolean isMartusDefaultField()
+	{
+		return true;
+	}
+	
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{

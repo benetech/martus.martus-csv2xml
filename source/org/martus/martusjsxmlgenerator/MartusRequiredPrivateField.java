@@ -37,6 +37,11 @@ public class MartusRequiredPrivateField extends MultilineField
 		requiredFieldPrivate = true;
 	}
 
+	public boolean isMartusDefaultField()
+	{
+		return true;
+	}
+
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{

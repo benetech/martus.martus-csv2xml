@@ -36,6 +36,11 @@ public class MartusDateOfEventField extends DateRangeField
 		super("eventdate", "", value, dateFormat);
 	}
 	
+	public boolean isMartusDefaultField()
+	{
+		return true;
+	}
+	
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{

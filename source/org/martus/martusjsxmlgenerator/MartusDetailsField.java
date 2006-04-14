@@ -36,6 +36,11 @@ public class MartusDetailsField extends MultilineField
 		super("publicinfo", "", publicValueToUse);
 	}
 
+	public boolean isMartusDefaultField()
+	{
+		return true;
+	}
+	
 	//Actual Name called by the JavaScript
 	public String getClassName()
 	{

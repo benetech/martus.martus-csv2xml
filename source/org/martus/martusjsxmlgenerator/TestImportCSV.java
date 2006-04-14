@@ -486,6 +486,27 @@ public class TestImportCSV extends TestCaseEnhanced
 		}
 	}
 
+	public void testMartusDefaultFieldInsideGrid() throws Exception
+	{
+		File testMartusDefaultFieldInsideGrid = createTempFileFromName("$$$MARTUS_DEFAULT_FIELD_INSIDE_GRID");
+		copyResourceFileToLocalFile(testMartusDefaultFieldInsideGrid, "martusDefaultFieldInsideGrid.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testMartusDefaultFieldInsideGrid, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for having a default Martus field inside a grid");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("Martus Grid Contains a Martus Default Field.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
+	}
 	
 	File testJSFile;	
 	File testCSVFile;

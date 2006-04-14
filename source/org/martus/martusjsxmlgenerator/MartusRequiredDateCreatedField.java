@@ -31,10 +31,16 @@ public class MartusRequiredDateCreatedField extends SingleDateField
 	{
 		super();
 	}
+
 	public MartusRequiredDateCreatedField(Object valueToUse, Object dateFormatToUse)
 	{
 		super("entrydate", "", valueToUse, dateFormatToUse);
 		requiredFieldEntryDate = true;
+	}
+
+	public boolean isMartusDefaultField()
+	{
+		return true;
 	}
 	
 	//Actual Name called by the JavaScript

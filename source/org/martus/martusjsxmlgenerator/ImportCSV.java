@@ -143,7 +143,25 @@ public class ImportCSV
 
 	public void setupScopeAndExecuteScript(Context cs, Script script, ScriptableObject scope) throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
-		setupScope(scope);
+		ScriptableObject.defineClass(scope, StringField.class);
+		ScriptableObject.defineClass(scope, MultilineField.class);
+		ScriptableObject.defineClass(scope, SingleDateField.class);
+		ScriptableObject.defineClass(scope, DateRangeField.class);
+		ScriptableObject.defineClass(scope, DropDownField.class);
+		ScriptableObject.defineClass(scope, BooleanField.class);
+		ScriptableObject.defineClass(scope, MessageField.class);
+		ScriptableObject.defineClass(scope, GridField.class);
+		ScriptableObject.defineClass(scope, MartusDetailsField.class);
+		ScriptableObject.defineClass(scope, MartusSummaryField.class);
+		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
+		ScriptableObject.defineClass(scope, MartusLocationField.class);
+		ScriptableObject.defineClass(scope, MartusKeywordsField.class);
+		ScriptableObject.defineClass(scope, MartusDateOfEventField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredAuthorField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredDateCreatedField.class);
+		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
 		script.exec(cs, scope);
 	}
 
@@ -210,30 +228,6 @@ public class ImportCSV
 		return fieldSpecs;
 	}
 
-	private void setupScope(ScriptableObject scope) throws IllegalAccessException, InstantiationException, InvocationTargetException
-	{
-		ScriptableObject.defineClass(scope, StringField.class);
-		ScriptableObject.defineClass(scope, MultilineField.class);
-		ScriptableObject.defineClass(scope, SingleDateField.class);
-		ScriptableObject.defineClass(scope, DateRangeField.class);
-		ScriptableObject.defineClass(scope, DropDownField.class);
-		ScriptableObject.defineClass(scope, BooleanField.class);
-		ScriptableObject.defineClass(scope, MessageField.class);
-		ScriptableObject.defineClass(scope, GridField.class);
-		ScriptableObject.defineClass(scope, MartusDetailsField.class);
-		ScriptableObject.defineClass(scope, MartusSummaryField.class);
-		ScriptableObject.defineClass(scope, MartusOrganizationField.class);
-		ScriptableObject.defineClass(scope, MartusLocationField.class);
-		ScriptableObject.defineClass(scope, MartusKeywordsField.class);
-		ScriptableObject.defineClass(scope, MartusDateOfEventField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredLanguageField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredAuthorField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredDateCreatedField.class);
-		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
-	}
-	
-	
 	private static final String MARTUS_BULLETINS = "MartusBulletins";
 	private static final String MARTUS_BULLETIN = "MartusBulletin";
 	private static final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";

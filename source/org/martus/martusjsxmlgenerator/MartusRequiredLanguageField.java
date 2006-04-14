@@ -31,12 +31,18 @@ public class MartusRequiredLanguageField extends MartusField
 	{
 		super();
 	}
+
 	public MartusRequiredLanguageField(Object valueToUse)
 	{
 		super("language", "", valueToUse);
 		requiredFieldLanguage = true;
 	}
 	
+	public boolean isMartusDefaultField()
+	{
+		return true;
+	}
+
 	public String getType()
 	{
 		return LANGUAGE_TYPE;
