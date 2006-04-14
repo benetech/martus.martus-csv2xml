@@ -78,7 +78,7 @@ new MessageField("MessageProfession", "Profession History Table Note",
 	}
 ),
 
-new GridField("GridTag", "Grid Lable", "griddata.csv", "id", [
+new GridField("GridTag", "Grid Lable", "$$$griddata.csv", "\|", "id",[
 	new StringField("FirstGridNameTag", "First Name", "firstname"),
 	new StringField("LastGridNameTag", "Last Name", "lastname")
 ])

@@ -49,6 +49,9 @@ public class TestImportCSV extends TestCaseEnhanced
 		copyResourceFileToLocalFile(testJSFile, "test.js");
 		testCSVFile = createTempFileFromName("$$$MARTUS_CSV_TestFile");
 		copyResourceFileToLocalFile(testCSVFile, "test.csv");
+		testGridCSVFile = new File("$$$griddata.csv");
+		testGridCSVFile.deleteOnExit();
+		copyResourceFileToLocalFile(testGridCSVFile, "griddata.csv");
 		importer = new ImportCSV(testJSFile, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
 		importer.getXmlFile().deleteOnExit();
 		cs = Context.enter();
@@ -61,6 +64,8 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertFalse(testJSFile.exists());
 		testCSVFile.delete();
 		assertFalse(testCSVFile.exists());
+		testGridCSVFile.delete();
+		assertFalse(testGridCSVFile.exists());
 		importer.getXmlFile().delete();
 		assertFalse(importer.getXmlFile().exists());
 		Context.exit();
@@ -408,6 +413,7 @@ public class TestImportCSV extends TestCaseEnhanced
 	
 	File testJSFile;	
 	File testCSVFile;
+	File testGridCSVFile;
 	ImportCSV importer;
 	Context cs;	
 	

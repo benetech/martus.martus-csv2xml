@@ -25,8 +25,10 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Function;
+import java.io.File;
+import java.io.IOException;
+import org.martus.util.UnicodeReader;
+import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 
 public class GridField extends MartusField
@@ -36,12 +38,46 @@ public class GridField extends MartusField
 		super();
 	}
 	
-	public GridField(String tagToUse, String labelToUse, Object gridDataFileStringToUse, Object keyIdToUse, Object listOfColumns)
+	public GridField(String tagToUse, String labelToUse, String gridDataFileStringToUse, String columnDelimeterToUse, String keyIdToUse, Object listOfColumnsToUse) throws IOException
 	{
 		super(tagToUse, labelToUse, null);
-		//TODO: we need to set the Value in the super class
-		gridDataFileString = gridDataFileStringToUse;
 		keyId = keyIdToUse;
+		columnDelimeter = columnDelimeterToUse;
+		gridDataFile = new File(gridDataFileStringToUse);
+		if(columnDelimeter.equals("|"))
+			columnDelimeter = "\\|";
+		gridColumns = (NativeArray)listOfColumnsToUse;
+	}
+
+	private void readHeader() throws IOException
+	{
+		header = parseRow();
+		keyIdIndex = -1;
+		for(int i = 0; i < header.length; ++i)
+		{
+			if(header[i].equals(keyId))
+			{
+				keyIdIndex = i;
+				break;
+			}
+		}
+	}
+
+	private void fetchNextRow() throws IOException
+	{
+		currentRow = parseRow();
+		currentKeyId = currentRow[keyIdIndex];
+	}
+	
+	private String[] parseRow() throws IOException
+	{
+		String row = reader.readLine();
+		if(row == null)
+		{
+			reader.close();
+			return null;
+		}
+		return row.split(columnDelimeter);
 	}
 
 	public String getType() 
@@ -49,14 +85,6 @@ public class GridField extends MartusField
 		return GRID_TYPE;
 	}
 	
-	
-
-	public Object getValue()
-	{
-		// TODO FIX THIS
-		return keyId;
-	}
-
 	//Actual Name called by the JavaScript
 	public String getClassName() 
 	{
@@ -65,128 +93,43 @@ public class GridField extends MartusField
 	
 	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception
 	{
-		return "";
+		StringBuffer gridSpecs = new StringBuffer();
+		for(int i = 0; i < gridColumns.getLength(); ++i)
+		{
+			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
+			gridSpecs.append(field.getFieldSpec(scriptable));
+		}
+		return gridSpecs.toString();
 	}
 	
 	public String getMartusValue( Scriptable scriptable ) throws Exception 
 	{
-		return super.getMartusValue(scriptable);
+		String bulletinKey = (String)scriptable.get(keyId, scriptable);
+		if(bulletinKey == null)
+			return "";
+
+		reader = new UnicodeReader(gridDataFile);
+		readHeader();
+		fetchNextRow();
+		StringBuffer gridData = new StringBuffer();
+//		while(currentRow != null && bulletinKey.equals(currentKeyId))
+		{
+			//may need to create new scriptable object
+			//if obj / function checking....
+		}
+		reader.close();
+		return "";
 	}
-	
 
-	class GridValueFunction implements Function
-	{
-
-		public Object call(Context arg0, Scriptable arg1, Scriptable arg2, Object[] arg3)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public Scriptable construct(Context arg0, Scriptable arg1, Object[] arg2)
-		{
-			throw new UnsupportedOperationException();
-		}
-
-		public String getClassName()
-		{
-			return "GridValueFunction";
-		}
-
-		public Object get(String arg0, Scriptable arg1)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public Object get(int arg0, Scriptable arg1)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public boolean has(String arg0, Scriptable arg1)
-		{
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		public boolean has(int arg0, Scriptable arg1)
-		{
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		public void put(String arg0, Scriptable arg1, Object arg2)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void put(int arg0, Scriptable arg1, Object arg2)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void delete(String arg0)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void delete(int arg0)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public Scriptable getPrototype()
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public void setPrototype(Scriptable arg0)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public Scriptable getParentScope()
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public void setParentScope(Scriptable arg0)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		public Object[] getIds()
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public Object getDefaultValue(Class arg0)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public boolean hasInstance(Scriptable arg0)
-		{
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-	}
-	
-	Object gridDataFileString;
-	Object keyId; 
+	String currentKeyId;
+	String[] currentRow;
+	String columnDelimeter;
+	String keyId;
+	int keyIdIndex;
+	String[] header;
+	File gridDataFile;
+	NativeArray gridColumns;
+	UnicodeReader reader;
 }
 
 
