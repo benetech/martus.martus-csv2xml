@@ -126,26 +126,22 @@ public class GridField extends MartusField
 			return "";
 		localScope.setParentScope(scriptable);
 		StringBuffer gridData = new StringBuffer();
+		gridData.append(getStartTagNewLine(GRID_DATA));
 		while(currentRow != null && bulletinKey.equals(currentKeyId))
 		{
+			gridData.append(getStartTagNewLine(GRID_ROW));
 			populateGridFields(scriptable);
 			for(int i = 0; i < gridColumns.getLength(); ++i)
 			{
 				MartusField field = ((MartusField)gridColumns.get(i, gridColumns));
-				
-				gridData.append(field.getXmlFieldValue(scriptable));
+				gridData.append(getStartTag(GRID_COLUMN));
+				gridData.append(field.getMartusValue(scriptable));
+				gridData.append(getEndTag(GRID_COLUMN));
 			}
-			/*
-<GridData>
-<Row>
-<Column>Bob Grid</Column>
-<Column>Doe 3</Column>
-</Row>
-</GridData>
-
-			 */
+			gridData.append(getEndTag(GRID_ROW));
 			fetchNextRow();
 		}
+		gridData.append(getEndTag(GRID_DATA));
 		return gridData.toString();
 	}
 	

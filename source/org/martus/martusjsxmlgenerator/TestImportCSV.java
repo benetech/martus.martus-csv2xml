@@ -568,7 +568,19 @@ public class TestImportCSV extends TestCaseEnhanced
 		"</Field>\n\n" +
 		"<Field tag='MessageProfession'>\n" +
 		"</Field>\n\n" +
-
+		"<Field tag='GridTag'>\n" +
+		"<Value><GridData>\n" +
+		"<Row>\n" +
+		"<Column>John Grid</Column>\n" +
+		"<Column>Doe</Column>\n" +
+		"</Row>\n" +
+		"<Row>\n" +
+		"<Column>Jane Grid</Column>\n" +
+		"<Column>Doe 2</Column>\n" +
+		"</Row>\n" +
+		"</GridData>\n" +
+		"</Value>\n" +
+		"</Field>\n\n" +
 		"</FieldValues>\n"+
 		"</MartusBulletin>\n\n";
 

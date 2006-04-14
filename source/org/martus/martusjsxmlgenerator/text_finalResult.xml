@@ -154,8 +154,7 @@
 </Field>
 
 <Field tag='GridTag'>
-<Value>
-<GridData>
+<Value><GridData>
 <Row>
 <Column>John Grid</Column>
 <Column>Doe</Column>
@@ -326,8 +325,7 @@
 </Field>
 
 <Field tag='GridTag'>
-<Value>
-<GridData>
+<Value><GridData>
 <Row>
 <Column>Bob Grid</Column>
 <Column>Doe 3</Column>
