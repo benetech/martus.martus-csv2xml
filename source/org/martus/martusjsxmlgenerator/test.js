@@ -89,6 +89,7 @@ new GridField("GridTag", "Grid Lable", "$$$griddata.csv", "\|", "id",[
 		}
 		, "yyyyMMdd"),
 	new DropDownField("Grid_DD_tag", "Color Used", "color", ["red","yellow","blue"]),
+	new BooleanField("grid_bool_tag", "Occurred at Night?", "night")
 	
 ])
 

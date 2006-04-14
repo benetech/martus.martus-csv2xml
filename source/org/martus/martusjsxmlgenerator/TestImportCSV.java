@@ -420,6 +420,28 @@ public class TestImportCSV extends TestCaseEnhanced
 		}
 	}
 	
+	public void testGridMultiLines() throws Exception
+	{
+		File testGridMultiLines = createTempFileFromName("$$$MARTUS_MULTILINE_GRID");
+		copyResourceFileToLocalFile(testGridMultiLines, "multilineInsideGrid.js");
+		ImportCSV importer2 = null;
+		try 
+		{
+			importer2 = new ImportCSV(testGridMultiLines, testCSVFile, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+			importer2.getXmlFile().deleteOnExit();
+			importer2.doImport();
+			fail("Should have thrown exception for having a multiLine inside a grid");
+		} 
+		catch (Exception expected) 
+		{
+			assertContains("MartusGridContainsMultiline field.", expected.getMessage());
+		}
+		finally
+		{
+			importer2.getXmlFile().delete();
+		}
+	}
+
 	File testJSFile;	
 	File testCSVFile;
 	File testGridCSVFile;
@@ -531,6 +553,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Choice>blue</Choice>\n"+
 		"</Choices>\n"+
 		"</Column>\n"+
+		"<Column type='BOOLEAN'>\n"+
+		"<Tag></Tag>\n"+
+		"<Label>Occurred at Night?</Label>\n"+
+		"</Column>\n"+
 		"</GridSpecDetails>\n"+
 		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
@@ -592,6 +618,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Column>Simple:2000-11-01</Column>\n" +
 		"<Column>Range:2002-01-01,2003-01-06</Column>\n" +
 		"<Column>red</Column>\n" +
+		"<Column>1</Column>\n" +
 		"</Row>\n" +
 		"<Row>\n" +
 		"<Column>Jane Grid</Column>\n" +
@@ -599,6 +626,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Column>Simple:2001-12-03</Column>\n" +
 		"<Column>Range:2002-01-02,2003-01-08</Column>\n" +
 		"<Column>blue</Column>\n" +
+		"<Column>0</Column>\n" +
 		"</Row>\n" +
 		"</GridData>\n" +
 		"</Value>\n" +

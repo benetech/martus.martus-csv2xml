@@ -110,7 +110,9 @@ public class GridField extends MartusField
 		for(int i = 0; i < gridColumns.getLength(); ++i)
 		{
 			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
-			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
+			String columnType = field.getType();
+			verifyColumnTypeAllowedInsideGrid(columnType);
+			gridSpecs.append(getColumnTypeStartTag(columnType));			
 			gridSpecs.append(getXMLData(TAG, ""));
 			gridSpecs.append(getXMLData(LABEL, field.getLabel()));
 			gridSpecs.append(field.getFieldSpecSpecificXmlData(scriptable));
@@ -118,6 +120,12 @@ public class GridField extends MartusField
 		}
 		gridSpecs.append(getEndTag(GRID_SPEC_DETAILS));
 		return gridSpecs.toString();
+	}
+	
+	private void verifyColumnTypeAllowedInsideGrid(String type) throws Exception
+	{
+		if (type.equals(MULTILINE_TYPE))
+			throw new Exception("MartusGridContainsMultiline field.");
 	}
 	
 	public String getMartusValue( Scriptable scriptable ) throws Exception 
