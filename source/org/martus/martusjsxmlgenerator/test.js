@@ -80,7 +80,16 @@ new MessageField("MessageProfession", "Profession History Table Note",
 
 new GridField("GridTag", "Grid Lable", "$$$griddata.csv", "\|", "id",[
 	new StringField("FirstGridNameTag", "First Name", "firstname"),
-	new StringField("LastGridNameTag", "Last Name", "lastname")
+	new StringField("LastGridNameTag", "Last Name", "lastname"),
+	new SingleDateField("SimpleDateGridTag", "Date of Birth", function(){ return date_of_Birth;}, "MMddyyyy"),
+	new DateRangeField("DateRangeGridTag",	"Occured",
+		function ()
+		{
+			return start_date + DATE_RANGE_DELIMETER + end_date;
+		}
+		, "yyyyMMdd"),
+	new DropDownField("Grid_DD_tag", "Color Used", "color", ["red","yellow","blue"]),
+	
 ])
 
 ]

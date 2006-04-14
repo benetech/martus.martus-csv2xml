@@ -113,6 +113,7 @@ public class GridField extends MartusField
 			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
 			gridSpecs.append(getXMLData(TAG, ""));
 			gridSpecs.append(getXMLData(LABEL, field.getLabel()));
+			gridSpecs.append(field.getFieldSpecSpecificXmlData(scriptable));
 			gridSpecs.append(getEndTag(GRID_COLUMN));
 		}
 		gridSpecs.append(getEndTag(GRID_SPEC_DETAILS));

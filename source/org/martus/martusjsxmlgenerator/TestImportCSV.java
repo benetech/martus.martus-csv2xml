@@ -515,6 +515,22 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag></Tag>\n"+
 		"<Label>Last Name</Label>\n"+
 		"</Column>\n"+
+		"<Column type='DATE'>\n"+
+		"<Tag></Tag>\n"+
+		"<Label>Date of Birth</Label>\n"+
+		"</Column>\n"+
+		"<Column type='DATERANGE'>\n"+
+		"<Tag></Tag>\n"+
+		"<Label>Occured</Label>\n"+
+		"</Column>\n"+
+		"<Column type='DROPDOWN'>\n"+
+		"<Tag></Tag>\n"+
+		"<Label>Color Used</Label>\n"+
+		"<Choices><Choice>red</Choice>\n"+
+		"<Choice>yellow</Choice>\n"+
+		"<Choice>blue</Choice>\n"+
+		"</Choices>\n"+
+		"</Column>\n"+
 		"</GridSpecDetails>\n"+
 		"</Field>\n"+
 		"</MainFieldSpecs>\n\n";
@@ -573,10 +589,16 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Row>\n" +
 		"<Column>John Grid</Column>\n" +
 		"<Column>Doe</Column>\n" +
+		"<Column>Simple:2000-11-01</Column>\n" +
+		"<Column>Range:2002-01-01,2003-01-06</Column>\n" +
+		"<Column>red</Column>\n" +
 		"</Row>\n" +
 		"<Row>\n" +
 		"<Column>Jane Grid</Column>\n" +
 		"<Column>Doe 2</Column>\n" +
+		"<Column>Simple:2001-12-03</Column>\n" +
+		"<Column>Range:2002-01-02,2003-01-08</Column>\n" +
+		"<Column>blue</Column>\n" +
 		"</Row>\n" +
 		"</GridData>\n" +
 		"</Value>\n" +
