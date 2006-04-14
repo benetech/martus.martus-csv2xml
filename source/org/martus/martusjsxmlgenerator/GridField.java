@@ -27,7 +27,9 @@ package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import org.martus.util.UnicodeReader;
+import org.mozilla.javascript.Context;
 import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 
@@ -47,6 +49,10 @@ public class GridField extends MartusField
 		if(columnDelimeter.equals("|"))
 			columnDelimeter = "\\|";
 		gridColumns = (NativeArray)listOfColumnsToUse;
+		localScope = Context.getCurrentContext().initStandardObjects();
+		reader = new UnicodeReader(gridDataFile);
+		readHeader();
+		fetchNextRow();
 	}
 
 	private void readHeader() throws IOException
@@ -66,17 +72,23 @@ public class GridField extends MartusField
 	private void fetchNextRow() throws IOException
 	{
 		currentRow = parseRow();
-		currentKeyId = currentRow[keyIdIndex];
+		if(currentRow == null)
+			currentKeyId = null;
+		else
+			currentKeyId = currentRow[keyIdIndex];
 	}
 	
 	private String[] parseRow() throws IOException
 	{
-		String row = reader.readLine();
-		if(row == null)
+		String row;
+		do
 		{
-			reader.close();
+			row = reader.readLine();
+		}while (row != null && row.trim().length() == 0);
+
+		if(row == null)
 			return null;
-		}
+		
 		return row.split(columnDelimeter);
 	}
 
@@ -94,11 +106,16 @@ public class GridField extends MartusField
 	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception
 	{
 		StringBuffer gridSpecs = new StringBuffer();
+		gridSpecs.append(getStartTagNewLine(GRID_SPEC_DETAILS));
 		for(int i = 0; i < gridColumns.getLength(); ++i)
 		{
 			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
-			gridSpecs.append(field.getFieldSpec(scriptable));
+			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
+			gridSpecs.append(getXMLData(TAG, ""));
+			gridSpecs.append(getXMLData(LABEL, field.getLabel()));
+			gridSpecs.append(getEndTag(GRID_COLUMN));
 		}
+		gridSpecs.append(getEndTag(GRID_SPEC_DETAILS));
 		return gridSpecs.toString();
 	}
 	
@@ -107,19 +124,57 @@ public class GridField extends MartusField
 		String bulletinKey = (String)scriptable.get(keyId, scriptable);
 		if(bulletinKey == null)
 			return "";
-
-		reader = new UnicodeReader(gridDataFile);
-		readHeader();
-		fetchNextRow();
+		localScope.setParentScope(scriptable);
 		StringBuffer gridData = new StringBuffer();
-//		while(currentRow != null && bulletinKey.equals(currentKeyId))
+		while(currentRow != null && bulletinKey.equals(currentKeyId))
 		{
-			//may need to create new scriptable object
-			//if obj / function checking....
+			populateGridFields(scriptable);
+			for(int i = 0; i < gridColumns.getLength(); ++i)
+			{
+				MartusField field = ((MartusField)gridColumns.get(i, gridColumns));
+				
+				gridData.append(field.getXmlFieldValue(scriptable));
+			}
+			/*
+<GridData>
+<Row>
+<Column>Bob Grid</Column>
+<Column>Doe 3</Column>
+</Row>
+</GridData>
+
+			 */
+			fetchNextRow();
 		}
-		reader.close();
-		return "";
+		return gridData.toString();
 	}
+	
+	public void populateGridFields(Scriptable scope) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
+	{
+		if(currentRow.length != header.length)
+		{
+			String errorMessage ="Number of Data Fields did not match Header Fields\n" +
+					"Expected column count =" + header.length + " but was :" + currentRow.length +"\n" +
+					"Row Data = " + currentRow;
+			throw new Exception(errorMessage);
+		}
+		
+		for(int i = 0; i < currentRow.length; ++i)
+		{
+			scope.put(header[i], scope,currentRow[i]);
+		}
+	}
+	
+	public String getColumnTypeStartTag(String type)
+	{
+		return getStartTagNewLine(GRID_COLUMN +" type='"+type+"'");
+	}	
+
+	static public final String GRID_SPEC_DETAILS = "GridSpecDetails";
+	static public final String GRID_DATA = "GridData";
+	static public final String GRID_COLUMN = "Column";
+	static public final String GRID_ROW = "Row";
+	
 
 	String currentKeyId;
 	String[] currentRow;
@@ -130,6 +185,7 @@ public class GridField extends MartusField
 	File gridDataFile;
 	NativeArray gridColumns;
 	UnicodeReader reader;
+	Scriptable localScope;
 }
 
 

@@ -107,7 +107,9 @@ public class ImportCSV
 			String dataRow = null;
 			csvReader = new UnicodeReader(bulletinCsvFile);
 			csvReader.readLine(); //skip past header;
-			while((dataRow = csvReader.readLine()) != null)
+			setupScopeAndExecuteScript(cs, script, scope);
+
+			while((dataRow = readRow(csvReader)) != null)
 			{
 				Scriptable bulletinData = getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
 				writeBulletinFieldSpecs(writer, scope, bulletinData);
@@ -115,6 +117,7 @@ public class ImportCSV
 			}
 			
 			closeMartusXML(writer);
+			//TODO: call cleanup all all MartusFields from columns.
 		}
 		finally
 		{
@@ -126,6 +129,22 @@ public class ImportCSV
 			if(csvReader != null)
 				csvReader.close();
 		}
+	}
+	
+	private String readRow(UnicodeReader reader) throws IOException
+	{
+		String row;
+		do
+		{
+			row = reader.readLine();
+		}while (row != null && row.trim().length() == 0);
+		return row;
+	}
+
+	public void setupScopeAndExecuteScript(Context cs, Script script, ScriptableObject scope) throws IllegalAccessException, InstantiationException, InvocationTargetException
+	{
+		setupScope(scope);
+		script.exec(cs, scope);
 	}
 
 	private UnicodeWriter openMartusXML() throws IOException
@@ -185,6 +204,14 @@ public class ImportCSV
 			scope.put(headerLabels[i], scope,rowContents[i]);
 		}
 
+		MartusField.verifyRequiredFields();
+		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+		
+		return fieldSpecs;
+	}
+
+	private void setupScope(ScriptableObject scope) throws IllegalAccessException, InstantiationException, InvocationTargetException
+	{
 		ScriptableObject.defineClass(scope, StringField.class);
 		ScriptableObject.defineClass(scope, MultilineField.class);
 		ScriptableObject.defineClass(scope, SingleDateField.class);
@@ -204,12 +231,6 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredDateCreatedField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
-		script.exec(cs, scope);
-		
-		MartusField.verifyRequiredFields();
-		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
-		
-		return fieldSpecs;
 	}
 	
 	

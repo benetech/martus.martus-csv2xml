@@ -66,6 +66,20 @@
 <Label>Profession History Table Note</Label>
 <Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
 </Field>
+<Field type='GRID'>
+<Tag>GridTag</Tag>
+<Label>Grid Lable</Label>
+<GridSpecDetails>
+<Column type='STRING'>
+<Tag></Tag>
+<Label>First Name</Label>
+</Column>
+<Column type='STRING'>
+<Tag></Tag>
+<Label>Last Name</Label>
+</Column>
+</GridSpecDetails>
+</Field>
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
@@ -139,6 +153,21 @@
 <Field tag='MessageProfession'>
 </Field>
 
+<Field tag='GridTag'>
+<Value>
+<GridData>
+<Row>
+<Column>John Grid</Column>
+<Column>Doe</Column>
+</Row>
+<Row>
+<Column>Jane Grid</Column>
+<Column>Doe 2</Column>
+</Row>
+</GridData>
+</Value>
+</Field>
+
 </FieldValues>
 </MartusBulletin>
 
@@ -208,6 +237,20 @@
 <Tag>MessageProfession</Tag>
 <Label>Profession History Table Note</Label>
 <Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
+</Field>
+<Field type='GRID'>
+<Tag>GridTag</Tag>
+<Label>Grid Lable</Label>
+<GridSpecDetails>
+<Column type='STRING'>
+<Tag></Tag>
+<Label>First Name</Label>
+</Column>
+<Column type='STRING'>
+<Tag></Tag>
+<Label>Last Name</Label>
+</Column>
+</GridSpecDetails>
 </Field>
 </MainFieldSpecs>
 
@@ -280,6 +323,17 @@
 </Field>
 
 <Field tag='MessageProfession'>
+</Field>
+
+<Field tag='GridTag'>
+<Value>
+<GridData>
+<Row>
+<Column>Bob Grid</Column>
+<Column>Doe 3</Column>
+</Row>
+</GridData>
+</Value>
 </Field>
 
 </FieldValues>
