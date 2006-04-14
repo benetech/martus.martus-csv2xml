@@ -45,14 +45,26 @@ public class GridField extends MartusField
 		super(tagToUse, labelToUse, null);
 		keyId = keyIdToUse;
 		columnDelimeter = columnDelimeterToUse;
-		gridDataFile = new File(gridDataFileStringToUse);
 		if(columnDelimeter.equals("|"))
 			columnDelimeter = "\\|";
 		gridColumns = (NativeArray)listOfColumnsToUse;
 		localScope = Context.getCurrentContext().initStandardObjects();
+		File gridDataFile = new File(gridDataFileStringToUse);
 		reader = new UnicodeReader(gridDataFile);
 		readHeader();
 		fetchNextRow();
+	}
+	
+	public void cleanup()
+	{
+		try
+		{
+			reader.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void readHeader() throws IOException
@@ -129,7 +141,10 @@ public class GridField extends MartusField
 		if (type.equals(MESSAGE_TYPE))
 			throw new Exception("Martus Grid Contains Message Field.");
 		if (type.equals(GRID_TYPE))
+		{
+			field.cleanup();
 			throw new Exception("Martus Grid Contains Another Grid.");
+		}
 		if (field.isMartusDefaultField())
 			throw new Exception("Martus Grid Contains a Martus Default Field.");
 			
@@ -194,7 +209,6 @@ public class GridField extends MartusField
 	String keyId;
 	int keyIdIndex;
 	String[] header;
-	File gridDataFile;
 	NativeArray gridColumns;
 	UnicodeReader reader;
 	Scriptable localScope;

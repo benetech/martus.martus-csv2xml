@@ -65,7 +65,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		testCSVFile.delete();
 		assertFalse(testCSVFile.exists());
 		testGridCSVFile.delete();
-		//assertFalse(testGridCSVFile.exists());
+		assertFalse(testGridCSVFile.exists());
 		importer.getXmlFile().delete();
 		assertFalse(importer.getXmlFile().exists());
 		Context.exit();
@@ -141,6 +141,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		
 		MartusField field1 = (MartusField)fieldSpecs.get(0, scope);
@@ -171,6 +172,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		
 		MartusField dateField = (MartusField)fieldSpecs.get(5, scope);
@@ -197,6 +199,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		martusDateFormatJS.delete();
 		
@@ -221,6 +224,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		
 		MartusField dateRangeField = (MartusField)fieldSpecs.get(11, scope);
@@ -255,6 +259,7 @@ public class TestImportCSV extends TestCaseEnhanced
 			writer.close();
 			out.close();
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 	}
 	
@@ -283,6 +288,7 @@ public class TestImportCSV extends TestCaseEnhanced
 			writer.close();
 			out.close();
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 	}
 
@@ -303,6 +309,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		finally
 		{
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		
 		assertEquals("STRING",((MartusField)fieldSpecs.get(0, scope)).getType());
@@ -341,6 +348,7 @@ public class TestImportCSV extends TestCaseEnhanced
 			writer.close();
 			out.close();
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		assertEquals(MARTUS_PUBLIC_FIELD_SPEC + PRIVATE_FIELD_SPEC, out.toString());
 		
@@ -366,6 +374,7 @@ public class TestImportCSV extends TestCaseEnhanced
 			writer.close();
 			out.close();
 			readerJSConfigurationFile.close();
+			importer.cleanup(scope);
 		}
 		assertEquals(MARTUS_XML_VALUES, out.toString());
 	}

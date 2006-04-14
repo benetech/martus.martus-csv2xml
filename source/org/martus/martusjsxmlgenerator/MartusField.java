@@ -182,6 +182,11 @@ abstract public class MartusField extends ScriptableObject
 		return false;
 	}
 	
+	public void cleanup()
+	{
+	}
+	
+	
 	static public void clearRequiredFields()
 	{
 		requiredFieldLanguage = false;

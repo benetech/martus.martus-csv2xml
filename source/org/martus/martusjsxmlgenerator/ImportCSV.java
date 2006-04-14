@@ -96,11 +96,12 @@ public class ImportCSV
 		UnicodeReader readerJSConfigurationFile = null;
 		UnicodeWriter writer = null;
 		UnicodeReader csvReader = null;
+		ScriptableObject scope = null;
 		try
 		{
 			readerJSConfigurationFile = new UnicodeReader(configurationFile);
 			Script script = cs.compileReader(readerJSConfigurationFile, configurationFile.getName(), 1, null);
-			ScriptableObject scope = cs.initStandardObjects();
+			scope = cs.initStandardObjects();
 			
 			writer = openMartusXML();
 			
@@ -115,9 +116,7 @@ public class ImportCSV
 				writeBulletinFieldSpecs(writer, scope, bulletinData);
 				writeBulletinFieldData(writer, scope, bulletinData);
 			}
-			
 			closeMartusXML(writer);
-			//TODO: call cleanup all all MartusFields from columns.
 		}
 		finally
 		{
@@ -128,6 +127,18 @@ public class ImportCSV
 				writer.close();
 			if(csvReader != null)
 				csvReader.close();
+			if(scope != null)
+				cleanup(scope);
+		}
+	}
+
+	public void cleanup(ScriptableObject scope) throws IOException
+	{
+		Scriptable fieldSpecs = (Scriptable)scope.get("MartusFieldSpecs", scope);
+		for(int i = 0; i < fieldSpecs.getIds().length; ++i)
+		{
+			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+			fieldSpec.cleanup();
 		}
 	}
 	
