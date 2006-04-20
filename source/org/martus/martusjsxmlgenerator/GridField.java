@@ -45,6 +45,7 @@ public class GridField extends MartusField
 		super(tagToUse, labelToUse, null);
 		keyId = keyIdToUse;
 		columnDelimeter = columnDelimeterToUse;
+		gridDataFileName = gridDataFileStringToUse;
 		if(columnDelimeter.equals("|"))
 			columnDelimeter = "\\|";
 		gridColumns = (NativeArray)listOfColumnsToUse;
@@ -92,16 +93,15 @@ public class GridField extends MartusField
 	
 	private String[] parseRow() throws IOException
 	{
-		String row;
 		do
 		{
-			row = reader.readLine();
-		}while (row != null && row.trim().length() == 0);
+			currentRowNotSplit = reader.readLine();
+		}while (currentRowNotSplit != null && currentRowNotSplit.trim().length() == 0);
 
-		if(row == null)
+		if(currentRowNotSplit == null)
 			return null;
 		
-		return row.split(columnDelimeter);
+		return currentRowNotSplit.split(columnDelimeter);
 	}
 
 	public String getType() 
@@ -180,9 +180,10 @@ public class GridField extends MartusField
 	{
 		if(currentRow.length != header.length)
 		{
-			String errorMessage ="Number of Data Fields did not match Header Fields\n" +
-					"Expected column count =" + header.length + " but was :" + currentRow.length +"\n" +
-					"Row Data = " + currentRow;
+			String errorMessage ="Number of Grid Data Fields did not match Header Fields\n" +
+					"Expected column count =" + header.length + " but was " + currentRow.length +"\n" +
+					"Grid File name ="+ gridDataFileName +"\n" +
+					"Row Data = "+ currentRowNotSplit;
 			throw new Exception(errorMessage);
 		}
 		
@@ -204,8 +205,10 @@ public class GridField extends MartusField
 	
 
 	String currentKeyId;
+	String currentRowNotSplit;
 	String[] currentRow;
 	String columnDelimeter;
+	String gridDataFileName;
 	String keyId;
 	int keyIdIndex;
 	String[] header;
