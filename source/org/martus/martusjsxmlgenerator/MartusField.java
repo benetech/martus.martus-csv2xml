@@ -239,4 +239,7 @@ abstract public class MartusField extends ScriptableObject
 	static public final String BOOLEAN_TYPE = "BOOLEAN";
 	static public final String MESSAGE_TYPE = "MESSAGE";
 	static public final String GRID_TYPE = "GRID";
+	static public final String ATTACHMENT_TYPE = "ATTACHMENT";
+	static public final String ATTACHMENT_SECTION_TOP = "TOP SECTION";
+	static public final String ATTACHMENT_SECTION_BOTTOM = "BOTTOM SECTION";
 }

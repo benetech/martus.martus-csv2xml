@@ -516,6 +516,46 @@ public class TestImportCSV extends TestCaseEnhanced
 			importer2.getXmlFile().delete();
 		}
 	}
+
+	public void testImportBulletinsWithAttachments()throws Exception
+	{
+		File testExpectedXMLFile = createTempFileFromName("$$$MARTUS_JS_testImportBulletinsWithAttachments_EXPECTED");
+		copyResourceFileToLocalFile(testExpectedXMLFile, "text_finalResultWithAttachments.xml");
+		File testJSFileWithAttachments = createTempFileFromName("$$$MARTUS_JS_TestFile_With_Attachments");
+		copyResourceFileToLocalFile(testJSFileWithAttachments, "testWithAttachments.js");
+		File testCSVFileWithAttachments = createTempFileFromName("$$$MARTUS_CSV_TestFile_With_Attachments");
+		copyResourceFileToLocalFile(testCSVFileWithAttachments, "testWithAttachments.csv");
+		ImportCSV importerWithAttachments = new ImportCSV(testJSFileWithAttachments, testCSVFileWithAttachments, CSV_VERTICAL_BAR_REGEX_DELIMITER);
+		importerWithAttachments.getXmlFile().deleteOnExit();
+		cs = Context.enter();
+
+		
+		File xmlFile = importerWithAttachments.getXmlFile();
+		try 
+		{
+			importerWithAttachments.doImport();
+			UnicodeReader reader = new UnicodeReader(xmlFile);
+			String data = reader.readAll();
+			reader.close();
+			
+			UnicodeReader reader2 = new UnicodeReader(testExpectedXMLFile);
+			String expectedData = reader2.readAll();
+			reader2.close();
+			
+			assertEquals(expectedData,data);
+		} 
+		finally
+		{
+			testExpectedXMLFile.delete();
+			testJSFileWithAttachments.delete();
+			assertFalse(testJSFileWithAttachments.exists());
+			testCSVFileWithAttachments.delete();
+			assertFalse(testCSVFileWithAttachments.exists());
+			importerWithAttachments.getXmlFile().delete();
+			assertFalse(importerWithAttachments.getXmlFile().exists());
+		}
+	}
+	
 	
 	File testJSFile;	
 	File testCSVFile;

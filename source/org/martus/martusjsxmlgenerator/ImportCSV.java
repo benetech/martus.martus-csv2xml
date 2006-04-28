@@ -173,6 +173,9 @@ public class ImportCSV
 		ScriptableObject.defineClass(scope, MartusRequiredTitleField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredDateCreatedField.class);
 		ScriptableObject.defineClass(scope, MartusRequiredPrivateField.class);
+		ScriptableObject.defineClass(scope, MartusTopSectionAttachments.class);
+		ScriptableObject.defineClass(scope, MartusBottomSectionAttachments.class);
+		
 		script.exec(cs, scope);
 	}
 
@@ -219,7 +222,7 @@ public class ImportCSV
 
 	public Scriptable getFieldScriptableSpecsAndBulletinData(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
 	{
-		String[] rowContents = dataRow.split(csvDelimeter);
+		String[] rowContents = dataRow.split(csvDelimeter, INCLUDE_BLANK_TRAILING_COLUMNS);
 		if(rowContents.length != headerLabels.length)
 		{
 			String errorMessage ="Number of Data Fields did not match Header Fields\n" +
@@ -239,6 +242,7 @@ public class ImportCSV
 		return fieldSpecs;
 	}
 
+	private static final int INCLUDE_BLANK_TRAILING_COLUMNS = -1;
 	private static final String MARTUS_BULLETINS = "MartusBulletins";
 	private static final String MARTUS_BULLETIN = "MartusBulletin";
 	private static final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";
