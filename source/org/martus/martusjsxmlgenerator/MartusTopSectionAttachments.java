@@ -40,4 +40,12 @@ public class MartusTopSectionAttachments extends MartusAttachments
 	{
 		return "MartusTopSectionAttachments";
 	}
+	
+	String getAttachmentListTag()
+	{
+		return TOP_ATTACHMENT_LIST;
+	}
+	
+	private static final String TOP_ATTACHMENT_LIST="TopAttachmentList";
+
 }

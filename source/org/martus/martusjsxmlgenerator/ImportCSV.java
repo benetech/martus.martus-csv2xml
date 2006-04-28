@@ -201,6 +201,8 @@ public class ImportCSV
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			if(fieldSpec.getTag() == "privateinfo")
 				continue;//Writen after the Public Field Spec
+			if(fieldSpec.getType().equals(MartusField.ATTACHMENT_TYPE))
+				continue;//Attachments are not included in the Field Spec
 			writer.write(fieldSpec.getFieldSpec(scope));
 		}
 		writer.write(MartusField.getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));

@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
+import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Undefined;
 
 abstract public class MartusAttachments extends MartusField
@@ -43,9 +44,9 @@ abstract public class MartusAttachments extends MartusField
 		else
 			attachmentDelimeter = attachmentDelimeterToUse.toString();
 
-		attachmentDirectory = null;
+		attachmentDirectoryName = null;
 		if(Undefined.instance != attachmentDirectoryToUse)
-			attachmentDirectory = new File(attachmentDirectoryToUse.toString());
+			attachmentDirectoryName = attachmentDirectoryToUse.toString();
 	}
 	
 	public String getType()
@@ -58,8 +59,49 @@ abstract public class MartusAttachments extends MartusField
 		return attachmentSection.equals(ATTACHMENT_SECTION_TOP);
 	}
 	
+	public String getFieldData(Scriptable scriptable) throws Exception
+	{
+		String[] attachments = getAttachments(scriptable);
+		if(attachments == null)
+			return "";
+		
+		StringBuffer xmlFieldData = new StringBuffer();
+		xmlFieldData.append(getStartTagNewLine(getAttachmentListTag()));
+		for(int i = 0; i < attachments.length; ++i)
+		{
+			xmlFieldData.append(getStartTagNewLine(ATTACHMENT_TAG));
+			xmlFieldData.append(getStartTag(FILENAME_TAG));
+			xmlFieldData.append(attachments[i]);
+			xmlFieldData.append(getEndTag(FILENAME_TAG));
+			xmlFieldData.append(getEndTag(ATTACHMENT_TAG));
+		}
+		xmlFieldData.append(getEndTagWithExtraNewLine(getAttachmentListTag()));
+		return xmlFieldData.toString();
+	}
+	
+	public String[] getAttachments(Scriptable scriptable) throws Exception
+	{
+		String listOfAttachmentFileNames = getMartusValue(scriptable);
+		if(listOfAttachmentFileNames.length() == 0)
+			return null;
+		String[] filenames = listOfAttachmentFileNames.split(attachmentDelimeter);
+		String[] attachments = new String[filenames.length];
+		for(int i = 0; i < filenames.length; ++i)
+		{
+			if(attachmentDirectoryName != null)
+				attachments[i] = new File(attachmentDirectoryName, filenames[i]).getAbsolutePath();
+			else
+				attachments[i] = filenames[i];
+		}
+		return attachments;
+	}
+	
+	abstract String getAttachmentListTag();
+
+	private static final String ATTACHMENT_TAG = "Attachment";
+	private static final String FILENAME_TAG = "Filename";
 	private static final String DEFAULT_FILE_SEPARATOR = ";";
 	String attachmentDelimeter;
-	File attachmentDirectory;
+	String attachmentDirectoryName;
 	String attachmentSection;
 }

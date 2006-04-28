@@ -245,6 +245,9 @@
 <Attachment>
 <Filename>Attachment 4.txt</Filename>
 </Attachment>
+</BottomAttachmentList>
+
+<BottomAttachmentList>
 <Attachment>
 <Filename>C:\PrivateAttachments\Attachment 5.txt</Filename>
 </Attachment>

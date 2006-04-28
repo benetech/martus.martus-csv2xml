@@ -40,4 +40,11 @@ public class MartusBottomSectionAttachments extends MartusAttachments
 	{
 		return "MartusBottomSectionAttachments";
 	}
+
+	String getAttachmentListTag()
+	{
+		return BOTTOM_ATTACHMENT_LIST;
+	}
+	
+	private static final String BOTTOM_ATTACHMENT_LIST="BottomAttachmentList";
 }
