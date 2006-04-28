@@ -55,7 +55,11 @@ new MartusRequiredPrivateField(
 new MartusTopSectionAttachments("public_attachments"),
 
 new MartusBottomSectionAttachments("private_attachments", ";"),
-new MartusBottomSectionAttachments("private_attachments_2", ";","C:\PrivateAttachments")
+new MartusBottomSectionAttachments(
+	function ()
+	{
+		return private_attachments_2;
+	}, ";","C:\PrivateAttachments")
 
 ]
 
