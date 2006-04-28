@@ -34,9 +34,10 @@ abstract public class MartusAttachments extends MartusField
 	{
 	}
 	
-	public MartusAttachments(Object value, Object attachmentDelimeterToUse, Object attachmentDirectoryToUse)
+	public MartusAttachments(Object value, Object attachmentDelimeterToUse, Object attachmentDirectoryToUse, String attachmentSectionToUse)
 	{
 		super("","",value);
+		attachmentSection = attachmentSectionToUse;
 		if(Undefined.instance == attachmentDelimeterToUse)
 			attachmentDelimeter = DEFAULT_FILE_SEPARATOR;
 		else
@@ -52,7 +53,13 @@ abstract public class MartusAttachments extends MartusField
 		return ATTACHMENT_TYPE;
 	}
 	
+	public boolean isTopSection()
+	{
+		return attachmentSection.equals(ATTACHMENT_SECTION_TOP);
+	}
+	
 	private static final String DEFAULT_FILE_SEPARATOR = ";";
 	String attachmentDelimeter;
 	File attachmentDirectory;
+	String attachmentSection;
 }
