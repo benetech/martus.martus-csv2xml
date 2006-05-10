@@ -27,7 +27,7 @@ package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
 
-import org.martus.client.core.BulletinXmlExporter;
+import org.martus.client.core.BulletinXmlConstants;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Undefined;
 
@@ -71,11 +71,11 @@ abstract public class MartusAttachments extends MartusField
 		xmlFieldData.append(getStartTagNewLine(getAttachmentListTag()));
 		for(int i = 0; i < attachments.length; ++i)
 		{
-			xmlFieldData.append(getStartTagNewLine(BulletinXmlExporter.ATTACHMENT_TAG));
-			xmlFieldData.append(getStartTag(BulletinXmlExporter.FILENAME_TAG));
+			xmlFieldData.append(getStartTagNewLine(BulletinXmlConstants.ATTACHMENT_TAG));
+			xmlFieldData.append(getStartTag(BulletinXmlConstants.FILENAME_TAG));
 			xmlFieldData.append(attachments[i]);
-			xmlFieldData.append(getEndTag(BulletinXmlExporter.FILENAME_TAG));
-			xmlFieldData.append(getEndTag(BulletinXmlExporter.ATTACHMENT_TAG));
+			xmlFieldData.append(getEndTag(BulletinXmlConstants.FILENAME_TAG));
+			xmlFieldData.append(getEndTag(BulletinXmlConstants.ATTACHMENT_TAG));
 		}
 		xmlFieldData.append(getEndTagWithExtraNewLine(getAttachmentListTag()));
 		return xmlFieldData.toString();

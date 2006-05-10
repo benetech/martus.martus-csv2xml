@@ -25,7 +25,7 @@
  */
 
 package org.martus.martusjsxmlgenerator;
-import org.martus.client.core.BulletinXmlExporter;
+import org.martus.client.core.BulletinXmlConstants;
 import org.martus.client.tools.XmlBulletinLoader;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.fieldspec.FieldTypeBoolean;
@@ -235,11 +235,11 @@ abstract public class MartusField extends ScriptableObject
 	static boolean requiredFieldEntryDate;
 	static boolean requiredFieldPrivate;
 	
-	static final String TAG = BulletinXmlExporter.TAG;
-	static final String LABEL = BulletinXmlExporter.LABEL;
-	static final String VALUE = BulletinXmlExporter.VALUE;
-	static final String FIELD = BulletinXmlExporter.FIELD;
-	static final String NEW_LINE = BulletinXmlExporter.NEW_LINE;
+	static final String TAG = BulletinXmlConstants.TAG;
+	static final String LABEL = BulletinXmlConstants.LABEL;
+	static final String VALUE = BulletinXmlConstants.VALUE;
+	static final String FIELD = BulletinXmlConstants.FIELD;
+	static final String NEW_LINE = BulletinXmlConstants.NEW_LINE;
 
 	static public final String LANGUAGE_TYPE = FieldTypeLanguage.getTypeNameString();
 	static public final String STRING_TYPE = FieldTypeNormal.getTypeNameString();
@@ -250,7 +250,7 @@ abstract public class MartusField extends ScriptableObject
 	static public final String BOOLEAN_TYPE = FieldTypeBoolean.getTypeNameString();
 	static public final String MESSAGE_TYPE = FieldTypeMessage.getTypeNameString();
 	static public final String GRID_TYPE = FieldTypeGrid.getTypeNameString();
-	static public final String ATTACHMENT_TYPE = BulletinXmlExporter.ATTACHMENT_TAG;
+	static public final String ATTACHMENT_TYPE = BulletinXmlConstants.ATTACHMENT_TAG;
 	static public final String ATTACHMENT_SECTION_TOP = Bulletin.TOP_SECTION;
 	static public final String ATTACHMENT_SECTION_BOTTOM = Bulletin.BOTTOM_SECTION;
 }
