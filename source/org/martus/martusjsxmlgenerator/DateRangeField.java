@@ -25,7 +25,7 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-import org.martus.client.tools.XmlBulletinsFileLoader;
+import org.martus.client.core.BulletinXmlConstants;
 import org.mozilla.javascript.Scriptable;
 
 public class DateRangeField extends DateField 
@@ -60,7 +60,7 @@ public class DateRangeField extends DateField
 		String martusStartDate = getMartusDate(dateRangeInfo[0]);
 		String martusEndDate = getMartusDate(dateRangeInfo[1]);
 		
-		return XmlBulletinsFileLoader.DateRange + martusStartDate + "," + martusEndDate;
+		return BulletinXmlConstants.DateRange + martusStartDate + "," + martusEndDate;
 	}
 
 	public String getType() 

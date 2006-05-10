@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.martus.client.core.BulletinXmlConstants;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.util.UnicodeReader;
 import org.martus.util.UnicodeWriter;
@@ -183,19 +184,19 @@ public class ImportCSV
 	private UnicodeWriter openMartusXML() throws IOException
 	{
 		UnicodeWriter writerMartusXMLBulletinFile = new UnicodeWriter(martusXmlFile);
-		writerMartusXMLBulletinFile.write(MartusField.getStartTagNewLine(MARTUS_BULLETINS));
+		writerMartusXMLBulletinFile.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MartusBulletinsElementName));
 		return writerMartusXMLBulletinFile;
 	}
 
 	private void closeMartusXML(UnicodeWriter writerMartusXMLBulletinFile) throws IOException
 	{
-		writerMartusXMLBulletinFile.write(MartusField.getEndTag(MARTUS_BULLETINS));
+		writerMartusXMLBulletinFile.write(MartusField.getEndTag(BulletinXmlConstants.MartusBulletinsElementName));
 	}
 
 	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
-		writer.write(MartusField.getStartTagNewLine(MARTUS_BULLETIN));
-		writer.write(MartusField.getStartTagNewLine(PUBLIC_FIELD_SPEC));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MartusBulletinElementName));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MainFieldSpecsElementName));
 
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
@@ -206,21 +207,21 @@ public class ImportCSV
 				continue;//Attachments are not included in the Field Spec
 			writer.write(fieldSpec.getFieldSpec(scope));
 		}
-		writer.write(MartusField.getEndTagWithExtraNewLine(PUBLIC_FIELD_SPEC));
+		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MainFieldSpecsElementName));
 		writer.write(MartusField.getPrivateFieldSpec());
 	}
 
 	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
-		writer.write(MartusField.getStartTagNewLine(FIELD_VALUES));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.FieldValuesElementName));
 		
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			writer.write(fieldSpec.getFieldData(scope));
 		}
-		writer.write(MartusField.getEndTag(FIELD_VALUES));
-		writer.write(MartusField.getEndTagWithExtraNewLine(MARTUS_BULLETIN));
+		writer.write(MartusField.getEndTag(BulletinXmlConstants.FieldValuesElementName));
+		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MartusBulletinElementName));
 	}
 
 	public Scriptable getFieldScriptableSpecsAndBulletinData(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 
@@ -246,11 +247,6 @@ public class ImportCSV
 	}
 
 	private static final int INCLUDE_BLANK_TRAILING_COLUMNS = -1;
-	private static final String MARTUS_BULLETINS = "MartusBulletins";
-	private static final String MARTUS_BULLETIN = "MartusBulletin";
-	private static final String PUBLIC_FIELD_SPEC = "MainFieldSpecs";
-	private static final String FIELD_VALUES = "FieldValues";
-	
 	File configurationFile;
 	File martusXmlFile;
 	File bulletinCsvFile;

@@ -26,8 +26,8 @@
 
 package org.martus.martusjsxmlgenerator;
 import org.martus.client.core.BulletinXmlConstants;
-import org.martus.client.tools.XmlBulletinLoader;
 import org.martus.common.bulletin.Bulletin;
+import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldTypeBoolean;
 import org.martus.common.fieldspec.FieldTypeDate;
 import org.martus.common.fieldspec.FieldTypeDateRange;
@@ -114,10 +114,10 @@ abstract public class MartusField extends ScriptableObject
 	{
 		StringBuffer xmlFieldSpec = new StringBuffer();
 		xmlFieldSpec.append(getFieldTypeStartTag(getType()));
-		xmlFieldSpec.append(getXMLData(TAG, getTag()));
-		xmlFieldSpec.append(getXMLData(LABEL, getLabel()));
+		xmlFieldSpec.append(getXMLData(FieldSpec.FIELD_SPEC_TAG_XML_TAG, getTag()));
+		xmlFieldSpec.append(getXMLData(FieldSpec.FIELD_SPEC_LABEL_XML_TAG, getLabel()));
 		xmlFieldSpec.append(getFieldSpecSpecificXmlData(scriptable));
-		xmlFieldSpec.append(getEndTag(FIELD));
+		xmlFieldSpec.append(getEndTag(FieldSpec.FIELD_SPEC_XML_TAG));
 		return xmlFieldSpec.toString();
 	}
 	
@@ -142,7 +142,7 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getFieldTagStartTag(String tag)
 	{
-		return getStartTagNewLine(FIELD +" tag='"+tag+"'");
+		return getStartTagNewLine(FieldSpec.FIELD_SPEC_XML_TAG +" tag='"+tag+"'");
 	}
 
 	static public String getXMLData(String xmlTag, String data)
@@ -180,12 +180,12 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getPrivateFieldSpec()
 	{
-		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(XmlBulletinLoader.PrivateFieldSpecsElementName));
+		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
 		privateSpec.append(getFieldTypeStartTag(MULTILINE_TYPE));
 		privateSpec.append(getXMLData(TAG,Bulletin.TAGPRIVATEINFO));
 		privateSpec.append(getXMLData(LABEL,""));
 		privateSpec.append(getEndTag(FIELD));
-		privateSpec.append(getEndTagWithExtraNewLine(XmlBulletinLoader.PrivateFieldSpecsElementName));
+		privateSpec.append(getEndTagWithExtraNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
 		return privateSpec.toString();
 	}
 	
