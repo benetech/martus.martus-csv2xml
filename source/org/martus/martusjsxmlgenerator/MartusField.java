@@ -25,6 +25,18 @@
  */
 
 package org.martus.martusjsxmlgenerator;
+import org.martus.client.core.BulletinXmlExporter;
+import org.martus.client.tools.XmlBulletinLoader;
+import org.martus.common.bulletin.Bulletin;
+import org.martus.common.fieldspec.FieldTypeBoolean;
+import org.martus.common.fieldspec.FieldTypeDate;
+import org.martus.common.fieldspec.FieldTypeDateRange;
+import org.martus.common.fieldspec.FieldTypeDropdown;
+import org.martus.common.fieldspec.FieldTypeGrid;
+import org.martus.common.fieldspec.FieldTypeLanguage;
+import org.martus.common.fieldspec.FieldTypeMessage;
+import org.martus.common.fieldspec.FieldTypeMultiline;
+import org.martus.common.fieldspec.FieldTypeNormal;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
@@ -168,12 +180,12 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getPrivateFieldSpec()
 	{
-		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(PRIVATE_FIELD_SPEC));
-		privateSpec.append(getFieldTypeStartTag("MULTILINE"));
-		privateSpec.append(getXMLData(TAG,"privateinfo"));
+		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(XmlBulletinLoader.PrivateFieldSpecsElementName));
+		privateSpec.append(getFieldTypeStartTag(MULTILINE_TYPE));
+		privateSpec.append(getXMLData(TAG,Bulletin.TAGPRIVATEINFO));
 		privateSpec.append(getXMLData(LABEL,""));
 		privateSpec.append(getEndTag(FIELD));
-		privateSpec.append(getEndTagWithExtraNewLine(PRIVATE_FIELD_SPEC));
+		privateSpec.append(getEndTagWithExtraNewLine(XmlBulletinLoader.PrivateFieldSpecsElementName));
 		return privateSpec.toString();
 	}
 	
@@ -223,23 +235,22 @@ abstract public class MartusField extends ScriptableObject
 	static boolean requiredFieldEntryDate;
 	static boolean requiredFieldPrivate;
 	
-	static final String TAG = "Tag";
-	static final String LABEL = "Label";
-	static final String VALUE = "Value";
-	static public final String FIELD = "Field";
-	static final String PRIVATE_FIELD_SPEC = "PrivateFieldSpecs";
-	static final String NEW_LINE = "\n";
+	static final String TAG = BulletinXmlExporter.TAG;
+	static final String LABEL = BulletinXmlExporter.LABEL;
+	static final String VALUE = BulletinXmlExporter.VALUE;
+	static final String FIELD = BulletinXmlExporter.FIELD;
+	static final String NEW_LINE = BulletinXmlExporter.NEW_LINE;
 
-	static public final String LANGUAGE_TYPE = "LANGUAGE";
-	static public final String STRING_TYPE = "STRING";
-	static public final String MULTILINE_TYPE = "MULTILINE";
-	static public final String DATE_TYPE = "DATE";
-	static public final String DATERANGE_TYPE = "DATERANGE";
-	static public final String DROPDOWN_TYPE = "DROPDOWN";
-	static public final String BOOLEAN_TYPE = "BOOLEAN";
-	static public final String MESSAGE_TYPE = "MESSAGE";
-	static public final String GRID_TYPE = "GRID";
-	static public final String ATTACHMENT_TYPE = "ATTACHMENT";
-	static public final String ATTACHMENT_SECTION_TOP = "TOP SECTION";
-	static public final String ATTACHMENT_SECTION_BOTTOM = "BOTTOM SECTION";
+	static public final String LANGUAGE_TYPE = FieldTypeLanguage.getTypeNameString();
+	static public final String STRING_TYPE = FieldTypeNormal.getTypeNameString();
+	static public final String MULTILINE_TYPE = FieldTypeMultiline.getTypeNameString();
+	static public final String DATE_TYPE = FieldTypeDate.getTypeNameString();
+	static public final String DATERANGE_TYPE = FieldTypeDateRange.getTypeNameString();
+	static public final String DROPDOWN_TYPE = FieldTypeDropdown.getTypeNameString();
+	static public final String BOOLEAN_TYPE = FieldTypeBoolean.getTypeNameString();
+	static public final String MESSAGE_TYPE = FieldTypeMessage.getTypeNameString();
+	static public final String GRID_TYPE = FieldTypeGrid.getTypeNameString();
+	static public final String ATTACHMENT_TYPE = BulletinXmlExporter.ATTACHMENT_TAG;
+	static public final String ATTACHMENT_SECTION_TOP = Bulletin.TOP_SECTION;
+	static public final String ATTACHMENT_SECTION_BOTTOM = Bulletin.BOTTOM_SECTION;
 }

@@ -25,6 +25,7 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.fieldspec.MessageFieldSpec;
 import org.mozilla.javascript.Scriptable;
 
 
@@ -54,13 +55,11 @@ public class MessageField extends MartusField
 	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception 
 	{
 		String message = super.getMartusValue(scriptable);
-		return getXMLData(MESSAGE, message);
+		return getXMLData(MessageFieldSpec.MESSAGE_SPEC_MESSAGE_TAG, message);
 	}
 	
 	public String getXmlFieldValue(Scriptable scriptable) throws Exception
 	{
 		return "";//Value not needed since message is in the field spec.
 	}
-
-	final String MESSAGE = "Message";
 }

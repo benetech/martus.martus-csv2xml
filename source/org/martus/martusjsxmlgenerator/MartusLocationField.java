@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusLocationField extends StringField 
 {
 	public MartusLocationField()
@@ -33,7 +35,7 @@ public class MartusLocationField extends StringField
 	
 	public MartusLocationField(Object valueToUse)
 	{
-		super("location", "", valueToUse);
+		super(BulletinConstants.TAGLOCATION, "", valueToUse);
 	}
 
 	public boolean isMartusDefaultField()

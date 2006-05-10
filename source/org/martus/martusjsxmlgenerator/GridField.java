@@ -28,6 +28,10 @@ package org.martus.martusjsxmlgenerator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
+import org.martus.common.GridData;
+import org.martus.common.GridRow;
+import org.martus.common.fieldspec.GridFieldSpec;
 import org.martus.util.UnicodeReader;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.NativeArray;
@@ -118,18 +122,18 @@ public class GridField extends MartusField
 	public String getFieldSpecSpecificXmlData(Scriptable scriptable) throws Exception
 	{
 		StringBuffer gridSpecs = new StringBuffer();
-		gridSpecs.append(getStartTagNewLine(GRID_SPEC_DETAILS));
+		gridSpecs.append(getStartTagNewLine(GridFieldSpec.GRID_SPEC_DETAILS_TAG));
 		for(int i = 0; i < gridColumns.getLength(); ++i)
 		{
 			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
 			verifyColumnTypeAllowedInsideGrid(field);
 			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
 			gridSpecs.append(getXMLData(TAG, ""));
-			gridSpecs.append(getXMLData(LABEL, field.getLabel()));
+			gridSpecs.append(getXMLData(GridFieldSpec.GRID_COLUMN_LABEL_TAG, field.getLabel()));
 			gridSpecs.append(field.getFieldSpecSpecificXmlData(scriptable));
-			gridSpecs.append(getEndTag(GRID_COLUMN));
+			gridSpecs.append(getEndTag(GridFieldSpec.GRID_COLUMN_TAG));
 		}
-		gridSpecs.append(getEndTag(GRID_SPEC_DETAILS));
+		gridSpecs.append(getEndTag(GridFieldSpec.GRID_SPEC_DETAILS_TAG));
 		return gridSpecs.toString();
 	}
 	
@@ -157,22 +161,22 @@ public class GridField extends MartusField
 			return "";
 		localScope.setParentScope(scriptable);
 		StringBuffer gridData = new StringBuffer();
-		gridData.append(getStartTagNewLine(GRID_DATA));
+		gridData.append(getStartTagNewLine(GridData.GRID_DATA_TAG));
 		while(currentRow != null && bulletinKey.equals(currentKeyId))
 		{
-			gridData.append(getStartTagNewLine(GRID_ROW));
+			gridData.append(getStartTagNewLine(GridRow.ROW_TAG));
 			populateGridFields(scriptable);
 			for(int i = 0; i < gridColumns.getLength(); ++i)
 			{
 				MartusField field = ((MartusField)gridColumns.get(i, gridColumns));
-				gridData.append(getStartTag(GRID_COLUMN));
+				gridData.append(getStartTag(GridRow.COLUMN_TAG));
 				gridData.append(field.getMartusValue(scriptable));
-				gridData.append(getEndTag(GRID_COLUMN));
+				gridData.append(getEndTag(GridRow.COLUMN_TAG));
 			}
-			gridData.append(getEndTag(GRID_ROW));
+			gridData.append(getEndTag(GridRow.ROW_TAG));
 			fetchNextRow();
 		}
-		gridData.append(getEndTag(GRID_DATA));
+		gridData.append(getEndTag(GridData.GRID_DATA_TAG));
 		return gridData.toString();
 	}
 	
@@ -195,14 +199,8 @@ public class GridField extends MartusField
 	
 	public String getColumnTypeStartTag(String type)
 	{
-		return getStartTagNewLine(GRID_COLUMN +" type='"+type+"'");
+		return getStartTagNewLine(GridRow.COLUMN_TAG +" type='"+type+"'");
 	}	
-
-	static public final String GRID_SPEC_DETAILS = "GridSpecDetails";
-	static public final String GRID_DATA = "GridData";
-	static public final String GRID_COLUMN = "Column";
-	static public final String GRID_ROW = "Row";
-	
 
 	String currentKeyId;
 	String currentRowNotSplit;

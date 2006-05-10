@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusRequiredAuthorField extends StringField 
 {
 	public MartusRequiredAuthorField()
@@ -34,7 +36,7 @@ public class MartusRequiredAuthorField extends StringField
 	
 	public MartusRequiredAuthorField(Object valueToUse)
 	{
-		super("author", "", valueToUse);
+		super(BulletinConstants.TAGAUTHOR, "", valueToUse);
 		requiredFieldAuthor = true;
 	}
 

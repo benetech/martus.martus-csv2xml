@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusSummaryField extends MultilineField 
 {
 	public MartusSummaryField()
@@ -33,7 +35,7 @@ public class MartusSummaryField extends MultilineField
 	
 	public MartusSummaryField(Object valueToUse)
 	{
-		super("summary", "", valueToUse);
+		super(BulletinConstants.TAGSUMMARY, "", valueToUse);
 	}
 
 	public boolean isMartusDefaultField()

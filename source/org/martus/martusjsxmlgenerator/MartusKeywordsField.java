@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusKeywordsField extends StringField 
 {
 	public MartusKeywordsField()
@@ -33,7 +35,7 @@ public class MartusKeywordsField extends StringField
 	
 	public MartusKeywordsField(Object valueToUse)
 	{
-		super("keywords", "", valueToUse);
+		super(BulletinConstants.TAGKEYWORDS, "", valueToUse);
 	}
 
 	public boolean isMartusDefaultField()

@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.client.tools.XmlBulletinLoader;
+
 public class MartusBottomSectionAttachments extends MartusAttachments
 {
 	public MartusBottomSectionAttachments()
@@ -43,8 +45,7 @@ public class MartusBottomSectionAttachments extends MartusAttachments
 
 	String getAttachmentListTag()
 	{
-		return BOTTOM_ATTACHMENT_LIST;
+		return XmlBulletinLoader.BottomSectionAttachmentListElementName;
 	}
 	
-	private static final String BOTTOM_ATTACHMENT_LIST="BottomAttachmentList";
 }

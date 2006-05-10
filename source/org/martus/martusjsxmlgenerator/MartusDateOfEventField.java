@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusDateOfEventField extends DateRangeField 
 {
 	public MartusDateOfEventField()
@@ -33,7 +35,7 @@ public class MartusDateOfEventField extends DateRangeField
 	}
 	public MartusDateOfEventField(Object value, String dateFormat)
 	{
-		super("eventdate", "", value, dateFormat);
+		super(BulletinConstants.TAGEVENTDATE, "", value, dateFormat);
 	}
 	
 	public boolean isMartusDefaultField()

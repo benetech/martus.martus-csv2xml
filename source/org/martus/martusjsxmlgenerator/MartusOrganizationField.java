@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusOrganizationField extends StringField 
 {
 	public MartusOrganizationField()
@@ -33,7 +35,7 @@ public class MartusOrganizationField extends StringField
 	
 	public MartusOrganizationField(Object valueToUse)
 	{
-		super("organization", "", valueToUse);
+		super(BulletinConstants.TAGORGANIZATION, "", valueToUse);
 	}
 
 	public boolean isMartusDefaultField()

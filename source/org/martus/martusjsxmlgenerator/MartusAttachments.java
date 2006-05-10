@@ -26,6 +26,8 @@ Boston, MA 02111-1307, USA.
 package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
+
+import org.martus.client.core.BulletinXmlExporter;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Undefined;
 
@@ -69,11 +71,11 @@ abstract public class MartusAttachments extends MartusField
 		xmlFieldData.append(getStartTagNewLine(getAttachmentListTag()));
 		for(int i = 0; i < attachments.length; ++i)
 		{
-			xmlFieldData.append(getStartTagNewLine(ATTACHMENT_TAG));
-			xmlFieldData.append(getStartTag(FILENAME_TAG));
+			xmlFieldData.append(getStartTagNewLine(BulletinXmlExporter.ATTACHMENT_TAG));
+			xmlFieldData.append(getStartTag(BulletinXmlExporter.FILENAME_TAG));
 			xmlFieldData.append(attachments[i]);
-			xmlFieldData.append(getEndTag(FILENAME_TAG));
-			xmlFieldData.append(getEndTag(ATTACHMENT_TAG));
+			xmlFieldData.append(getEndTag(BulletinXmlExporter.FILENAME_TAG));
+			xmlFieldData.append(getEndTag(BulletinXmlExporter.ATTACHMENT_TAG));
 		}
 		xmlFieldData.append(getEndTagWithExtraNewLine(getAttachmentListTag()));
 		return xmlFieldData.toString();
@@ -98,8 +100,6 @@ abstract public class MartusAttachments extends MartusField
 	
 	abstract String getAttachmentListTag();
 
-	private static final String ATTACHMENT_TAG = "Attachment";
-	private static final String FILENAME_TAG = "Filename";
 	private static final String DEFAULT_FILE_SEPARATOR = ";";
 	String attachmentDelimeter;
 	String attachmentDirectoryName;

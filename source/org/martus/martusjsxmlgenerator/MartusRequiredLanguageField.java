@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusRequiredLanguageField extends MartusField
 {
 	public MartusRequiredLanguageField()
@@ -34,7 +36,7 @@ public class MartusRequiredLanguageField extends MartusField
 
 	public MartusRequiredLanguageField(Object valueToUse)
 	{
-		super("language", "", valueToUse);
+		super(BulletinConstants.TAGLANGUAGE, "", valueToUse);
 		requiredFieldLanguage = true;
 	}
 	

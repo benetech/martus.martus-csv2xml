@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="/martus-thirdparty/client/RhinoJavaScript/bin/js.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/martus-utils"/>
 	<classpathentry kind="lib" path="/martus-thirdparty/libext/JUnit/bin/junit.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/martus-client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/martus-common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

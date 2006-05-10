@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.martus.common.bulletin.Bulletin;
 import org.martus.util.UnicodeReader;
 import org.martus.util.UnicodeWriter;
 import org.mozilla.javascript.Context;
@@ -199,7 +200,7 @@ public class ImportCSV
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-			if(fieldSpec.getTag() == "privateinfo")
+			if(fieldSpec.getTag() == Bulletin.TAGPRIVATEINFO)
 				continue;//Writen after the Public Field Spec
 			if(fieldSpec.getType().equals(MartusField.ATTACHMENT_TYPE))
 				continue;//Attachments are not included in the Field Spec

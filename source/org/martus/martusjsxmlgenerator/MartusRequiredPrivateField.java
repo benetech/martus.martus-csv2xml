@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusRequiredPrivateField extends MultilineField
 {
 	public MartusRequiredPrivateField()
@@ -33,7 +35,7 @@ public class MartusRequiredPrivateField extends MultilineField
 	
 	public MartusRequiredPrivateField(Object privateValueToUse)
 	{
-		super("privateinfo", "", privateValueToUse);
+		super(BulletinConstants.TAGPRIVATEINFO, "", privateValueToUse);
 		requiredFieldPrivate = true;
 	}
 

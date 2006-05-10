@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusRequiredTitleField extends StringField 
 {
 	public MartusRequiredTitleField()
@@ -34,7 +36,7 @@ public class MartusRequiredTitleField extends StringField
 
 	public MartusRequiredTitleField(Object valueToUse)
 	{
-		super("title", "", valueToUse);
+		super(BulletinConstants.TAGTITLE, "", valueToUse);
 		requiredFieldTitle = true;
 	}
 	

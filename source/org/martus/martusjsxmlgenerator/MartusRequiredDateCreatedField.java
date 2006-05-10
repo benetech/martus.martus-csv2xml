@@ -25,6 +25,8 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
+import org.martus.common.bulletin.BulletinConstants;
+
 public class MartusRequiredDateCreatedField extends SingleDateField 
 {
 	public MartusRequiredDateCreatedField()
@@ -34,7 +36,7 @@ public class MartusRequiredDateCreatedField extends SingleDateField
 
 	public MartusRequiredDateCreatedField(Object valueToUse, Object dateFormatToUse)
 	{
-		super("entrydate", "", valueToUse, dateFormatToUse);
+		super(BulletinConstants.TAGENTRYDATE, "", valueToUse, dateFormatToUse);
 		requiredFieldEntryDate = true;
 	}
 
