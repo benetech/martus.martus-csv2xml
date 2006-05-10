@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.martus.client.core.BulletinXmlConstants;
 import org.martus.common.GridData;
 import org.martus.common.GridRow;
 import org.martus.common.fieldspec.GridFieldSpec;
@@ -128,7 +129,7 @@ public class GridField extends MartusField
 			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
 			verifyColumnTypeAllowedInsideGrid(field);
 			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
-			gridSpecs.append(getXMLData(TAG, ""));
+			gridSpecs.append(getXMLData(BulletinXmlConstants.TAG, ""));
 			gridSpecs.append(getXMLData(GridFieldSpec.GRID_COLUMN_LABEL_TAG, field.getLabel()));
 			gridSpecs.append(field.getFieldSpecSpecificXmlData(scriptable));
 			gridSpecs.append(getEndTag(GridFieldSpec.GRID_COLUMN_TAG));

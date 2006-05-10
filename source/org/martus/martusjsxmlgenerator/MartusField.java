@@ -113,7 +113,7 @@ abstract public class MartusField extends ScriptableObject
 	public String getFieldSpec(Scriptable scriptable) throws Exception
 	{
 		StringBuffer xmlFieldSpec = new StringBuffer();
-		xmlFieldSpec.append(getFieldTypeStartTag(getType()));
+		xmlFieldSpec.append(getFieldSpecTypeStartTag(getType()));
 		xmlFieldSpec.append(getXMLData(FieldSpec.FIELD_SPEC_TAG_XML_TAG, getTag()));
 		xmlFieldSpec.append(getXMLData(FieldSpec.FIELD_SPEC_LABEL_XML_TAG, getLabel()));
 		xmlFieldSpec.append(getFieldSpecSpecificXmlData(scriptable));
@@ -126,13 +126,13 @@ abstract public class MartusField extends ScriptableObject
 		StringBuffer xmlFieldData = new StringBuffer();
 		xmlFieldData.append(getFieldTagStartTag(getTag()));
 		xmlFieldData.append(getXmlFieldValue(scriptable));
-		xmlFieldData.append(getEndTagWithExtraNewLine(FIELD));
+		xmlFieldData.append(getEndTagWithExtraNewLine(BulletinXmlConstants.FIELD));
 		return xmlFieldData.toString();
 	}
 
 	public String getXmlFieldValue(Scriptable scriptable) throws Exception
 	{
-		return getXMLData(VALUE, getMartusValue( scriptable ));
+		return getXMLData(BulletinXmlConstants.VALUE, getMartusValue( scriptable ));
 	}
 	
 	public String getFieldSpecSpecificXmlData(Scriptable scriptable)  throws Exception
@@ -142,7 +142,7 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getFieldTagStartTag(String tag)
 	{
-		return getStartTagNewLine(FieldSpec.FIELD_SPEC_XML_TAG +" tag='"+tag+"'");
+		return getStartTagNewLine(BulletinXmlConstants.FIELD +" "+BulletinXmlConstants.TagAttributeName+"='"+tag+"'");
 	}
 
 	static public String getXMLData(String xmlTag, String data)
@@ -160,7 +160,7 @@ abstract public class MartusField extends ScriptableObject
 
 	static public String getStartTagNewLine(String text)
 	{
-		return getStartTag(text) + NEW_LINE;
+		return getStartTag(text) + BulletinXmlConstants.NEW_LINE;
 	}
 
 	static public String getEndTag(String text)
@@ -170,21 +170,21 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getEndTagWithExtraNewLine(String text)
 	{
-		return getEndTag(text) + NEW_LINE;
+		return getEndTag(text) + BulletinXmlConstants.NEW_LINE;
 	}
 
-	static public String getFieldTypeStartTag(String type)
+	static public String getFieldSpecTypeStartTag(String type)
 	{
-		return getStartTagNewLine(FIELD +" type='"+type+"'");
+		return getStartTagNewLine(FieldSpec.FIELD_SPEC_XML_TAG +" "+FieldSpec.FIELD_SPEC_TYPE_ATTR+"='"+type+"'");
 	}
 	
 	static public String getPrivateFieldSpec()
 	{
 		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
-		privateSpec.append(getFieldTypeStartTag(MULTILINE_TYPE));
-		privateSpec.append(getXMLData(TAG,Bulletin.TAGPRIVATEINFO));
-		privateSpec.append(getXMLData(LABEL,""));
-		privateSpec.append(getEndTag(FIELD));
+		privateSpec.append(getFieldSpecTypeStartTag(MULTILINE_TYPE));
+		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_TAG_XML_TAG, Bulletin.TAGPRIVATEINFO));
+		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_LABEL_XML_TAG, ""));
+		privateSpec.append(getEndTag(FieldSpec.FIELD_SPEC_XML_TAG));
 		privateSpec.append(getEndTagWithExtraNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
 		return privateSpec.toString();
 	}
@@ -235,12 +235,6 @@ abstract public class MartusField extends ScriptableObject
 	static boolean requiredFieldEntryDate;
 	static boolean requiredFieldPrivate;
 	
-	static final String TAG = BulletinXmlConstants.TAG;
-	static final String LABEL = BulletinXmlConstants.LABEL;
-	static final String VALUE = BulletinXmlConstants.VALUE;
-	static final String FIELD = BulletinXmlConstants.FIELD;
-	static final String NEW_LINE = BulletinXmlConstants.NEW_LINE;
-
 	static public final String LANGUAGE_TYPE = FieldTypeLanguage.getTypeNameString();
 	static public final String STRING_TYPE = FieldTypeNormal.getTypeNameString();
 	static public final String MULTILINE_TYPE = FieldTypeMultiline.getTypeNameString();
