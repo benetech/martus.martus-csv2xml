@@ -48,7 +48,7 @@ public class SingleDateField extends DateField
 	{
 		String rawDate = super.getMartusValue(scriptable);
 		String martusDate = getMartusDate(rawDate);
-		return BulletinXmlConstants.DateSimple + martusDate;
+		return BulletinXmlConstants.DATE_SIMPLE + martusDate;
 	}
 
 	//Actual Name called by the JavaScript

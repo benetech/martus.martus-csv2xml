@@ -142,7 +142,7 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getFieldTagStartTag(String tag)
 	{
-		return getStartTagNewLine(BulletinXmlConstants.FIELD +" "+BulletinXmlConstants.TagAttributeName+"='"+tag+"'");
+		return getStartTagNewLine(BulletinXmlConstants.FIELD +" "+BulletinXmlConstants.TAG_ATTRIBUTE+"='"+tag+"'");
 	}
 
 	static public String getXMLData(String xmlTag, String data)
@@ -180,12 +180,12 @@ abstract public class MartusField extends ScriptableObject
 	
 	static public String getPrivateFieldSpec()
 	{
-		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
+		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(BulletinXmlConstants.PRIVATE_FIELD_SPECS));
 		privateSpec.append(getFieldSpecTypeStartTag(MULTILINE_TYPE));
 		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_TAG_XML_TAG, Bulletin.TAGPRIVATEINFO));
 		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_LABEL_XML_TAG, ""));
 		privateSpec.append(getEndTag(FieldSpec.FIELD_SPEC_XML_TAG));
-		privateSpec.append(getEndTagWithExtraNewLine(BulletinXmlConstants.PrivateFieldSpecsElementName));
+		privateSpec.append(getEndTagWithExtraNewLine(BulletinXmlConstants.PRIVATE_FIELD_SPECS));
 		return privateSpec.toString();
 	}
 	
@@ -244,7 +244,7 @@ abstract public class MartusField extends ScriptableObject
 	static public final String BOOLEAN_TYPE = FieldTypeBoolean.getTypeNameString();
 	static public final String MESSAGE_TYPE = FieldTypeMessage.getTypeNameString();
 	static public final String GRID_TYPE = FieldTypeGrid.getTypeNameString();
-	static public final String ATTACHMENT_TYPE = BulletinXmlConstants.ATTACHMENT_TAG;
+	static public final String ATTACHMENT_TYPE = BulletinXmlConstants.ATTACHMENT;
 	static public final String ATTACHMENT_SECTION_TOP = Bulletin.TOP_SECTION;
 	static public final String ATTACHMENT_SECTION_BOTTOM = Bulletin.BOTTOM_SECTION;
 }

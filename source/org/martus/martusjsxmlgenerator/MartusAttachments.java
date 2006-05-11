@@ -71,11 +71,11 @@ abstract public class MartusAttachments extends MartusField
 		xmlFieldData.append(getStartTagNewLine(getAttachmentListTag()));
 		for(int i = 0; i < attachments.length; ++i)
 		{
-			xmlFieldData.append(getStartTagNewLine(BulletinXmlConstants.ATTACHMENT_TAG));
-			xmlFieldData.append(getStartTag(BulletinXmlConstants.FILENAME_TAG));
+			xmlFieldData.append(getStartTagNewLine(BulletinXmlConstants.ATTACHMENT));
+			xmlFieldData.append(getStartTag(BulletinXmlConstants.FILENAME));
 			xmlFieldData.append(attachments[i]);
-			xmlFieldData.append(getEndTag(BulletinXmlConstants.FILENAME_TAG));
-			xmlFieldData.append(getEndTag(BulletinXmlConstants.ATTACHMENT_TAG));
+			xmlFieldData.append(getEndTag(BulletinXmlConstants.FILENAME));
+			xmlFieldData.append(getEndTag(BulletinXmlConstants.ATTACHMENT));
 		}
 		xmlFieldData.append(getEndTagWithExtraNewLine(getAttachmentListTag()));
 		return xmlFieldData.toString();

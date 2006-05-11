@@ -184,19 +184,19 @@ public class ImportCSV
 	private UnicodeWriter openMartusXML() throws IOException
 	{
 		UnicodeWriter writerMartusXMLBulletinFile = new UnicodeWriter(martusXmlFile);
-		writerMartusXMLBulletinFile.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MartusBulletinsElementName));
+		writerMartusXMLBulletinFile.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MARTUS_BULLETINS));
 		return writerMartusXMLBulletinFile;
 	}
 
 	private void closeMartusXML(UnicodeWriter writerMartusXMLBulletinFile) throws IOException
 	{
-		writerMartusXMLBulletinFile.write(MartusField.getEndTag(BulletinXmlConstants.MartusBulletinsElementName));
+		writerMartusXMLBulletinFile.write(MartusField.getEndTag(BulletinXmlConstants.MARTUS_BULLETINS));
 	}
 
 	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
-		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MartusBulletinElementName));
-		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MainFieldSpecsElementName));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MARTUS_BULLETIN));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.MAIN_FIELD_SPECS));
 
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
@@ -207,21 +207,21 @@ public class ImportCSV
 				continue;//Attachments are not included in the Field Spec
 			writer.write(fieldSpec.getFieldSpec(scope));
 		}
-		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MainFieldSpecsElementName));
+		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MAIN_FIELD_SPECS));
 		writer.write(MartusField.getPrivateFieldSpec());
 	}
 
 	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
-		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.FieldValuesElementName));
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlConstants.FIELD_VALUES));
 		
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
 			writer.write(fieldSpec.getFieldData(scope));
 		}
-		writer.write(MartusField.getEndTag(BulletinXmlConstants.FieldValuesElementName));
-		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MartusBulletinElementName));
+		writer.write(MartusField.getEndTag(BulletinXmlConstants.FIELD_VALUES));
+		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlConstants.MARTUS_BULLETIN));
 	}
 
 	public Scriptable getFieldScriptableSpecsAndBulletinData(Context cs, Script script, ScriptableObject scope, String dataRow) throws Exception, IllegalAccessException, InstantiationException, InvocationTargetException 

@@ -45,7 +45,7 @@ public class MartusTopSectionAttachments extends MartusAttachments
 	
 	String getAttachmentListTag()
 	{
-		return BulletinXmlConstants.TopSectionAttachmentListElementName;
+		return BulletinXmlConstants.TOP_SECTION_ATTACHMENT_LIST;
 	}
 	
 }

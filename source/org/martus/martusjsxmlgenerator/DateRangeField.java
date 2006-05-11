@@ -60,7 +60,7 @@ public class DateRangeField extends DateField
 		String martusStartDate = getMartusDate(dateRangeInfo[0]);
 		String martusEndDate = getMartusDate(dateRangeInfo[1]);
 		
-		return BulletinXmlConstants.DateRange + martusStartDate + "," + martusEndDate;
+		return BulletinXmlConstants.DATE_RANGE + martusStartDate + "," + martusEndDate;
 	}
 
 	public String getType() 

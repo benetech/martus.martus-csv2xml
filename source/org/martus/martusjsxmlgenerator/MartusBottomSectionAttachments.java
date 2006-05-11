@@ -45,7 +45,7 @@ public class MartusBottomSectionAttachments extends MartusAttachments
 
 	String getAttachmentListTag()
 	{
-		return BulletinXmlConstants.BottomSectionAttachmentListElementName;
+		return BulletinXmlConstants.BOTTOM_SECTION_ATTACHMENT_LIST;
 	}
 	
 }
