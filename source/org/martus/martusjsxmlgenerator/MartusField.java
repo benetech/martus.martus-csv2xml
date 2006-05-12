@@ -25,8 +25,8 @@
  */
 
 package org.martus.martusjsxmlgenerator;
-import org.martus.client.core.BulletinXmlConstants;
 import org.martus.common.bulletin.Bulletin;
+import org.martus.common.bulletin.BulletinXmlConstants;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldTypeBoolean;
 import org.martus.common.fieldspec.FieldTypeDate;

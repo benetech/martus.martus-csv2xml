@@ -25,7 +25,7 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-import org.martus.client.core.BulletinXmlConstants;
+import org.martus.common.bulletin.BulletinXmlConstants;
 
 public class MartusBottomSectionAttachments extends MartusAttachments
 {

@@ -30,8 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.martus.client.core.BulletinXmlConstants;
 import org.martus.common.bulletin.Bulletin;
+import org.martus.common.bulletin.BulletinXmlConstants;
 import org.martus.util.UnicodeReader;
 import org.martus.util.UnicodeWriter;
 import org.mozilla.javascript.Context;

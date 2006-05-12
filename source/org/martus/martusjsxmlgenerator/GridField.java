@@ -29,9 +29,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.martus.client.core.BulletinXmlConstants;
 import org.martus.common.GridData;
 import org.martus.common.GridRow;
+import org.martus.common.bulletin.BulletinXmlConstants;
 import org.martus.common.fieldspec.GridFieldSpec;
 import org.martus.util.UnicodeReader;
 import org.mozilla.javascript.Context;

@@ -27,7 +27,7 @@ package org.martus.martusjsxmlgenerator;
 
 import java.io.File;
 
-import org.martus.client.core.BulletinXmlConstants;
+import org.martus.common.bulletin.BulletinXmlConstants;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Undefined;
 
