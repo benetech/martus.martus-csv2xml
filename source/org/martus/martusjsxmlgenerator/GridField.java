@@ -31,7 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.martus.common.GridData;
 import org.martus.common.GridRow;
-import org.martus.common.bulletin.BulletinXmlConstants;
+import org.martus.common.bulletin.BulletinXmlExportImportConstants;
 import org.martus.common.fieldspec.GridFieldSpec;
 import org.martus.util.UnicodeReader;
 import org.mozilla.javascript.Context;
@@ -129,7 +129,7 @@ public class GridField extends MartusField
 			MartusField field = (MartusField)gridColumns.get(i, gridColumns);
 			verifyColumnTypeAllowedInsideGrid(field);
 			gridSpecs.append(getColumnTypeStartTag(field.getType()));			
-			gridSpecs.append(getXMLData(BulletinXmlConstants.TAG, ""));
+			gridSpecs.append(getXMLData(BulletinXmlExportImportConstants.TAG, ""));
 			gridSpecs.append(getXMLData(GridFieldSpec.GRID_COLUMN_LABEL_TAG, field.getLabel()));
 			gridSpecs.append(field.getFieldSpecSpecificXmlData(scriptable));
 			gridSpecs.append(getEndTag(GridFieldSpec.GRID_COLUMN_TAG));

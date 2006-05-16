@@ -25,7 +25,7 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.martusjsxmlgenerator;
 
-import org.martus.common.bulletin.BulletinXmlConstants;
+import org.martus.common.bulletin.BulletinXmlExportImportConstants;
 import org.mozilla.javascript.Scriptable;
 
 public class SingleDateField extends DateField 
@@ -48,7 +48,7 @@ public class SingleDateField extends DateField
 	{
 		String rawDate = super.getMartusValue(scriptable);
 		String martusDate = getMartusDate(rawDate);
-		return BulletinXmlConstants.DATE_SIMPLE + martusDate;
+		return BulletinXmlExportImportConstants.DATE_SIMPLE + martusDate;
 	}
 
 	//Actual Name called by the JavaScript
