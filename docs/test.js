@@ -1,5 +1,5 @@
-//test.js Version 1.0
-//Requires Martus 2.9
+//test.js Version 1.1
+//Requires Martus 3.0 or greater
 
 //You must have the following Required Fields. 
 //MartusRequiredLanguageField
@@ -25,6 +25,22 @@
 //BooleanField
 //MessageField
 
+//The parameters for each field are (Tag, Label, Value, [date format]) (where [date format] is only required for date fields.
+//Value can either be a single Header label in the CSV file, or a function.
+
+//If Value is a single Header label then you must have it within "s
+//Eg. new StringField("CommentTag", "Comment Lable User Sees", "comment")
+//Where "CommentTag" is the tag for this field
+//"Comment Label User Sees" is the Label for the field
+//"comment" is the 8'th row in the csv file, and for each bulletin its 8'th columns data will be placed in the bulletin.
+
+//If Value is a function then within the function if you want to print something directly add "s around the text you want inserted into each bulletin.  For inserting from the csv file do not put "s around the Header label.
+//Eg 1. new StringField("CommentTag", "Comment Lable User Sees",function ({return comment;})
+//Eg 2. new StringField("CommentTag", "Comment Lable User Sees",function ({return "Hard coded Comment " + comment;})
+//Where "CommentTag" is the tag for this field
+//"Comment Label User Sees" is the Label for the field
+//"Hard coded Comment " will be added to each bulletin with the field comment appended, which is the 8'th row in the csv file, and for each bulletin its 8'th columns data will be placed in the bulletin.
+
 
 //Define static variables here if you want to reference them my name further on in the script
 
@@ -32,7 +48,7 @@ DATE_RANGE_DELIMETER = "_"
 WitnessTag = "Witness" 
 CommentTag = "WitnessComment" 
 
-//This is the field spec we are creating and use for each Martusbulletin
+//This is the field spec we are creating and use for each Martus bulletin
 this.MartusFieldSpecs = [
 
 //Add all Fields you want now in the Martus Bulletin in the order you want them to appear.
@@ -73,12 +89,12 @@ new MartusOrganizationField(
 	}
 ),
 
-new MartusDetailsField("id"),
+new MartusDetailsField("data2"),
 
 new MartusKeywordsField(
 	function ()
 	{
-		return id +", "+ data2;
+		return guns +", "+ data2;
 	}
 ),
 
@@ -115,7 +131,7 @@ new MartusRequiredPrivateField(
 	}
 ),
 
-new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"]),
+new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No", "Unknown"]),
 
 new BooleanField("anonymous_tag", "Does interviewee wish to remain anonymous?", "anonymous"),
 
@@ -124,9 +140,24 @@ new MessageField("MessageProfession", "Profession History Table Note",
 	{
 		return "If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.";
 	}
-)
+),
 
-]
+new GridField("GridTag", "Grid Lable", "griddata.csv", "\|", "id",[
+	new StringField("FirstGridNameTag", "First Name", "firstname"),
+	new StringField("LastGridNameTag", "Last Name", "lastname"),
+	new SingleDateField("SimpleDateGridTag", "Date of Birth", 
+		function(){ return date_of_Birth;}, "MMddyyyy"),
+	new DateRangeField("DateRangeGridTag",	"Occured",
+		function ()
+		{
+			return start_date + DATE_RANGE_DELIMETER + end_date;
+		}
+		, "yyyyMMdd"),
+	new DropDownField("Grid_DD_tag", "Color Used", "color", ["red","yellow","blue"]),
+	new BooleanField("grid_bool_tag", "Occurred at Night?", "night")
+])
+
+]	
 
 
 

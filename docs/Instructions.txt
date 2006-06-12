@@ -1,5 +1,5 @@
 Instructions on using org.martus.martusjsxmlgenerator.ImportCSV
-Requires Martus Version 2.9
+Requires Martus Version 3.0 or greater
 
 These instructions are for converting a CSV file into an XML Martus Bulletin File which can
 then can be imported into Martus using a Martus Client Tool (org.martus.client.tools.ImportXmlBulletins)
@@ -11,12 +11,13 @@ Put test.js and test.cvs in a directory (i.e. xmltest)
 CD C:\xmltest
 
 C:\Martus\bin\java.exe -cp C:\Martus\martus.jar org.martus.martusjsxmlgenerator.ImportCSV test.js test.csv "\|"
-
+or
+C:\Martus\bin\java.exe -cp .\martus.jar org.martus.martusjsxmlgenerator.ImportCSV testWithAttachments.js testWithAttachments.csv "\|"
 
 the "\|" is the delimiter | in the csv file. if the delimiter is a , just put a comma (i.e. C:\Martus\bin\java.exe -cp C:\Martus\martus.jar org.martus.martusjsxmlgenerator.ImportCSV test.js test.csv ",")
 
 
-The output will be the csv file name with a .xml extension will be created ie. test.xml
+The output will be the csv file name with a .xml extension will be created ie. test.xml or testWithAttachments.xml
  
 
 Now that file will go into the next step. Here you must use the current Martus client jar.
