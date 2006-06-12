@@ -20,7 +20,11 @@ the "\|" is the delimiter | in the csv file. if the delimiter is a , just put a 
 The output will be the csv file name with a .xml extension will be created ie. test.xml or testWithAttachments.xml
  
 
-Now that file will go into the next step. Here you must use the current Martus client jar.
+This next step of converting the XML file into real Martus bulletins can now be done inside of Martus, using the new Import Bulletin feature, or you may use this stand alone tool (ImportXmlBulletins) to import them into Martus.
+If you want Martus to import them you would now Run Martus, click on File->Import and point to the xml file generated from the above.
+
+If you want to use the standalone tool, continue with the following steps...
+Now that file will go into the next step. Here you must use the current Martus client jar. (Martus Version 3.0 or later)
 
 C:\Martus\bin\java.exe -Xbootclasspath/p:C:\Martus\lib\ext\bc-jce.jar -cp C:\Martus\martus.jar org.martus.client.tools.ImportXmlBulletins --import-directory=C:\xmltest --account-directory=C:\Martus
 
