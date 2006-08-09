@@ -34,9 +34,9 @@ public class SingleDateField extends DateField
 	{
 	}
 
-	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse)
+	public SingleDateField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
+		super(tagToUse, labelToUse, valueToUse, dateFormatToUse, isBottomSectionFieldToUse);
 	}
 	
 	public String getType() 

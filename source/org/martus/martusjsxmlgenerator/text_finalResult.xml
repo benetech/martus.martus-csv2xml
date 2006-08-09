@@ -57,10 +57,6 @@
 <Choice>Unknown</Choice>
 </Choices>
 </Field>
-<Field type='BOOLEAN'>
-<Tag>anonymous_tag</Tag>
-<Label>Does interviewee wish to remain anonymous?</Label>
-</Field>
 <Field type='MESSAGE'>
 <Tag>MessageProfession</Tag>
 <Label>Profession History Table Note</Label>
@@ -103,6 +99,10 @@
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
+<Field type='BOOLEAN'>
+<Tag>anonymous_tag_bottom_section</Tag>
+<Label>Does interviewee wish to remain anonymous?</Label>
+</Field>
 <Field type='MULTILINE'>
 <Tag>privateinfo</Tag>
 <Label></Label>
@@ -158,16 +158,16 @@
 <Value>Range:2002-10-05,2004-12-31</Value>
 </Field>
 
-<Field tag='privateinfo'>
-<Value>MY PRIVATE DATE = C.C.</Value>
-</Field>
-
 <Field tag='gun_tag'>
 <Value>No</Value>
 </Field>
 
-<Field tag='anonymous_tag'>
+<Field tag='anonymous_tag_bottom_section'>
 <Value>1</Value>
+</Field>
+
+<Field tag='privateinfo'>
+<Value>MY PRIVATE DATE = C.C.</Value>
 </Field>
 
 <Field tag='MessageProfession'>
@@ -256,10 +256,6 @@
 <Choice>Unknown</Choice>
 </Choices>
 </Field>
-<Field type='BOOLEAN'>
-<Tag>anonymous_tag</Tag>
-<Label>Does interviewee wish to remain anonymous?</Label>
-</Field>
 <Field type='MESSAGE'>
 <Tag>MessageProfession</Tag>
 <Label>Profession History Table Note</Label>
@@ -302,6 +298,10 @@
 </MainFieldSpecs>
 
 <PrivateFieldSpecs>
+<Field type='BOOLEAN'>
+<Tag>anonymous_tag_bottom_section</Tag>
+<Label>Does interviewee wish to remain anonymous?</Label>
+</Field>
 <Field type='MULTILINE'>
 <Tag>privateinfo</Tag>
 <Label></Label>
@@ -357,16 +357,16 @@
 <Value>Range:2001-12-03,2005-10-22</Value>
 </Field>
 
-<Field tag='privateinfo'>
-<Value>MY PRIVATE DATE = T.I..</Value>
-</Field>
-
 <Field tag='gun_tag'>
 <Value>Yes</Value>
 </Field>
 
-<Field tag='anonymous_tag'>
+<Field tag='anonymous_tag_bottom_section'>
 <Value>0</Value>
+</Field>
+
+<Field tag='privateinfo'>
+<Value>MY PRIVATE DATE = T.I..</Value>
 </Field>
 
 <Field tag='MessageProfession'>

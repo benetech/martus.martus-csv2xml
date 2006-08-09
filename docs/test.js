@@ -1,4 +1,4 @@
-//test.js Version 1.1
+//test.js Version 1.2
 //Requires Martus 3.0 or greater
 
 //You must have the following Required Fields. 
@@ -25,22 +25,34 @@
 //BooleanField
 //MessageField
 
-//The parameters for each field are (Tag, Label, Value, [date format]) (where [date format] is only required for date fields.
+//The parameters for each field are (Tag, Label, Value, [date format], [IsBottomSection]) 
+//where [date format] is only required for date fields.
+//where [IsBottomSection] is only required if you want this field to appear in the bottom section of your bulletin (i.e. the "private" section)
+//  "true" means the field is in the bottom section.
+//  "false" or leaving out the parameter will place the field in the top section.  
+//NOTE ALL MartusRequired fields do not require optional parameter [IsBottomSection] since they can only be in their specified sections.
+
 //Value can either be a single Header label in the CSV file, or a function.
 
 //If Value is a single Header label then you must have it within "s
 //Eg. new StringField("CommentTag", "Comment Lable User Sees", "comment")
+//or  new StringField("CommentTag", "Comment Lable User Sees", "comment", false)
 //Where "CommentTag" is the tag for this field
 //"Comment Label User Sees" is the Label for the field
 //"comment" is the 8'th row in the csv file, and for each bulletin its 8'th columns data will be placed in the bulletin.
+//This will place this in the Top section of the bulletin
+
+//To put this field in the bottom section of your bulletin change the [IsBottomSection] to true
+//i.e. new StringField("CommentTag", "Comment Lable User Sees", "comment", true)
 
 //If Value is a function then within the function if you want to print something directly add "s around the text you want inserted into each bulletin.  For inserting from the csv file do not put "s around the Header label.
 //Eg 1. new StringField("CommentTag", "Comment Lable User Sees",function ({return comment;})
 //Eg 2. new StringField("CommentTag", "Comment Lable User Sees",function ({return "Hard coded Comment " + comment;})
+//Eg 3. new StringField("CommentTag", "Comment Lable User Sees",function ({return "Hard coded Comment " + comment;}, false)
 //Where "CommentTag" is the tag for this field
 //"Comment Label User Sees" is the Label for the field
 //"Hard coded Comment " will be added to each bulletin with the field comment appended, which is the 8'th row in the csv file, and for each bulletin its 8'th columns data will be placed in the bulletin.
-
+//This will place this in the Top Section of your bulletin
 
 //Define static variables here if you want to reference them my name further on in the script
 
@@ -58,12 +70,14 @@ new StringField(WitnessTag,	"Witness",
 	function ()
 	{
 		return firstname + " " + lastname;
-	}
+	},
+	false
 ),
 
 new StringField(CommentTag, "Comment", "comment"),
 
 new MartusRequiredLanguageField("language"),
+
 
 new MultilineField("MultiLineTag", "Description of Situation", 
 	function ()

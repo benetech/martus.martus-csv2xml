@@ -35,7 +35,7 @@ public class MartusSummaryField extends MultilineField
 	
 	public MartusSummaryField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGSUMMARY, "", valueToUse);
+		super(BulletinConstants.TAGSUMMARY, "", valueToUse, TOP_SECTION_FIELD);
 	}
 
 	public boolean isMartusDefaultField()

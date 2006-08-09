@@ -45,9 +45,9 @@ public class GridField extends MartusField
 		super();
 	}
 	
-	public GridField(String tagToUse, String labelToUse, String gridDataFileStringToUse, String columnDelimeterToUse, String keyIdToUse, Object listOfColumnsToUse) throws IOException
+	public GridField(String tagToUse, String labelToUse, String gridDataFileStringToUse, String columnDelimeterToUse, String keyIdToUse, Object listOfColumnsToUse, boolean isBottomSectionFieldToUse) throws IOException
 	{
-		super(tagToUse, labelToUse, null);
+		super(tagToUse, labelToUse, null, isBottomSectionFieldToUse);
 		keyId = keyIdToUse;
 		columnDelimeter = columnDelimeterToUse;
 		gridDataFileName = gridDataFileStringToUse;

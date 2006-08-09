@@ -35,7 +35,7 @@ public class MartusDateOfEventField extends DateRangeField
 	}
 	public MartusDateOfEventField(Object value, String dateFormat)
 	{
-		super(BulletinConstants.TAGEVENTDATE, "", value, dateFormat);
+		super(BulletinConstants.TAGEVENTDATE, "", value, dateFormat, TOP_SECTION_FIELD);
 	}
 	
 	public boolean isMartusDefaultField()

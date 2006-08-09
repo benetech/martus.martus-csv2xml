@@ -25,7 +25,6 @@
  */
 
 package org.martus.martusjsxmlgenerator;
-import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinXmlExportImportConstants;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.fieldspec.FieldTypeBoolean;
@@ -52,11 +51,12 @@ abstract public class MartusField extends ScriptableObject
 	{
 	}
 
-	public MartusField(String tagToUse, String labelToUse, Object valueToUse)
+	public MartusField(String tagToUse, String labelToUse, Object valueToUse, boolean isBottomSectionFieldToUse)
 	{
 		tag = tagToUse;
 		label = labelToUse;
 		value = valueToUse;
+		isBottomSectionField = isBottomSectionFieldToUse;
 	}
 	
 	public String getLabel()
@@ -178,20 +178,14 @@ abstract public class MartusField extends ScriptableObject
 		return getStartTagNewLine(FieldSpec.FIELD_SPEC_XML_TAG +" "+FieldSpec.FIELD_SPEC_TYPE_ATTR+"='"+type+"'");
 	}
 	
-	static public String getPrivateFieldSpec()
-	{
-		StringBuffer privateSpec = new StringBuffer(getStartTagNewLine(BulletinXmlExportImportConstants.PRIVATE_FIELD_SPECS));
-		privateSpec.append(getFieldSpecTypeStartTag(MULTILINE_TYPE));
-		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_TAG_XML_TAG, Bulletin.TAGPRIVATEINFO));
-		privateSpec.append(getXMLData(FieldSpec.FIELD_SPEC_LABEL_XML_TAG, ""));
-		privateSpec.append(getEndTag(FieldSpec.FIELD_SPEC_XML_TAG));
-		privateSpec.append(getEndTagWithExtraNewLine(BulletinXmlExportImportConstants.PRIVATE_FIELD_SPECS));
-		return privateSpec.toString();
-	}
-	
 	public boolean isMartusDefaultField()
 	{
 		return false;
+	}
+	
+	public boolean isBottomSectionField()
+	{
+		return isBottomSectionField;
 	}
 	
 	public void cleanup()
@@ -229,6 +223,8 @@ abstract public class MartusField extends ScriptableObject
 	String tag;
 	String label;
 	Object value;
+	boolean isBottomSectionField;
+	
 	static boolean requiredFieldLanguage;
 	static boolean requiredFieldAuthor;
 	static boolean requiredFieldTitle;
@@ -245,6 +241,8 @@ abstract public class MartusField extends ScriptableObject
 	static public final String MESSAGE_TYPE = FieldTypeMessage.getTypeNameString();
 	static public final String GRID_TYPE = FieldTypeGrid.getTypeNameString();
 	static public final String ATTACHMENT_TYPE = BulletinXmlExportImportConstants.ATTACHMENT;
-	static public final String ATTACHMENT_SECTION_TOP = Bulletin.TOP_SECTION;
-	static public final String ATTACHMENT_SECTION_BOTTOM = Bulletin.BOTTOM_SECTION;
+	
+	static public final boolean TOP_SECTION_FIELD = false;
+	static public final boolean BOTTOM_SECTION_FIELD = true;
+	
 }

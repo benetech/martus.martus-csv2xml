@@ -317,15 +317,10 @@ public class TestImportCSV extends TestCaseEnhanced
 		assertEquals("DATE",((MartusField)fieldSpecs.get(5, scope)).getType());
 		assertEquals("MULTILINE",((MartusField)fieldSpecs.get(9, scope)).getType());
 		assertEquals("DATERANGE",((MartusField)fieldSpecs.get(11, scope)).getType());
-		assertEquals("DROPDOWN",((MartusField)fieldSpecs.get(13, scope)).getType());
-		assertEquals("BOOLEAN",((MartusField)fieldSpecs.get(14, scope)).getType());
+		assertEquals("DROPDOWN",((MartusField)fieldSpecs.get(12, scope)).getType());
+		assertEquals("BOOLEAN",((MartusField)fieldSpecs.get(13, scope)).getType());
 		assertEquals("MESSAGE",((MartusField)fieldSpecs.get(15, scope)).getType());
 		assertEquals("GRID",((MartusField)fieldSpecs.get(16, scope)).getType());
-	}
-	
-	public void testGetPrivateFieldSpec() throws Exception
-	{
-		assertEquals(PRIVATE_FIELD_SPEC, MartusField.getPrivateFieldSpec());
 	}
 	
 	public void testMartusFieldSpec() throws Exception
@@ -566,6 +561,10 @@ public class TestImportCSV extends TestCaseEnhanced
 	public final String CSV_VERTICAL_BAR_REGEX_DELIMITER = "\\|";
 	public final String PRIVATE_FIELD_SPEC = 
 		    "<PrivateFieldSpecs>\n"+
+		    "<Field type='BOOLEAN'>\n"+
+		    "<Tag>anonymous_tag_bottom_section</Tag>\n"+
+		    "<Label>Does interviewee wish to remain anonymous?</Label>\n"+
+		    "</Field>\n"+
 			"<Field type='MULTILINE'>\n"+
 			"<Tag>privateinfo</Tag>\n"+
 			"<Label></Label>\n"+
@@ -630,10 +629,6 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Choice>No</Choice>\n"+
 		"<Choice>Unknown</Choice>\n"+
 		"</Choices>\n"+
-		"</Field>\n"+
-		"<Field type='BOOLEAN'>\n"+
-		"<Tag>anonymous_tag</Tag>\n"+
-		"<Label>Does interviewee wish to remain anonymous?</Label>\n"+
 		"</Field>\n"+
 		"<Field type='MESSAGE'>\n"+
 		"<Tag>MessageProfession</Tag>\n"+
@@ -714,14 +709,14 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Field tag='eventdate'>\n" +
 		"<Value>Range:2001-12-03,2005-10-22</Value>\n" +
 		"</Field>\n\n" +
-		"<Field tag='privateinfo'>\n" +
-		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
-		"</Field>\n\n" +
 		"<Field tag='gun_tag'>\n" +
 		"<Value>Yes</Value>\n" +
 		"</Field>\n\n" +
-		"<Field tag='anonymous_tag'>\n" +
+		"<Field tag='anonymous_tag_bottom_section'>\n" +
 		"<Value>1</Value>\n" +
+		"</Field>\n\n" +
+		"<Field tag='privateinfo'>\n" +
+		"<Value>MY PRIVATE DATE = T.I..</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='MessageProfession'>\n" +
 		"</Field>\n\n" +

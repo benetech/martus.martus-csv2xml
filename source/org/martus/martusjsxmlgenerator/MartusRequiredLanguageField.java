@@ -36,7 +36,7 @@ public class MartusRequiredLanguageField extends MartusField
 
 	public MartusRequiredLanguageField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGLANGUAGE, "", valueToUse);
+		super(BulletinConstants.TAGLANGUAGE, "", valueToUse, TOP_SECTION_FIELD);
 		requiredFieldLanguage = true;
 	}
 	

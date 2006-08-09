@@ -32,9 +32,9 @@ public class StringField extends MartusField
 	{
 	}
 
-	public StringField(String tagToUse, String labelToUse, Object valueToUse)
+	public StringField(String tagToUse, String labelToUse, Object valueToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, isBottomSectionFieldToUse);
 	}
 	
 	//Actual Name called by the JavaScript

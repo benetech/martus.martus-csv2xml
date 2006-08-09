@@ -35,7 +35,7 @@ public class MartusDetailsField extends MultilineField
 	
 	public MartusDetailsField(Object publicValueToUse)
 	{
-		super(Bulletin.TAGPUBLICINFO, "", publicValueToUse);
+		super(Bulletin.TAGPUBLICINFO, "", publicValueToUse, TOP_SECTION_FIELD);
 	}
 
 	public boolean isMartusDefaultField()

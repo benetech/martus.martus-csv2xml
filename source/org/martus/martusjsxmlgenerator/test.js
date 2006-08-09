@@ -60,16 +60,16 @@ new MartusDateOfEventField (
 	}, "MMddyyyy"
 ),
 
+new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"]),
+
+new BooleanField("anonymous_tag_bottom_section", "Does interviewee wish to remain anonymous?", "anonymous", true),
+
 new MartusRequiredPrivateField(
 	function ()
 	{
 		return "MY PRIVATE DATE = " + data2;
 	}
 ),
-
-new DropDownField("gun_tag", "Where guns Used?", "guns", ["Yes","No","Unknown"]),
-
-new BooleanField("anonymous_tag", "Does interviewee wish to remain anonymous?", "anonymous"),
 
 new MessageField("MessageProfession", "Profession History Table Note", 
 	function()

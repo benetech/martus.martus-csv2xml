@@ -36,7 +36,7 @@ public class MartusRequiredAuthorField extends StringField
 	
 	public MartusRequiredAuthorField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGAUTHOR, "", valueToUse);
+		super(BulletinConstants.TAGAUTHOR, "", valueToUse, TOP_SECTION_FIELD);
 		requiredFieldAuthor = true;
 	}
 

@@ -35,7 +35,7 @@ public class MartusKeywordsField extends StringField
 	
 	public MartusKeywordsField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGKEYWORDS, "", valueToUse);
+		super(BulletinConstants.TAGKEYWORDS, "", valueToUse, TOP_SECTION_FIELD);
 	}
 
 	public boolean isMartusDefaultField()

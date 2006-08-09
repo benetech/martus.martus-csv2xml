@@ -35,9 +35,9 @@ public class BooleanField extends MartusField
 		super();
 	}
 	
-	public BooleanField(String tagToUse, String labelToUse, Object valueToUse)
+	public BooleanField(String tagToUse, String labelToUse, Object valueToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, isBottomSectionFieldToUse);
 	}
 
 	public String getType() 

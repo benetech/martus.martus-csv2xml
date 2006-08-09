@@ -36,7 +36,7 @@ public class MartusRequiredTitleField extends StringField
 
 	public MartusRequiredTitleField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGTITLE, "", valueToUse);
+		super(BulletinConstants.TAGTITLE, "", valueToUse, TOP_SECTION_FIELD);
 		requiredFieldTitle = true;
 	}
 	

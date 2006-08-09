@@ -35,9 +35,9 @@ public class DropDownField extends MartusField
 	{
 		super();
 	}
-	public DropDownField(String tagToUse, String labelToUse, Object valueToUse, Object dropdownListToUse)
+	public DropDownField(String tagToUse, String labelToUse, Object valueToUse, Object dropdownListToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, isBottomSectionFieldToUse);
 		dropdownList = (NativeArray)dropdownListToUse;
 	}
 

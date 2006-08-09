@@ -36,9 +36,9 @@ public class DateRangeField extends DateField
 	{
 	}
 
-	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse)
+	public DateRangeField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse, dateFormatToUse);
+		super(tagToUse, labelToUse, valueToUse, dateFormatToUse, isBottomSectionFieldToUse);
 	}
 	
 //	public DateRangeField(String tagToUse, String labelToUse, String startDateToUse, String endDateToUse, String dateFormatToUse)

@@ -35,7 +35,7 @@ public class MartusLocationField extends StringField
 	
 	public MartusLocationField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGLOCATION, "", valueToUse);
+		super(BulletinConstants.TAGLOCATION, "", valueToUse, TOP_SECTION_FIELD);
 	}
 
 	public boolean isMartusDefaultField()

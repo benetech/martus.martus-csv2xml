@@ -36,7 +36,7 @@ public class MartusRequiredDateCreatedField extends SingleDateField
 
 	public MartusRequiredDateCreatedField(Object valueToUse, Object dateFormatToUse)
 	{
-		super(BulletinConstants.TAGENTRYDATE, "", valueToUse, dateFormatToUse);
+		super(BulletinConstants.TAGENTRYDATE, "", valueToUse, dateFormatToUse, TOP_SECTION_FIELD);
 		requiredFieldEntryDate = true;
 	}
 

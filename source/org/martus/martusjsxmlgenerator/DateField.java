@@ -36,9 +36,9 @@ abstract public class DateField extends MartusField
 	{
 	}
 
-	public DateField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse)
+	public DateField(String tagToUse, String labelToUse, Object valueToUse, Object dateFormatToUse, boolean isBottomSectionFieldToUse)
 	{
-		super(tagToUse, labelToUse, valueToUse);
+		super(tagToUse, labelToUse, valueToUse, isBottomSectionFieldToUse);
 		dateFormat = dateFormatToUse;
 	}
 	

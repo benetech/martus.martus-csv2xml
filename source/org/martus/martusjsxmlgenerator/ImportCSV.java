@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinXmlExportImportConstants;
 import org.martus.util.UnicodeReader;
 import org.martus.util.UnicodeWriter;
@@ -196,19 +195,39 @@ public class ImportCSV
 	public void writeBulletinFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception
 	{
 		writer.write(MartusField.getStartTagNewLine(BulletinXmlExportImportConstants.MARTUS_BULLETIN));
+		writeTopSectionFieldSpecs(writer, scope, fieldSpecs);
+		writeBotomSectionFieldSpecs(writer, scope, fieldSpecs);
+	}
+
+	private void writeBotomSectionFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException, Exception
+	{
+		writer.write(MartusField.getStartTagNewLine(BulletinXmlExportImportConstants.PRIVATE_FIELD_SPECS));
+		for(int i = 0; i < fieldSpecs.getIds().length; i++)
+		{
+			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
+			if(!fieldSpec.isBottomSectionField())
+				continue;
+			if(fieldSpec.getType().equals(MartusField.ATTACHMENT_TYPE))
+				continue;//Attachments are not included in the Field Spec
+			writer.write(fieldSpec.getFieldSpec(scope));
+		}
+		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlExportImportConstants.PRIVATE_FIELD_SPECS));
+	}
+
+	private void writeTopSectionFieldSpecs(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws IOException, Exception
+	{
 		writer.write(MartusField.getStartTagNewLine(BulletinXmlExportImportConstants.MAIN_FIELD_SPECS));
 
 		for(int i = 0; i < fieldSpecs.getIds().length; i++)
 		{
 			MartusField fieldSpec = (MartusField)fieldSpecs.get(i, scope);
-			if(fieldSpec.getTag() == Bulletin.TAGPRIVATEINFO)
+			if(fieldSpec.isBottomSectionField())
 				continue;//Writen after the Public Field Spec
 			if(fieldSpec.getType().equals(MartusField.ATTACHMENT_TYPE))
 				continue;//Attachments are not included in the Field Spec
 			writer.write(fieldSpec.getFieldSpec(scope));
 		}
 		writer.write(MartusField.getEndTagWithExtraNewLine(BulletinXmlExportImportConstants.MAIN_FIELD_SPECS));
-		writer.write(MartusField.getPrivateFieldSpec());
 	}
 
 	public void writeBulletinFieldData(UnicodeWriter writer, ScriptableObject scope, Scriptable fieldSpecs) throws Exception

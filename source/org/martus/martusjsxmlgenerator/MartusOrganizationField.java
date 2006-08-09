@@ -35,7 +35,7 @@ public class MartusOrganizationField extends StringField
 	
 	public MartusOrganizationField(Object valueToUse)
 	{
-		super(BulletinConstants.TAGORGANIZATION, "", valueToUse);
+		super(BulletinConstants.TAGORGANIZATION, "", valueToUse, TOP_SECTION_FIELD);
 	}
 
 	public boolean isMartusDefaultField()

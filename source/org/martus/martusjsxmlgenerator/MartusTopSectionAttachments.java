@@ -35,7 +35,7 @@ public class MartusTopSectionAttachments extends MartusAttachments
 
 	public MartusTopSectionAttachments(Object value, Object attachmentDelimeterToUse, Object attachmentDirectoryToUse)
 	{
-		super(value, attachmentDelimeterToUse, attachmentDirectoryToUse, ATTACHMENT_SECTION_TOP);
+		super(value, attachmentDelimeterToUse, attachmentDirectoryToUse, TOP_SECTION_FIELD);
 	}
 
 	public String getClassName()

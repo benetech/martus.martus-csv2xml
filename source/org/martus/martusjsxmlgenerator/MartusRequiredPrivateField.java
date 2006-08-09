@@ -35,7 +35,7 @@ public class MartusRequiredPrivateField extends MultilineField
 	
 	public MartusRequiredPrivateField(Object privateValueToUse)
 	{
-		super(BulletinConstants.TAGPRIVATEINFO, "", privateValueToUse);
+		super(BulletinConstants.TAGPRIVATEINFO, "", privateValueToUse, BOTTOM_SECTION_FIELD);
 		requiredFieldPrivate = true;
 	}
 
