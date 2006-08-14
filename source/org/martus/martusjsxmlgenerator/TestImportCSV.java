@@ -354,7 +354,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		UnicodeReader readerJSConfigurationFile = new UnicodeReader(testJSFile);
 		Script script = cs.compileReader(readerJSConfigurationFile, testCSVFile.getName(), 1, null);
 		ScriptableObject scope = cs.initStandardObjects();
-		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin #2|Message 2|212|T.I..|Yes|12032001|10222005|1";
+		String dataRow = "20000101|fr|Dan Brown|Janice|Doe|16042001|Bulletin <#2>|Message 2&3|212|T.I..|Yes|12032001|10222005|1";
 
 		importer.setupScopeAndExecuteScript(cs, script, scope);
 		Scriptable bulletinData = importer.getFieldScriptableSpecsAndBulletinData(cs, script, scope, dataRow);
@@ -633,7 +633,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Field type='MESSAGE'>\n"+
 		"<Tag>MessageProfession</Tag>\n"+
 		"<Label>Profession History Table Note</Label>\n"+
-		"<Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>\n"+
+		"<Message>If you have &lt;information&gt; about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>\n"+
 		"</Field>\n"+
 		"<Field type='GRID'>\n"+
 		"<Tag>GridTag</Tag>\n"+
@@ -641,7 +641,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<GridSpecDetails>\n"+
 		"<Column type='STRING'>\n"+
 		"<Tag></Tag>\n"+
-		"<Label>First Name</Label>\n"+
+		"<Label>First &lt;Name&gt;</Label>\n"+
 		"</Column>\n"+
 		"<Column type='STRING'>\n"+
 		"<Tag></Tag>\n"+
@@ -659,7 +659,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Tag></Tag>\n"+
 		"<Label>Color Used</Label>\n"+
 		"<Choices><Choice>red</Choice>\n"+
-		"<Choice>yellow</Choice>\n"+
+		"<Choice>&lt;yellow&gt;&amp;&lt;green&gt;</Choice>\n"+
 		"<Choice>blue</Choice>\n"+
 		"</Choices>\n"+
 		"</Column>\n"+
@@ -677,7 +677,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Value>Janice Doe</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='WitnessComment'>\n" +
-		"<Value>Message 2</Value>\n" +
+		"<Value>Message 2&amp;3</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='language'>\n" +
 		"<Value>fr</Value>\n" +
@@ -686,7 +686,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Value>Dan Brown</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='title'>\n" +
-		"<Value>Bulletin #2</Value>\n" +
+		"<Value>Bulletin &lt;#2&gt;</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='entrydate'>\n" +
 		"<Value>Simple:2000-01-01</Value>\n" +
@@ -695,7 +695,7 @@ public class TestImportCSV extends TestCaseEnhanced
 		"<Value>T.I..</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='location'>\n" +
-		"<Value>Message 2</Value>\n" +
+		"<Value>Message 2&amp;3</Value>\n" +
 		"</Field>\n\n" +
 		"<Field tag='organization'>\n" +
 		"<Value>XYZ NGO</Value>\n" +

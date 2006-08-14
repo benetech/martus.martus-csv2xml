@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.martusjsxmlgenerator;
 
 import org.martus.common.fieldspec.DropDownFieldSpec;
+import org.martus.util.xml.XmlUtilities;
 import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 
@@ -62,7 +63,8 @@ public class DropDownField extends MartusField
 		StringBuffer choices = new StringBuffer();
 		for(int i = 0; i < dropdownList.getLength(); ++i)
 		{
-			choices.append(getXMLData(DropDownFieldSpec.DROPDOWN_SPEC_CHOICE_TAG, (String)dropdownList.get(i, dropdownList)));
+			String data = (String)dropdownList.get(i, dropdownList);
+			choices.append(getXMLData(DropDownFieldSpec.DROPDOWN_SPEC_CHOICE_TAG, XmlUtilities.getXmlEncoded(data)));
 		}
 		return choices.toString();
 	}
@@ -72,7 +74,8 @@ public class DropDownField extends MartusField
 		String dropdownValue = super.getMartusValue(scriptable);
 		for(int i = 0; i < dropdownList.getLength(); ++i)
 		{
-			if(dropdownValue.equals(dropdownList.get(i, dropdownList)))
+			String data = (String)dropdownList.get(i, dropdownList);
+			if(dropdownValue.equals(XmlUtilities.getXmlEncoded(data)))
 				return dropdownValue;
 		}
 		throw new Exception("Dropdown value not in list :" + dropdownValue);

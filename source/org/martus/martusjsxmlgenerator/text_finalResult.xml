@@ -60,7 +60,7 @@
 <Field type='MESSAGE'>
 <Tag>MessageProfession</Tag>
 <Label>Profession History Table Note</Label>
-<Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
+<Message>If you have &lt;information&gt; about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
 </Field>
 <Field type='GRID'>
 <Tag>GridTag</Tag>
@@ -68,7 +68,7 @@
 <GridSpecDetails>
 <Column type='STRING'>
 <Tag></Tag>
-<Label>First Name</Label>
+<Label>First &lt;Name&gt;</Label>
 </Column>
 <Column type='STRING'>
 <Tag></Tag>
@@ -86,7 +86,7 @@
 <Tag></Tag>
 <Label>Color Used</Label>
 <Choices><Choice>red</Choice>
-<Choice>yellow</Choice>
+<Choice>&lt;yellow&gt;&amp;&lt;green&gt;</Choice>
 <Choice>blue</Choice>
 </Choices>
 </Column>
@@ -259,7 +259,7 @@
 <Field type='MESSAGE'>
 <Tag>MessageProfession</Tag>
 <Label>Profession History Table Note</Label>
-<Message>If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
+<Message>If you have &lt;information&gt; about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.</Message>
 </Field>
 <Field type='GRID'>
 <Tag>GridTag</Tag>
@@ -267,7 +267,7 @@
 <GridSpecDetails>
 <Column type='STRING'>
 <Tag></Tag>
-<Label>First Name</Label>
+<Label>First &lt;Name&gt;</Label>
 </Column>
 <Column type='STRING'>
 <Tag></Tag>
@@ -285,7 +285,7 @@
 <Tag></Tag>
 <Label>Color Used</Label>
 <Choices><Choice>red</Choice>
-<Choice>yellow</Choice>
+<Choice>&lt;yellow&gt;&amp;&lt;green&gt;</Choice>
 <Choice>blue</Choice>
 </Choices>
 </Column>
@@ -314,7 +314,7 @@
 </Field>
 
 <Field tag='WitnessComment'>
-<Value>Message 2</Value>
+<Value>Message 2&amp;3</Value>
 </Field>
 
 <Field tag='language'>
@@ -326,7 +326,7 @@
 </Field>
 
 <Field tag='title'>
-<Value>Bulletin #2</Value>
+<Value>Bulletin &lt;#2&gt;</Value>
 </Field>
 
 <Field tag='entrydate'>
@@ -338,7 +338,7 @@
 </Field>
 
 <Field tag='location'>
-<Value>Message 2</Value>
+<Value>Message 2&amp;3</Value>
 </Field>
 
 <Field tag='organization'>
@@ -379,7 +379,7 @@
 <Column>Doe 3</Column>
 <Column>Simple:1998-10-08</Column>
 <Column>Range:2002-01-03,2003-01-09</Column>
-<Column>yellow</Column>
+<Column>&lt;yellow&gt;&amp;&lt;green&gt;</Column>
 <Column>0</Column>
 </Row>
 </GridData>

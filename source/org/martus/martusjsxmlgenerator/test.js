@@ -74,12 +74,12 @@ new MartusRequiredPrivateField(
 new MessageField("MessageProfession", "Profession History Table Note", 
 	function()
 	{
-		return "If you have information about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.";
+		return "If you have <information> about a person who has had different professions over time, enter multiple rows with the same First and Last Names and show the date ranges for each profession on a separate row.";
 	}
 ),
 
 new GridField("GridTag", "Grid Lable", "$$$griddata.csv", "\|", "id",[
-	new StringField("FirstGridNameTag", "First Name", "firstname"),
+	new StringField("FirstGridNameTag", "First <Name>", "firstname"),
 	new StringField("LastGridNameTag", "Last Name", "lastname"),
 	new SingleDateField("SimpleDateGridTag", "Date of Birth", function(){ return date_of_Birth;}, "MMddyyyy"),
 	new DateRangeField("DateRangeGridTag",	"Occured",
@@ -88,7 +88,7 @@ new GridField("GridTag", "Grid Lable", "$$$griddata.csv", "\|", "id",[
 			return start_date + DATE_RANGE_DELIMETER + end_date;
 		}
 		, "yyyyMMdd"),
-	new DropDownField("Grid_DD_tag", "Color Used", "color", ["red","yellow","blue"]),
+	new DropDownField("Grid_DD_tag", "Color Used", "color", ["red","<yellow>&<green>","blue"]),
 	new BooleanField("grid_bool_tag", "Occurred at Night?", "night")
 	
 ])

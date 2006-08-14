@@ -36,6 +36,7 @@ import org.martus.common.fieldspec.FieldTypeLanguage;
 import org.martus.common.fieldspec.FieldTypeMessage;
 import org.martus.common.fieldspec.FieldTypeMultiline;
 import org.martus.common.fieldspec.FieldTypeNormal;
+import org.martus.util.xml.XmlUtilities;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
@@ -61,7 +62,7 @@ abstract public class MartusField extends ScriptableObject
 	
 	public String getLabel()
 	{
-		return label;
+		return XmlUtilities.getXmlEncoded(label);
 	}
 
 	public String getTag()
@@ -93,7 +94,8 @@ abstract public class MartusField extends ScriptableObject
 	{
 		if ( getValue() instanceof String ) 
 		{
-			return scriptable.get( (String)getValue(), scriptable ).toString();
+			String data = scriptable.get( (String)getValue(), scriptable ).toString();
+			return XmlUtilities.getXmlEncoded(data);
 		}
 		
 		if ( getValue() instanceof Function ) 
@@ -101,11 +103,12 @@ abstract public class MartusField extends ScriptableObject
 
 			Function function = (Function)getValue();
 			
-			return function.call(
-						Context.getCurrentContext(),
-						scriptable, scriptable,
-						null
-						).toString();
+			String data = function.call(
+									Context.getCurrentContext(),
+									scriptable, scriptable,
+									null
+									).toString();
+			return XmlUtilities.getXmlEncoded(data);
 		}
 		throw new RuntimeException( "getMartusValue::Illegal value type" );
 	}
