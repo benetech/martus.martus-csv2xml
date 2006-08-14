@@ -8,6 +8,9 @@ test.cvs is the flattened file extracted from a database or excel spreadsheet.
 test.js is what you need to write in order to customize what the bulletin will look like
 Put test.js and test.cvs in a directory (i.e. xmltest)
 
+test.js has a number of comments inside it which will help you and give you examples on how to create
+your own java script file.
+
 CD C:\xmltest
 
 C:\Martus\bin\java.exe -cp C:\Martus\martus.jar org.martus.martusjsxmlgenerator.ImportCSV test.js test.csv "\|"
